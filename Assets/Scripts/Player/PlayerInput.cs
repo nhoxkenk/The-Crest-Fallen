@@ -21,6 +21,7 @@ public class PlayerInput : MonoBehaviour
     [Header("Player Actions Input")]
     [SerializeField] private bool dodgeInput;
     [SerializeField] private bool sprintInput;
+    [SerializeField] private bool jumpInput;
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class PlayerInput : MonoBehaviour
             playerControls.Player.Dodge.performed += i => dodgeInput = true;
             playerControls.Player.Sprint.performed += i => sprintInput = true;
             playerControls.Player.Sprint.canceled += i => sprintInput = false;
+            playerControls.Player.Jump.performed += i => jumpInput = true;
         }
 
         playerControls.Enable();
@@ -58,7 +60,8 @@ public class PlayerInput : MonoBehaviour
         HandlePlayerMovementInput();
         HandleCameraMovementInput();
         HandleDodgeInput();
-        HandleSprinting();
+        HandleSprintingInput();
+        HandleJumpInput();
     }
 
     private void HandlePlayerMovementInput()
@@ -100,7 +103,7 @@ public class PlayerInput : MonoBehaviour
         cameraHorizontalInput = cameraInput.x;
     }
 
-    private void HandleSprinting()
+    private void HandleSprintingInput()
     {
         if (sprintInput)
         {
@@ -109,6 +112,16 @@ public class PlayerInput : MonoBehaviour
         else
         {
             playerManager.playerLocomotion.IsSprinting = false;
+        }
+    }
+
+    private void HandleJumpInput()
+    {
+        if (jumpInput)
+        {
+            jumpInput = false;
+
+            playerManager.playerLocomotion.AttemptToPerformJump();
         }
     }
 }

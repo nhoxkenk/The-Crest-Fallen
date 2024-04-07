@@ -22,8 +22,9 @@ public class PlayerManager : CharacterManager
 
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         playerLocomotion.HandleAllMovement();
     }
 

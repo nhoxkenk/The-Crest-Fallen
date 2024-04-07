@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResetActionFlag : StateMachineBehaviour
+public class ResetIsJumping : StateMachineBehaviour
 {
     private CharacterManager characterManager;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -12,11 +12,8 @@ public class ResetActionFlag : StateMachineBehaviour
         {
             characterManager = animator.GetComponentInParent<CharacterManager>();
         }
-        characterManager.applyRootMotion = false;
-        characterManager.isPerformingAction = false;
-        characterManager.canMove = true;
-        characterManager.canRotate = true;
-        //characterManager.isJumping = false;
+
+        characterManager.isJumping = false;
         //characterManager.characterAnimator.applyRootMotion = false;
     }
 

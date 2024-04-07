@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerLocomotion : MonoBehaviour
+public class PlayerLocomotion : CharacterLocomotion
 {
     private PlayerManager playerManager;
 
@@ -19,6 +19,12 @@ public class PlayerLocomotion : MonoBehaviour
     [SerializeField] private float runningSpeed = 5;
     [SerializeField] private float rotationSpeed = 15f;
 
+    [Header("Jump Setting")]
+    [SerializeField] private float jumpHeight = 4;
+    [SerializeField] private float jumpFowardVelocity = 5;
+    [SerializeField] private float jumpFreeVelocity = 2.5f;
+    private Vector3 jumpDirection;
+
     [Header("Dodge Settings")]
     private Vector3 dodgeDirection;
 
@@ -26,8 +32,9 @@ public class PlayerLocomotion : MonoBehaviour
     [SerializeField] private float sprintSpeed = 8f;
     public bool IsSprinting { get; set; }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         playerManager = GetComponent<PlayerManager>();
     }
 
@@ -36,6 +43,8 @@ public class PlayerLocomotion : MonoBehaviour
         GetVerticalAndHorizontalInput();
         HandleGroundedMovement();
         HandleRotation();
+        HandleJumpingMovement();
+        HandleFreeFallMovement();
     }
 
     private void GetVerticalAndHorizontalInput()
@@ -95,27 +104,6 @@ public class PlayerLocomotion : MonoBehaviour
         transform.rotation = targetRotation;
     }
 
-    private Vector3 CameraDirection(Vector3 movementDirection, bool action)
-    {
-        Vector3 cameraFoward;
-        Vector3 cameraRight;
-        if (action)
-        {
-            cameraFoward = PlayerCamera.Instance.cameraPlayer.transform.forward;
-            cameraRight = PlayerCamera.Instance.cameraPlayer.transform.right;
-        }
-        else
-        {
-            cameraFoward = PlayerCamera.Instance.transform.forward;
-            cameraRight = PlayerCamera.Instance.transform.right;
-        }
-
-        cameraFoward.y = 0;
-        cameraRight.y = 0;
-
-        return cameraFoward * movementDirection.z + cameraRight * movementDirection.x;
-    }
-
     public void AttemptToPerformDodge()
     {
         if (playerManager.isPerformingAction)
@@ -155,6 +143,91 @@ public class PlayerLocomotion : MonoBehaviour
         {
             IsSprinting = false;
         }
+    }
 
+    public void HandleJumpingMovement()
+    {
+        if (playerManager.isJumping)
+        {
+            playerManager.characterController.Move(jumpDirection * jumpFowardVelocity * Time.deltaTime);
+        }
+    }
+
+    private void HandleFreeFallMovement()
+    {
+        if(!playerManager.isGrounded)
+        {
+            Vector3 freeFallDirection = new Vector3(horizontalMovementValue, 0, verticalMovementValue);
+            freeFallDirection = CameraDirection(freeFallDirection, true);
+
+            playerManager.characterController.Move(freeFallDirection * jumpFreeVelocity * Time.deltaTime);
+        }
+    }
+
+    public void AttemptToPerformJump()
+    {
+        if (playerManager.isPerformingAction)
+        {
+            return;
+        }
+
+        if (playerManager.isJumping)
+        {
+            return;
+        }
+        if (!playerManager.isGrounded)
+        {
+            return;
+        }
+
+        playerManager.playerAnimator.PlayTargetActionAnimation("Main_Jump_01", false);
+        playerManager.isJumping = true;
+
+        Vector3 direction = new Vector3(horizontalMovementValue, 0, verticalMovementValue);
+        jumpDirection = CameraDirection(direction, true);
+        if(jumpDirection == Vector3.zero)
+        {
+            return;
+        }
+
+        if(IsSprinting)
+        {
+            jumpDirection *= 1;
+        }else if(movementAmount > 0.5)
+        {
+            jumpDirection *= 0.5f;
+
+        }
+        else
+        {
+            jumpDirection *= 0.25f;
+        }
+    }
+
+    //This function add to animation event
+    public void ApplyJumpVelocity()
+    {
+        yVelocity.y = Mathf.Sqrt(jumpHeight * -2 * gravityForce);
+    }
+
+    private Vector3 CameraDirection(Vector3 movementDirection, bool action)
+    {
+        Vector3 cameraFoward;
+        Vector3 cameraRight;
+        if (action)
+        {
+            cameraFoward = PlayerCamera.Instance.cameraPlayer.transform.forward;
+            cameraRight = PlayerCamera.Instance.cameraPlayer.transform.right;
+        }
+        else
+        {
+            cameraFoward = PlayerCamera.Instance.transform.forward;
+            cameraRight = PlayerCamera.Instance.transform.right;
+        }
+
+        cameraFoward.y = 0;
+        cameraRight.y = 0;
+
+        return cameraFoward * movementDirection.z + cameraRight * movementDirection.x;
     }
 }

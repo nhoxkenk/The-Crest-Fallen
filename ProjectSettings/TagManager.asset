@@ -11,6 +11,7 @@ TagManager:
   - 
   - Water
   - UI
+  - Character
   - 
   - 
   - 
@@ -34,9 +35,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Ground
+  - Wall
   m_SortingLayers:
   - name: Default
     uniqueID: 0
