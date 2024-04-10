@@ -8,13 +8,15 @@ public class PlayerManager : CharacterManager
     [HideInInspector] public PlayerInput playerInput;
     [HideInInspector] public PlayerLocomotion playerLocomotion;
     [HideInInspector] public PlayerAnimator playerAnimator;
+    [HideInInspector] public PlayerInventory playerInventory;
 
-    protected override void Awake()
+   protected override void Awake()
     {
         base.Awake();
         playerInput = GetComponent<PlayerInput>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
         playerAnimator = GetComponentInChildren<PlayerAnimator>();
+        playerInventory = GetComponent<PlayerInventory>();
     }
 
     private void Start()

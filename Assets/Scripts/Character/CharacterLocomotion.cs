@@ -25,10 +25,22 @@ public class CharacterLocomotion : MonoBehaviour
     {
         HandleGroundCheck();
         //Check if the player if falling or not ?
+        HandleGroundCondition();
+
+        characterManager.characterController.Move(yVelocity * Time.deltaTime);
+    }
+
+    protected void HandleGroundCheck()
+    {
+        characterManager.isGrounded = Physics.CheckSphere(characterManager.transform.position, groundCheckRadius, groundLayer);
+    }
+
+    protected void HandleGroundCondition()
+    {
         if (characterManager.isGrounded)
         {
             //Not attempting to jump or move up
-            if(yVelocity.y < 0)
+            if (yVelocity.y < 0)
             {
                 inAirTimer = 0;
                 fallingVelocityHasBeenSet = false;
@@ -38,7 +50,7 @@ public class CharacterLocomotion : MonoBehaviour
         else
         {
             //Not jump, just falling
-            if(!characterManager.isJumping && !fallingVelocityHasBeenSet)
+            if (!characterManager.isJumping && !fallingVelocityHasBeenSet)
             {
                 fallingVelocityHasBeenSet = true;
                 yVelocity.y = fallVelocity;
@@ -46,13 +58,7 @@ public class CharacterLocomotion : MonoBehaviour
             inAirTimer += Time.deltaTime;
             characterManager.animator.SetFloat(characterManager.characterAnimator.inAirTimerValue, inAirTimer);
 
-            yVelocity.y += gravityForce * Time.deltaTime;  
+            yVelocity.y += gravityForce * Time.deltaTime;
         }
-        characterManager.characterController.Move(yVelocity * Time.deltaTime);
-    }
-
-    protected void HandleGroundCheck()
-    {
-        characterManager.isGrounded = Physics.CheckSphere(characterManager.transform.position, groundCheckRadius, groundLayer);
     }
 }

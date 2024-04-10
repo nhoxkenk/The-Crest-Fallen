@@ -23,6 +23,10 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private bool sprintInput;
     [SerializeField] private bool jumpInput;
 
+    [Header("Player Attacks")]
+    [SerializeField] private bool lightAttackInput;
+    [SerializeField] private bool heavyAttackInput;
+
     private void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
@@ -40,6 +44,9 @@ public class PlayerInput : MonoBehaviour
             playerControls.Player.Sprint.performed += i => sprintInput = true;
             playerControls.Player.Sprint.canceled += i => sprintInput = false;
             playerControls.Player.Jump.performed += i => jumpInput = true;
+
+            playerControls.Player.LightAttack.performed += i => lightAttackInput = true;
+            playerControls.Player.HeavyAttack.performed += i => heavyAttackInput = true;
         }
 
         playerControls.Enable();
@@ -62,6 +69,14 @@ public class PlayerInput : MonoBehaviour
         HandleDodgeInput();
         HandleSprintingInput();
         HandleJumpInput();
+
+        HandleAttackInput();
+    }
+
+    private void HandleCameraMovementInput()
+    {
+        cameraVerticalInput = cameraInput.y;
+        cameraHorizontalInput = cameraInput.x;
     }
 
     private void HandlePlayerMovementInput()
@@ -97,12 +112,6 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    private void HandleCameraMovementInput()
-    {
-        cameraVerticalInput = cameraInput.y;
-        cameraHorizontalInput = cameraInput.x;
-    }
-
     private void HandleSprintingInput()
     {
         if (sprintInput)
@@ -122,6 +131,19 @@ public class PlayerInput : MonoBehaviour
             jumpInput = false;
 
             playerManager.playerLocomotion.AttemptToPerformJump();
+        }
+    }
+
+    private void HandleAttackInput()
+    {
+        if (lightAttackInput)
+        {
+            lightAttackInput = false;
+        }
+
+        if (heavyAttackInput)
+        {
+            heavyAttackInput = false;
         }
     }
 }
