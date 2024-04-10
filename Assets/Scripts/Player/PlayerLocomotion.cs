@@ -30,6 +30,8 @@ public class PlayerLocomotion : CharacterLocomotion
 
     [Header("Sprint Settings")]
     [SerializeField] private float sprintSpeed = 8f;
+    public int sprintingStaminaCost = 5;
+
     public bool IsSprinting { get; set; }
 
     protected override void Awake()
@@ -135,6 +137,12 @@ public class PlayerLocomotion : CharacterLocomotion
             return;
         }
 
+        if(playerManager.playerStat.currentStamina <= 0)
+        {
+            IsSprinting = false;
+            return;
+        }
+
         if (movementAmount > 0.5f)
         {
             IsSprinting = true;
@@ -142,6 +150,11 @@ public class PlayerLocomotion : CharacterLocomotion
         else
         {
             IsSprinting = false;
+        }
+
+        if (IsSprinting)
+        {
+            playerManager.playerStat.DrainStaminaOnSprinting();
         }
     }
 

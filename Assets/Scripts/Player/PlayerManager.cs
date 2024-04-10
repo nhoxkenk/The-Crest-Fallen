@@ -9,6 +9,7 @@ public class PlayerManager : CharacterManager
     [HideInInspector] public PlayerLocomotion playerLocomotion;
     [HideInInspector] public PlayerAnimator playerAnimator;
     [HideInInspector] public PlayerInventory playerInventory;
+    [HideInInspector] public PlayerStat playerStat;
 
    protected override void Awake()
     {
@@ -17,6 +18,7 @@ public class PlayerManager : CharacterManager
         playerLocomotion = GetComponent<PlayerLocomotion>();
         playerAnimator = GetComponentInChildren<PlayerAnimator>();
         playerInventory = GetComponent<PlayerInventory>();
+        playerStat = GetComponent<PlayerStat>();
     }
 
     private void Start()
@@ -34,4 +36,5 @@ public class PlayerManager : CharacterManager
     {
         PlayerCamera.Instance.HandleAllCameraActions();
     }
+    
 }
