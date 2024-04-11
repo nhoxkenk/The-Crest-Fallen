@@ -30,11 +30,13 @@ public class PlayerManager : CharacterManager
     {
         base.Update();
         playerLocomotion.HandleAllMovement();
+
+        playerStat.RegenerateStamina();
     }
 
     private void LateUpdate()
     {
         PlayerCamera.Instance.HandleAllCameraActions();
     }
-    
+
 }

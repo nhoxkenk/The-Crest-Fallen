@@ -31959,10 +31959,10 @@ GameObject:
   - component: {fileID: 2093920633}
   - component: {fileID: 2093920632}
   - component: {fileID: 2093920631}
+  - component: {fileID: 2093920638}
   - component: {fileID: 2093920636}
   - component: {fileID: 2093920635}
   - component: {fileID: 2093920637}
-  - component: {fileID: 2093920638}
   m_Layer: 6
   m_Name: Hero
   m_TagString: Untagged
@@ -32114,7 +32114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRightHandWeapon: {fileID: 11400000, guid: 99459cf9ae7986a4bb3e0c6844fb7ced, type: 2}
-  currentLeftHandWeapon: {fileID: 11400000, guid: 2774c306b2c2cc445a591a17861c2a31, type: 2}
+  currentLeftHandWeapon: {fileID: 0}
 --- !u!114 &2093920637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32142,6 +32142,10 @@ MonoBehaviour:
   endurance: 10
   currentStamina: 0
   maxStamina: 0
+  staminaRegenerationAmount: 2
+  staminaRegenerationTimer: 0
+  staminaRegenerationDelay: 2
+  staminaTickTimer: 0
 --- !u!1 &2093921595
 GameObject:
   m_ObjectHideFlags: 0

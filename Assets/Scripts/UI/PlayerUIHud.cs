@@ -10,11 +10,15 @@ public class PlayerUIHud : MonoBehaviour
     private void Start()
     {
         playerManager.playerStat.OnStaminaDrain += SetNewStaminaValue;
+        playerManager.playerStat.OnStaminaDrain += ResetStaminaRegenerationTimer;
+        playerManager.playerStat.OnStaminaRegenerate += SetNewStaminaValue;
     }
 
     private void OnDisable()
     {
         playerManager.playerStat.OnStaminaDrain -= SetNewStaminaValue;
+        playerManager.playerStat.OnStaminaDrain -= ResetStaminaRegenerationTimer;
+        playerManager.playerStat.OnStaminaRegenerate -= SetNewStaminaValue;
     }
 
     public void SetNewStaminaValue(float oldValue, float newValue)
@@ -25,5 +29,13 @@ public class PlayerUIHud : MonoBehaviour
     public void SetMaxStaminaValue(float value)
     {
         staminaBar.SetMaxStat(Mathf.RoundToInt(value));
+    }
+
+    public void ResetStaminaRegenerationTimer(float oldValue, float newValue)
+    {
+        if (newValue < oldValue)
+        {
+            playerManager.playerStat.staminaRegenerationTimer = 0;
+        }
     }
 }
