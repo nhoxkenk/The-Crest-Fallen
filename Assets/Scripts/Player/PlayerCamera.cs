@@ -8,7 +8,6 @@ public class PlayerCamera : MonoBehaviour
     public static PlayerCamera Instance;
 
     [HideInInspector] public Camera cameraPlayer;
-    [SerializeField] private PlayerManager player;
     [SerializeField] private Transform cameraPivotTransform;
 
     [Header("Camera Settings")]
@@ -33,6 +32,7 @@ public class PlayerCamera : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -43,13 +43,12 @@ public class PlayerCamera : MonoBehaviour
 
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);
         cameraZPosition = cameraPlayer.transform.localPosition.z;
     }
 
     public void HandleAllCameraActions()
     {
-        if (player == null)
+        if (PlayerManager.Instance == null)
             return;
         HandleFollowTarget();
         HandleRotations();
@@ -58,14 +57,14 @@ public class PlayerCamera : MonoBehaviour
 
     private void HandleFollowTarget()
     {
-        Vector3 cameraTargetPosition = Vector3.SmoothDamp(transform.position, player.transform.position, ref cameraVelocity, cameraSmoothSpeed * Time.deltaTime);
+        Vector3 cameraTargetPosition = Vector3.SmoothDamp(transform.position, PlayerManager.Instance.transform.position, ref cameraVelocity, cameraSmoothSpeed * Time.deltaTime);
         transform.position = cameraTargetPosition;
     }
 
     private void HandleRotations()
     {
-        horizontalLookAngle += player.playerInput.cameraHorizontalInput * horizontalRotationSpeed * Time.deltaTime;
-        verticalLookAngle -= player.playerInput.cameraVerticalInput * verticalRotationSpeed * Time.deltaTime;
+        horizontalLookAngle += PlayerManager.Instance.playerInput.cameraHorizontalInput * horizontalRotationSpeed * Time.deltaTime;
+        verticalLookAngle -= PlayerManager.Instance.playerInput.cameraVerticalInput * verticalRotationSpeed * Time.deltaTime;
         verticalLookAngle = Mathf.Clamp(verticalLookAngle, miniumPivot, maximumPivot);
 
         // Left and Right

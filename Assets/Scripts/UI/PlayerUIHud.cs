@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerUIHud : MonoBehaviour
@@ -9,16 +7,16 @@ public class PlayerUIHud : MonoBehaviour
 
     private void Start()
     {
-        playerManager.playerStat.OnStaminaDrain += SetNewStaminaValue;
-        playerManager.playerStat.OnStaminaDrain += ResetStaminaRegenerationTimer;
-        playerManager.playerStat.OnStaminaRegenerate += SetNewStaminaValue;
+        playerManager.playerStat.DrainingStamina += SetNewStaminaValue;
+        playerManager.playerStat.DrainingStamina += ResetStaminaRegenerationTimer;
+        playerManager.playerStat.RegeneratingStamina += SetNewStaminaValue;
     }
 
     private void OnDisable()
     {
-        playerManager.playerStat.OnStaminaDrain -= SetNewStaminaValue;
-        playerManager.playerStat.OnStaminaDrain -= ResetStaminaRegenerationTimer;
-        playerManager.playerStat.OnStaminaRegenerate -= SetNewStaminaValue;
+        playerManager.playerStat.DrainingStamina -= SetNewStaminaValue;
+        playerManager.playerStat.DrainingStamina -= ResetStaminaRegenerationTimer;
+        playerManager.playerStat.RegeneratingStamina -= SetNewStaminaValue;
     }
 
     public void SetNewStaminaValue(float oldValue, float newValue)

@@ -14,7 +14,6 @@ public class ResetIsJumping : StateMachineBehaviour
         }
 
         characterManager.isJumping = false;
-        //characterManager.characterAnimator.applyRootMotion = false;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

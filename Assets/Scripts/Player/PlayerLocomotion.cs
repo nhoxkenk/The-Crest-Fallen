@@ -5,8 +5,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerLocomotion : CharacterLocomotion
 {
-    private PlayerManager playerManager;
-
     [HideInInspector] public float verticalMovementValue;
     [HideInInspector] public float horizontalMovementValue;
     [HideInInspector] public float movementAmount;
@@ -23,9 +21,11 @@ public class PlayerLocomotion : CharacterLocomotion
     [SerializeField] private float jumpHeight = 4;
     [SerializeField] private float jumpFowardVelocity = 5;
     [SerializeField] private float jumpFreeVelocity = 2.5f;
+    public int jumpingStaminaCost = 15;
     private Vector3 jumpDirection;
 
     [Header("Dodge Settings")]
+    public int dodgingStaminaCost = 25;
     private Vector3 dodgeDirection;
 
     [Header("Sprint Settings")]
@@ -37,7 +37,6 @@ public class PlayerLocomotion : CharacterLocomotion
     protected override void Awake()
     {
         base.Awake();
-        playerManager = GetComponent<PlayerManager>();
     }
 
     public void HandleAllMovement()
@@ -51,14 +50,14 @@ public class PlayerLocomotion : CharacterLocomotion
 
     private void GetVerticalAndHorizontalInput()
     {
-        verticalMovementValue = playerManager.playerInput.VerticalInput;
-        horizontalMovementValue = playerManager.playerInput.HorizontalInput;
-        movementAmount = playerManager.playerInput.MoveAmount;
+        verticalMovementValue = PlayerManager.Instance.playerInput.VerticalInput;
+        horizontalMovementValue = PlayerManager.Instance.playerInput.HorizontalInput;
+        movementAmount = PlayerManager.Instance.playerInput.MoveAmount;
     }
 
     private void HandleGroundedMovement()
     {
-        if (!playerManager.canMove)
+        if (!PlayerManager.Instance.canMove)
         {
             return;
         }
@@ -68,18 +67,18 @@ public class PlayerLocomotion : CharacterLocomotion
 
         if (IsSprinting)
         {
-            playerManager.characterController.Move(movementDirection * sprintSpeed * Time.deltaTime);
+            PlayerManager.Instance.characterController.Move(movementDirection * sprintSpeed * Time.deltaTime);
         }
         else
         {
             if (movementAmount > 0.5f)
             {
-                playerManager.characterController.Move(movementDirection * runningSpeed * Time.deltaTime);
+                PlayerManager.Instance.characterController.Move(movementDirection * runningSpeed * Time.deltaTime);
             }
             else
             if (movementAmount <= 0.5f)
             {
-                playerManager.characterController.Move(movementDirection * walkingSpeed * Time.deltaTime);
+                PlayerManager.Instance.characterController.Move(movementDirection * walkingSpeed * Time.deltaTime);
             }
         }     
         
@@ -87,7 +86,7 @@ public class PlayerLocomotion : CharacterLocomotion
 
     private void HandleRotation()
     {
-        if (!playerManager.canRotate)
+        if (!PlayerManager.Instance.canRotate)
         {
             return;
         }
@@ -108,36 +107,45 @@ public class PlayerLocomotion : CharacterLocomotion
 
     public void AttemptToPerformDodge()
     {
-        if (playerManager.isPerformingAction)
+        if (PlayerManager.Instance.isPerformingAction)
         {
             return;
         }
+
+        if (PlayerManager.Instance.playerStat.currentStamina <= 0)
+        {
+            return;
+        }
+
         if (movementAmount > 0)
         {
             Vector3 direction = new Vector3(horizontalMovementValue, 0, verticalMovementValue);
             dodgeDirection = CameraDirection(direction, true);
 
             Quaternion dodgeRotation = Quaternion.LookRotation(dodgeDirection);
-            playerManager.transform.rotation = dodgeRotation;
+            PlayerManager.Instance.transform.rotation = dodgeRotation;
             //Perform Dodge
-            playerManager.playerAnimator.PlayTargetActionAnimation("Dodge_To_Idle", true);
+            PlayerManager.Instance.playerAnimator.PlayTargetActionAnimation("Dodge_To_Idle", true);
         }
         else
         {
             //Perform Back-Step
-            playerManager.playerAnimator.PlayTargetActionAnimation("Back_step", true);
+            PlayerManager.Instance.playerAnimator.PlayTargetActionAnimation("Back_step", true);
         }
+
+        PlayerManager.Instance.playerStat.DrainStaminaBasedOnAction(dodgingStaminaCost, false);
+
     }
 
     public void HandleSprinting()
     {
-        if (playerManager.isPerformingAction)
+        if (PlayerManager.Instance.isPerformingAction)
         {
             IsSprinting = false;
             return;
         }
 
-        if(playerManager.playerStat.currentStamina <= 0)
+        if(PlayerManager.Instance.playerStat.currentStamina <= 0)
         {
             IsSprinting = false;
             return;
@@ -154,51 +162,51 @@ public class PlayerLocomotion : CharacterLocomotion
 
         if (IsSprinting)
         {
-            playerManager.playerStat.DrainStaminaOnSprinting();
-        }
-    }
-
-    public void HandleJumpingMovement()
-    {
-        if (playerManager.isJumping)
-        {
-            playerManager.characterController.Move(jumpDirection * jumpFowardVelocity * Time.deltaTime);
+            PlayerManager.Instance.playerStat.DrainStaminaBasedOnAction(sprintingStaminaCost, true);
         }
     }
 
     private void HandleFreeFallMovement()
     {
-        if(!playerManager.isGrounded)
+        if(!PlayerManager.Instance.isGrounded)
         {
             Vector3 freeFallDirection = new Vector3(horizontalMovementValue, 0, verticalMovementValue);
             freeFallDirection = CameraDirection(freeFallDirection, true);
 
-            playerManager.characterController.Move(freeFallDirection * jumpFreeVelocity * Time.deltaTime);
+            PlayerManager.Instance.characterController.Move(freeFallDirection * jumpFreeVelocity * Time.deltaTime);
         }
     }
 
     public void AttemptToPerformJump()
     {
-        if (playerManager.isPerformingAction)
+        if (PlayerManager.Instance.isPerformingAction)
         {
             return;
         }
 
-        if (playerManager.isJumping)
-        {
-            return;
-        }
-        if (!playerManager.isGrounded)
+        if (PlayerManager.Instance.playerStat.currentStamina <= 0)
         {
             return;
         }
 
-        playerManager.playerAnimator.PlayTargetActionAnimation("Main_Jump_01", false);
-        playerManager.isJumping = true;
+        if (PlayerManager.Instance.isJumping)
+        {
+            return;
+        }
+
+        if (!PlayerManager.Instance.isGrounded)
+        {
+            return;
+        }
+
+        PlayerManager.Instance.playerAnimator.PlayTargetActionAnimation("Main_Jump_01", false);
+        PlayerManager.Instance.isJumping = true;
 
         Vector3 direction = new Vector3(horizontalMovementValue, 0, verticalMovementValue);
         jumpDirection = CameraDirection(direction, true);
-        if(jumpDirection == Vector3.zero)
+        PlayerManager.Instance.playerStat.DrainStaminaBasedOnAction(jumpingStaminaCost, false);
+
+        if (jumpDirection == Vector3.zero)
         {
             return;
         }
@@ -214,6 +222,14 @@ public class PlayerLocomotion : CharacterLocomotion
         else
         {
             jumpDirection *= 0.25f;
+        }
+    }
+
+    public void HandleJumpingMovement()
+    {
+        if (PlayerManager.Instance.isJumping)
+        {
+            PlayerManager.Instance.characterController.Move(jumpDirection * jumpFowardVelocity * Time.deltaTime);
         }
     }
 

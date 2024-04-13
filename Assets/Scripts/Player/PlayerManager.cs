@@ -1,10 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerInput), typeof(PlayerLocomotion))]
 public class PlayerManager : CharacterManager
 {
+    private static PlayerManager instance;
+    public static PlayerManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<PlayerManager>();
+            }
+            return instance;
+        }
+    }
+
     [HideInInspector] public PlayerInput playerInput;
     [HideInInspector] public PlayerLocomotion playerLocomotion;
     [HideInInspector] public PlayerAnimator playerAnimator;
@@ -14,6 +25,16 @@ public class PlayerManager : CharacterManager
    protected override void Awake()
     {
         base.Awake();
+
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         playerInput = GetComponent<PlayerInput>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
         playerAnimator = GetComponentInChildren<PlayerAnimator>();

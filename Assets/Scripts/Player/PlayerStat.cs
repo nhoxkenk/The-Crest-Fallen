@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class PlayerStat : CharacterStat
 {
-    private PlayerManager playerManager;
-    public event Action<float, float> OnStaminaDrain;
-    public event Action<float, float> OnStaminaRegenerate;
     [Header("Stamina Regeneration")]
     public float staminaRegenerationAmount = 2;
     public float staminaRegenerationTimer = 0;
     public float staminaRegenerationDelay = 2;
     [SerializeField] private float staminaTickTimer = 0;
-    
+
+    public event Action<float, float> DrainingStamina;
+    public event Action<float, float> RegeneratingStamina;
+
     protected override void Awake()
     {
         base.Awake();
@@ -22,21 +22,20 @@ public class PlayerStat : CharacterStat
 
     private void InitializePlayerStat()
     {
-        playerManager = GetComponent<PlayerManager>();
         maxStamina = CalculateStaninaBasedOnEnduranceLevel(endurance);
         PlayerUI.Instance.playerUIHud.SetMaxStaminaValue(maxStamina);
         currentStamina = maxStamina;
     }
 
-    public void DrainStaminaOnSprinting()
+    public void DrainStaminaBasedOnAction(int stamina, bool isContinuous)
     {
-        currentStamina -= playerManager.playerLocomotion.sprintingStaminaCost * Time.deltaTime;
-        OnStaminaDrain?.Invoke(maxStamina, currentStamina);
+        currentStamina -= isContinuous ? stamina * Time.deltaTime : stamina;
+        DrainingStamina?.Invoke(maxStamina, currentStamina);
     }
 
     public void RegenerateStamina()
     {
-        if (playerManager.playerLocomotion.IsSprinting || playerManager.isPerformingAction)
+        if (PlayerManager.Instance.playerLocomotion.IsSprinting || PlayerManager.Instance.isPerformingAction)
         {
             return;
         }
@@ -45,18 +44,18 @@ public class PlayerStat : CharacterStat
 
         if(staminaRegenerationTimer >= staminaRegenerationDelay)
         {
-            if(playerManager.playerStat.currentStamina < playerManager.playerStat.maxStamina)
+            if(PlayerManager.Instance.playerStat.currentStamina < PlayerManager.Instance.playerStat.maxStamina)
             {
                 staminaTickTimer += Time.deltaTime;
 
                 if(staminaTickTimer >= 0.1)
                 {
                     staminaTickTimer = 0;
-                    playerManager.playerStat.currentStamina += staminaRegenerationAmount;
+                    PlayerManager.Instance.playerStat.currentStamina += staminaRegenerationAmount;
                 }
             }
         }
-        OnStaminaRegenerate?.Invoke(maxStamina, currentStamina);
+        RegeneratingStamina?.Invoke(maxStamina, currentStamina);
     }
 
 }

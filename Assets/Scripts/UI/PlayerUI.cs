@@ -14,6 +14,7 @@ public class PlayerUI : MonoBehaviour
         if(instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -21,10 +22,5 @@ public class PlayerUI : MonoBehaviour
         }
 
         playerUIHud = GetComponentInChildren<PlayerUIHud>();
-    }
-
-    private void Start()
-    {
-        DontDestroyOnLoad(gameObject);
     }
 }

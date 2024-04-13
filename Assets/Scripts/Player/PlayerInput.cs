@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     private PlayerControls playerControls;
-    private PlayerManager playerManager;
 
     [Header("Player Movement Input")]
     [SerializeField] private Vector2 movementInput;
@@ -26,11 +25,6 @@ public class PlayerInput : MonoBehaviour
     [Header("Player Attacks")]
     [SerializeField] private bool lightAttackInput;
     [SerializeField] private bool heavyAttackInput;
-
-    private void Awake()
-    {
-        playerManager = GetComponent<PlayerManager>();
-    }
 
     private void OnEnable()
     {
@@ -69,7 +63,6 @@ public class PlayerInput : MonoBehaviour
         HandleDodgeInput();
         HandleSprintingInput();
         HandleJumpInput();
-
         HandleAttackInput();
     }
 
@@ -98,7 +91,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         //Only increase horizontal value when lock-on be because we strafe around the target
-        playerManager.playerAnimator.UpdateAnimatorMovementParameters(0, MoveAmount, playerManager.playerLocomotion.IsSprinting);
+        PlayerManager.Instance.playerAnimator.UpdateAnimatorMovementParameters(0, MoveAmount, PlayerManager.Instance.playerLocomotion.IsSprinting);
     }
 
     private void HandleDodgeInput()
@@ -108,7 +101,7 @@ public class PlayerInput : MonoBehaviour
             dodgeInput = false;
 
             //perform a dodge
-            playerManager.playerLocomotion.AttemptToPerformDodge();
+            PlayerManager.Instance.playerLocomotion.AttemptToPerformDodge();
         }
     }
 
@@ -116,11 +109,11 @@ public class PlayerInput : MonoBehaviour
     {
         if (sprintInput)
         {
-            playerManager.playerLocomotion.HandleSprinting();
+            PlayerManager.Instance.playerLocomotion.HandleSprinting();
         }
         else
         {
-            playerManager.playerLocomotion.IsSprinting = false;
+            PlayerManager.Instance.playerLocomotion.IsSprinting = false;
         }
     }
 
@@ -130,7 +123,7 @@ public class PlayerInput : MonoBehaviour
         {
             jumpInput = false;
 
-            playerManager.playerLocomotion.AttemptToPerformJump();
+            PlayerManager.Instance.playerLocomotion.AttemptToPerformJump();
         }
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Items/Weapon Item")]
-public class WeaponItem : Item
+public class WeaponItem : ScriptableItem
 {
     public GameObject weaponModelPrefab;
     public bool isUnarmed;

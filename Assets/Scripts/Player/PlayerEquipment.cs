@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerEquipment : CharacterEquipment
 {
-    private PlayerManager playerManager;
     public WeaponModelInstantiationSlot rightHandSlot;
     public WeaponModelInstantiationSlot leftHandSlot;
 
@@ -15,7 +14,6 @@ public class PlayerEquipment : CharacterEquipment
     protected override void Awake()
     {
         base.Awake();
-        playerManager = GetComponent<PlayerManager>();
         InitializeWeaponSlots();
     }
 
@@ -49,18 +47,18 @@ public class PlayerEquipment : CharacterEquipment
 
     public void LoadLeftWeapon()
     {
-        if(playerManager.playerInventory.currentLeftHandWeapon != null)
+        if(PlayerManager.Instance.playerInventory.currentLeftHandWeapon != null)
         {
-            rightHandWeaponModel = Instantiate(playerManager.playerInventory.currentLeftHandWeapon.weaponModelPrefab);
+            rightHandWeaponModel = Instantiate(PlayerManager.Instance.playerInventory.currentLeftHandWeapon.weaponModelPrefab);
             leftHandSlot.LoadWeaponModel(rightHandWeaponModel);
         }
     }
 
     public void LoadRightWeapon()
     {
-        if (playerManager.playerInventory.currentRightHandWeapon != null)
+        if (PlayerManager.Instance.playerInventory.currentRightHandWeapon != null)
         {
-            leftHandWeaponModel = Instantiate(playerManager.playerInventory.currentRightHandWeapon.weaponModelPrefab);
+            leftHandWeaponModel = Instantiate(PlayerManager.Instance.playerInventory.currentRightHandWeapon.weaponModelPrefab);
             rightHandSlot.LoadWeaponModel(leftHandWeaponModel);
         }
     }
