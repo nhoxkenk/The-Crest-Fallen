@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterEffectsManager : MonoBehaviour
+public class CharacterEffectsManager : Singleton<CharacterEffectsManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private List<ScriptableInstantCharacterEffect> scriptableInstantCharacterEffects;
+
+    protected override void Awake()
     {
-        
+        base.Awake();
+
+        GenerateEffectsID();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void GenerateEffectsID()
     {
-        
+        for(int i = 0; i < scriptableInstantCharacterEffects.Count; i++)
+        {
+            scriptableInstantCharacterEffects[i].instantEffectID = i;
+        }
     }
 }

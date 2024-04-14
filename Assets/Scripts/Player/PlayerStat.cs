@@ -11,9 +11,6 @@ public class PlayerStat : CharacterStat
     public float staminaRegenerationDelay = 2;
     [SerializeField] private float staminaTickTimer = 0;
 
-    public event Action<float, float> DrainingStamina;
-    public event Action<float, float> RegeneratingStamina;
-
     protected override void Awake()
     {
         base.Awake();
@@ -23,14 +20,13 @@ public class PlayerStat : CharacterStat
     private void InitializePlayerStat()
     {
         maxStamina = CalculateStaninaBasedOnEnduranceLevel(endurance);
-        PlayerUI.Instance.playerUIHud.SetMaxStaminaValue(maxStamina);
+        PlayerUI.Instance.playerUIHud.HandleMaxStaminaValue(maxStamina);
         currentStamina = maxStamina;
     }
 
-    public void DrainStaminaBasedOnAction(int stamina, bool isContinuous)
+    public override void OnDrainStaminaBasedOnAction(int stamina, bool isContinuous)
     {
-        currentStamina -= isContinuous ? stamina * Time.deltaTime : stamina;
-        DrainingStamina?.Invoke(maxStamina, currentStamina);
+        base.OnDrainStaminaBasedOnAction(stamina, isContinuous); 
     }
 
     public void RegenerateStamina()
@@ -55,7 +51,7 @@ public class PlayerStat : CharacterStat
                 }
             }
         }
-        RegeneratingStamina?.Invoke(maxStamina, currentStamina);
+        OnRegeneratingStamina();
     }
 
 }

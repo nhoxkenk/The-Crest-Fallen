@@ -7,7 +7,7 @@ public class ScriptableInstantCharacterEffect : ScriptableObject
     [Header("Effect ID")]
     public int instantEffectID;
 
-    public virtual void ProcessEffect(PlayerManager playerManager)
+    public virtual void ProcessEffect(CharacterManager characterManager)
     {
 
     }

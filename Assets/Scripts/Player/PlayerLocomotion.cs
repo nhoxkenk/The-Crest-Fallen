@@ -133,7 +133,7 @@ public class PlayerLocomotion : CharacterLocomotion
             PlayerManager.Instance.playerAnimator.PlayTargetActionAnimation("Back_step", true);
         }
 
-        PlayerManager.Instance.playerStat.DrainStaminaBasedOnAction(dodgingStaminaCost, false);
+        PlayerManager.Instance.playerStat.OnDrainStaminaBasedOnAction(dodgingStaminaCost, false);
 
     }
 
@@ -162,7 +162,7 @@ public class PlayerLocomotion : CharacterLocomotion
 
         if (IsSprinting)
         {
-            PlayerManager.Instance.playerStat.DrainStaminaBasedOnAction(sprintingStaminaCost, true);
+            PlayerManager.Instance.playerStat.OnDrainStaminaBasedOnAction(sprintingStaminaCost, true);
         }
     }
 
@@ -204,7 +204,7 @@ public class PlayerLocomotion : CharacterLocomotion
 
         Vector3 direction = new Vector3(horizontalMovementValue, 0, verticalMovementValue);
         jumpDirection = CameraDirection(direction, true);
-        PlayerManager.Instance.playerStat.DrainStaminaBasedOnAction(jumpingStaminaCost, false);
+        PlayerManager.Instance.playerStat.OnDrainStaminaBasedOnAction(jumpingStaminaCost, false);
 
         if (jumpDirection == Vector3.zero)
         {

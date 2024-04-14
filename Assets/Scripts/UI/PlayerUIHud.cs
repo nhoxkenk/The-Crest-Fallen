@@ -3,28 +3,20 @@ using UnityEngine;
 public class PlayerUIHud : MonoBehaviour
 {
     [SerializeField] private UI_StatBars staminaBar;
-    [SerializeField] private PlayerManager playerManager;
 
     private void Start()
     {
-        playerManager.playerStat.DrainingStamina += SetNewStaminaValue;
-        playerManager.playerStat.DrainingStamina += ResetStaminaRegenerationTimer;
-        playerManager.playerStat.RegeneratingStamina += SetNewStaminaValue;
+        PlayerManager.Instance.playerStat.DrainingStamina += HandleNewStaminaValue;
+        PlayerManager.Instance.playerStat.DrainingStamina += ResetStaminaRegenerationTimer;
+        PlayerManager.Instance.playerStat.RegeneratingStamina += HandleNewStaminaValue;
     }
 
-    private void OnDisable()
-    {
-        playerManager.playerStat.DrainingStamina -= SetNewStaminaValue;
-        playerManager.playerStat.DrainingStamina -= ResetStaminaRegenerationTimer;
-        playerManager.playerStat.RegeneratingStamina -= SetNewStaminaValue;
-    }
-
-    public void SetNewStaminaValue(float oldValue, float newValue)
+    public void HandleNewStaminaValue(float oldValue, float newValue)
     {
         staminaBar.SetStat(Mathf.RoundToInt(newValue));
     }
 
-    public void SetMaxStaminaValue(float value)
+    public void HandleMaxStaminaValue(float value)
     {
         staminaBar.SetMaxStat(Mathf.RoundToInt(value));
     }
@@ -33,7 +25,7 @@ public class PlayerUIHud : MonoBehaviour
     {
         if (newValue < oldValue)
         {
-            playerManager.playerStat.staminaRegenerationTimer = 0;
+            PlayerManager.Instance.playerStat.staminaRegenerationTimer = 0;
         }
     }
 }

@@ -7,14 +7,14 @@ public class TakeStaminaDamageEffect : ScriptableInstantCharacterEffect
 {
     public float staminaDamage;
 
-    public override void ProcessEffect(PlayerManager playerManager)
+    public override void ProcessEffect(CharacterManager characterManager)
     {
-        base.ProcessEffect(playerManager);
-        CalculateStaminaDamage(playerManager);
+        base.ProcessEffect(characterManager);
+        CalculateStaminaDamage(characterManager);
     }
 
-    private void CalculateStaminaDamage(PlayerManager playerManager)
+    private void CalculateStaminaDamage(CharacterManager characterManager)
     {
-        playerManager.playerStat.DrainStaminaBasedOnAction(Mathf.RoundToInt(staminaDamage), false);
+        characterManager.characterStat.OnDrainStaminaBasedOnAction(Mathf.RoundToInt(staminaDamage), false);
     }
 }
