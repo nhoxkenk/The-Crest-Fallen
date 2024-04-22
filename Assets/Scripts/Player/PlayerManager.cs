@@ -42,11 +42,6 @@ public class PlayerManager : CharacterManager
         playerStat = GetComponent<PlayerStat>();
     }
 
-    private void Start()
-    {
-
-    }
-
     protected override void Update()
     {
         base.Update();
@@ -60,4 +55,16 @@ public class PlayerManager : CharacterManager
         PlayerCamera.Instance.HandleAllCameraActions();
     }
 
+    public void SaveGameDataToCurrentCharacterData(ref CharacterSaveData currentCharacterSaveData)
+    {
+        currentCharacterSaveData.characterXPosition = transform.position.x;
+        currentCharacterSaveData.characterYPosition = transform.position.y;
+        currentCharacterSaveData.characterZPosition = transform.position.z;
+    }
+
+    public void LoadGameDataToCurrentCharacterData(ref CharacterSaveData currentCharacterSaveData)
+    {
+        Vector3 currentPosition = new Vector3(currentCharacterSaveData.characterXPosition, currentCharacterSaveData.characterYPosition, currentCharacterSaveData.characterZPosition);
+        transform.position = currentPosition;
+    }
 }
