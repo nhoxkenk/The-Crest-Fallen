@@ -10,7 +10,7 @@ public class SaveFileDataWriter
 
     public bool CheckIfSaveFileExists()
     {
-        return false;
+        return File.Exists(Path.Combine(saveFileDataPath, saveFileName)) ? true : false;
     }
 
     public void DeleteSaveFile()
