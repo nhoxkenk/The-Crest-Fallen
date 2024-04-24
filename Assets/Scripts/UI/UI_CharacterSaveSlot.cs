@@ -99,4 +99,10 @@ public class UI_CharacterSaveSlot : MonoBehaviour
         }
 
     }
+
+    public void LoadGameDataFromThisSlot()
+    {
+        WorldSaveManager.Instance.currentSlot = characterSlot;
+        WorldSaveManager.Instance.LoadGame();
+    }
 }

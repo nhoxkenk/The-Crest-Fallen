@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class WorldSaveManager : Singleton<WorldSaveManager>
 {
-    [SerializeField] private PlayerManager playerManager;
-
     [Header("Save/Load")]
     [SerializeField] private bool isSaved;
     [SerializeField] private bool isLoaded;
@@ -18,8 +16,8 @@ public class WorldSaveManager : Singleton<WorldSaveManager>
     private SaveFileDataWriter saveFileDataWriter;
 
     [Header("Current Character Data")]
-    [SerializeField] private CharacterSlot currentSlot;
-    [SerializeField] private CharacterSaveData currentCharacterData;
+    public CharacterSlot currentSlot;
+    public CharacterSaveData currentCharacterData;
     public string saveFileName;
 
     [Header("Character Slots")]
@@ -55,11 +53,73 @@ public class WorldSaveManager : Singleton<WorldSaveManager>
         return "characterSlot_" + ((int)characterSlot).ToString("00");
     }
 
-    public void CreateNewGame()
+    public void AttempToCreateNewGame()
     {
-        saveFileName = DecideCharacterFileNameBasedOnSlotBeingUsed(currentSlot);
+        saveFileDataWriter = new SaveFileDataWriter();
+        saveFileDataWriter.saveFileDataPath = Application.persistentDataPath;
+        //Check here to see if we can create new save file (existing file)
+        saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnSlotBeingUsed(CharacterSlot.CharacterSlot_01);
+        
+        if (!saveFileDataWriter.CheckIfSaveFileExists())
+        {
+            currentSlot = CharacterSlot.CharacterSlot_01;
+            currentCharacterData = new CharacterSaveData();
+            StartCoroutine(LoadWorldScene());
+            return;
+        }
 
-        currentCharacterData = new CharacterSaveData();
+        saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnSlotBeingUsed(CharacterSlot.CharacterSlot_02);
+
+        if (!saveFileDataWriter.CheckIfSaveFileExists())
+        {
+            currentSlot = CharacterSlot.CharacterSlot_02;
+            currentCharacterData = new CharacterSaveData();
+            StartCoroutine(LoadWorldScene());
+            return;
+        }
+
+        TitleScreenManager.Instance.DisplayNoFreeCharacterSlotPopUp();
+
+        //saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnSlotBeingUsed(CharacterSlot.CharacterSlot_03);
+
+        //if (saveFileDataWriter.CheckIfSaveFileExists())
+        //{
+        //    currentSlot = CharacterSlot.CharacterSlot_03;
+        //    currentCharacterData = new CharacterSaveData();
+        //    StartCoroutine(LoadWorldScene());
+        //    return;
+        //}
+
+        //saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnSlotBeingUsed(CharacterSlot.CharacterSlot_04);
+
+        //if (saveFileDataWriter.CheckIfSaveFileExists())
+        //{
+        //    currentSlot = CharacterSlot.CharacterSlot_04;
+        //    currentCharacterData = new CharacterSaveData();
+        //    StartCoroutine(LoadWorldScene());
+        //    return;
+        //}
+
+        //saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnSlotBeingUsed(CharacterSlot.CharacterSlot_05);
+
+        //if (saveFileDataWriter.CheckIfSaveFileExists())
+        //{
+        //    currentSlot = CharacterSlot.CharacterSlot_05;
+        //    currentCharacterData = new CharacterSaveData();
+        //    StartCoroutine(LoadWorldScene());
+        //    return;
+        //}
+
+        //saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnSlotBeingUsed(CharacterSlot.CharacterSlot_06);
+
+        //if (saveFileDataWriter.CheckIfSaveFileExists())
+        //{
+        //    currentSlot = CharacterSlot.CharacterSlot_06;
+        //    currentCharacterData = new CharacterSaveData();
+        //    StartCoroutine(LoadWorldScene());
+        //    return;
+        //}
+
     }
 
     public void LoadGame()
@@ -71,9 +131,7 @@ public class WorldSaveManager : Singleton<WorldSaveManager>
         saveFileDataWriter.saveFileName = saveFileName;
 
         currentCharacterData = saveFileDataWriter.LoadCharacterSaveFile();
-        Debug.Log(playerManager.transform.position);
-        playerManager.LoadGameDataToCurrentCharacterData(ref currentCharacterData);
-        Debug.Log(playerManager.transform.position);
+
         StartCoroutine(LoadWorldScene());
     }
 
@@ -117,6 +175,9 @@ public class WorldSaveManager : Singleton<WorldSaveManager>
     public IEnumerator LoadWorldScene()
     {
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(WorldSceneIndex);
+
+        //PlayerManager.Instance.LoadGameDataToCurrentCharacterData(ref currentCharacterData);
+
         yield return null;
     }
 }

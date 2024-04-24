@@ -40,6 +40,8 @@ public class PlayerManager : CharacterManager
         playerAnimator = GetComponentInChildren<PlayerAnimator>();
         playerInventory = GetComponent<PlayerInventory>();
         playerStat = GetComponent<PlayerStat>();
+
+        LoadGameDataToCurrentCharacterData(ref WorldSaveManager.Instance.currentCharacterData);
     }
 
     protected override void Update()

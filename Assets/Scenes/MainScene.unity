@@ -9636,8 +9636,8 @@ MonoBehaviour:
   cameraPlayer: {fileID: 0}
   cameraPivotTransform: {fileID: 503101436}
   cameraSmoothSpeed: 1
-  horizontalRotationSpeed: 150
-  verticalRotationSpeed: 150
+  horizontalRotationSpeed: 90
+  verticalRotationSpeed: 90
   miniumPivot: -30
   maximumPivot: 60
   cameraCollisionRadius: 0.2
