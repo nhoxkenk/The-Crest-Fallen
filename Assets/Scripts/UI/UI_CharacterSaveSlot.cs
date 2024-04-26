@@ -105,4 +105,9 @@ public class UI_CharacterSaveSlot : MonoBehaviour
         WorldSaveManager.Instance.currentSlot = characterSlot;
         WorldSaveManager.Instance.LoadGame();
     }
+
+    public void SelectThisSlot()
+    {
+        TitleScreenManager.Instance.AssignToHighlightedSlot(characterSlot);
+    }
 }

@@ -9,5 +9,6 @@ public enum CharacterSlot
     CharacterSlot_07 = 7,
     CharacterSlot_08 = 8,
     CharacterSlot_09 = 9,
-    CharacterSlot_10 = 10
+    CharacterSlot_10 = 10,
+    NoSlot = 11
 }

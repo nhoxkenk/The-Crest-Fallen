@@ -15,7 +15,12 @@ public class SaveFileDataWriter
 
     public void DeleteSaveFile()
     {
+        string path = Path.Combine(saveFileDataPath, saveFileName);
 
+        if(File.Exists(path))
+        {
+            File.Delete(path);
+        }
     }
 
     public void CreateNewCharacterSaveFile(CharacterSaveData saveData)
