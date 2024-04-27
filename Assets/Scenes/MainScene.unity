@@ -17108,6 +17108,57 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1295209348}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1308794105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1308794107}
+  - component: {fileID: 1308794106}
+  m_Layer: 0
+  m_Name: Save Load System
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1308794106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308794105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 827aef2bdebf0114088f50a81c507c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldSceneIndex: 1
+  gameData:
+    FileName: Test Save Load System
+    playerData:
+      <Id>k__BackingField: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!4 &1308794107
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308794105}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 344.94363, y: 296.01215, z: -4.840664}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1311050626
 GameObject:
   m_ObjectHideFlags: 0
@@ -32196,6 +32247,7 @@ GameObject:
   - component: {fileID: 2093920636}
   - component: {fileID: 2093920635}
   - component: {fileID: 2093920637}
+  - component: {fileID: 2093920640}
   m_Layer: 6
   m_Name: Hero
   m_TagString: Untagged
@@ -32396,6 +32448,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   temporaryEffect: {fileID: 11400000, guid: 68f5cd52b1bcbb94188eeeea03c3e898, type: 2}
   isTriggerEffect: 0
+--- !u!114 &2093920640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093920629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f4715f0619b274eaf99ab2c0763b41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: Test Id
+  data:
+    <Id>k__BackingField: 
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2093921595
 GameObject:
   m_ObjectHideFlags: 0
