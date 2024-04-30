@@ -21,7 +21,12 @@ public class SaveLoadSystem : Singleton<SaveLoadSystem>
     [SerializeField] private int worldSceneIndex = 1;
     public int WorldSceneIndex { get { return worldSceneIndex; } }
 
+    [Header("Current Game Data")]
     public GameData gameData;
+    public CharacterSlot currentGameDataSlot;
+
+    [Header("All Character Slot Datas")]
+    public List<GameData> characterSlotDatas;
 
     private IDataService dataService;
 
@@ -32,12 +37,20 @@ public class SaveLoadSystem : Singleton<SaveLoadSystem>
         dataService = new FileDataService(new JsonSerializer());
     }
 
-    private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoad;
+    //private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoad;
     private void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoad;
+
+    private void Start()
+    {
+        LoadAll();
+        SceneManager.sceneLoaded += OnSceneLoad;
+    }
 
     private void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
-        Bind<TestHeroScript, PlayerData>(gameData.playerData);
+        Debug.Log(scene.name);
+        if(scene.name == "MenuScene") return;
+        Bind<PlayerSaveData, PlayerData>(gameData.playerData);
     }
 
     //Handle One entity, often is main character
@@ -75,24 +88,71 @@ public class SaveLoadSystem : Singleton<SaveLoadSystem>
 
     public void NewGame()
     {
+        int emptySlot = characterSlotDatas.FindIndex(slot => slot.FileName == null || slot.FileName.Equals(""));
+        if (emptySlot == -1)
+        {
+            TitleScreenManager.Instance.DisplayNoFreeCharacterSlotPopUp();
+            return;
+        }
+        currentGameDataSlot = (CharacterSlot) emptySlot + 1;
+
+        gameData = new GameData {
+            FileName = DecideCharacterFileNameBasedOnSlotBeingUsed(currentGameDataSlot),
+            playerData = new PlayerData()
+        };
+
         StartCoroutine(LoadWorldScene());
         return;
     }
 
     public void SaveGame()
     {
+        gameData.FileName = DecideCharacterFileNameBasedOnSlotBeingUsed(currentGameDataSlot);
         dataService.Save(gameData);
     }
 
     public void LoadGame(string gameName)
     {
+        gameName = DecideCharacterFileNameBasedOnSlotBeingUsed(currentGameDataSlot);
         gameData = dataService.Load(gameName);
 
         if (string.IsNullOrWhiteSpace(gameName))
         {
             //something fire off here
+            Debug.Log("Error");
         }
         StartCoroutine(LoadWorldScene());
+    }
+
+    public void LoadAll()
+    {
+        for (int i = 0; i < characterSlotDatas.Count; i++)
+        {
+            GameData gameData = new GameData();
+            characterSlotDatas[i] = gameData;
+        }
+
+        foreach (string fileName in dataService.ListSaves())
+        {
+            string slotNumber = fileName.Substring(fileName.LastIndexOf('_') + 1);
+            int indexSlot = int.Parse(slotNumber) - 1;
+            if (indexSlot >= 0 && indexSlot < characterSlotDatas.Count)
+            {
+                GameData tempGameData = dataService.Load(fileName);
+                if (tempGameData != null)
+                {
+                    characterSlotDatas[indexSlot] = tempGameData;
+                }
+            }
+            //if (tempGameData != null)
+            //{
+            //    var emptySlot = characterSlotDatas.FindIndex(slot => slot.FileName == null || slot.FileName.Equals(""));
+            //    if (emptySlot != -1)
+            //    {
+            //        characterSlotDatas[emptySlot] = tempGameData;
+            //    }
+            //}
+        }
     }
 
     public void DeleteGame(string gameName)
@@ -105,5 +165,10 @@ public class SaveLoadSystem : Singleton<SaveLoadSystem>
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(WorldSceneIndex);
 
         yield return null;
+    }
+
+    public string DecideCharacterFileNameBasedOnSlotBeingUsed(CharacterSlot characterSlot)
+    {
+        return "characterSlot_" + ((int)characterSlot).ToString("00");
     }
 }

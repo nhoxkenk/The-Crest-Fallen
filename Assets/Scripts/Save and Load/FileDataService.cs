@@ -15,12 +15,17 @@ public class FileDataService : IDataService
     {
         this.serializer = serializer;
         this.dataPath = Application.persistentDataPath;
-        this.fileExtension = "json";
+        this.fileExtension = ".json";
     }
 
-    private string GetPathToFile(string fileName)
+    public string GetPathToFile(string fileName)
     {
-        return Path.Combine(dataPath, string.Concat(fileName, ".", this.fileExtension));
+        return Path.Combine(dataPath, string.Concat(fileName, this.fileExtension));
+    }
+
+    public bool CheckIfSaveFileExists(string fileName)
+    {
+        return File.Exists(GetPathToFile(fileName)) ? true : false;
     }
 
     public void Save(GameData data, bool overwrite = true)
@@ -67,13 +72,13 @@ public class FileDataService : IDataService
 
     public IEnumerable<string> ListSaves()
     {
-        foreach(string path in Directory.EnumerateFiles(dataPath))
+        foreach (string path in Directory.EnumerateFiles(dataPath))
         {
-            if(Path.GetExtension(path) == fileExtension)
+            if (Path.GetExtension(path) == fileExtension)
             {
                 yield return Path.GetFileNameWithoutExtension(path);
             }
         }
     }
- 
+
 }

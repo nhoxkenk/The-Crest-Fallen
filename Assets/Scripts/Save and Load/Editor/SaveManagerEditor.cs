@@ -28,6 +28,11 @@ public class SaveManagerEditor : UnityEditor.Editor
             saveLoadSystem.LoadGame(gameName);
         }
 
+        if (GUILayout.Button("Load All"))
+        {
+            saveLoadSystem.LoadAll();
+        }
+
         if (GUILayout.Button("Delete game"))
         {
             saveLoadSystem.DeleteGame(gameName);

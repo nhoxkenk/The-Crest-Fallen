@@ -64,7 +64,10 @@ public class TitleScreenManager : Singleton<TitleScreenManager>
     public void DeleteCharacterSlot()
     {
         deleteCharacterSlotPopup.SetActive(false);
-        WorldSaveManager.Instance.DeleteGame(highlightedSlot);
+        //WorldSaveManager.Instance.DeleteGame(highlightedSlot);
+        string name = SaveLoadSystem.Instance.DecideCharacterFileNameBasedOnSlotBeingUsed(highlightedSlot);
+        SaveLoadSystem.Instance.DeleteGame(name);
+        SaveLoadSystem.Instance.LoadAll();
         titleScreenLoadMenu.SetActive(true);
     }
 

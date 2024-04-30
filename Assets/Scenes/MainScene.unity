@@ -17124,7 +17124,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1308794106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17142,6 +17142,52 @@ MonoBehaviour:
     FileName: Test Save Load System
     playerData:
       <Id>k__BackingField: 
+      <CharacterName>k__BackingField: 
+      <TimePlayed>k__BackingField: 0
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
+  currentGameDataSlot: 1
+  characterSlotDatas:
+  - FileName: 
+    playerData:
+      <Id>k__BackingField: 
+      <CharacterName>k__BackingField: 
+      <TimePlayed>k__BackingField: 0
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
+  - FileName: 
+    playerData:
+      <Id>k__BackingField: 
+      <CharacterName>k__BackingField: 
+      <TimePlayed>k__BackingField: 0
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
+  - FileName: 
+    playerData:
+      <Id>k__BackingField: 
+      <CharacterName>k__BackingField: 
+      <TimePlayed>k__BackingField: 0
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
+  - FileName: 
+    playerData:
+      <Id>k__BackingField: 
+      <CharacterName>k__BackingField: 
+      <TimePlayed>k__BackingField: 0
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
+  - FileName: 
+    playerData:
+      <Id>k__BackingField: 
+      <CharacterName>k__BackingField: 
+      <TimePlayed>k__BackingField: 0
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
+  - FileName: 
+    playerData:
+      <Id>k__BackingField: 
+      <CharacterName>k__BackingField: 
+      <TimePlayed>k__BackingField: 0
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &1308794107
@@ -32461,8 +32507,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Id>k__BackingField: Test Id
+  <CharacterName>k__BackingField: Character Name
   data:
     <Id>k__BackingField: 
+    <CharacterName>k__BackingField: 
+    <TimePlayed>k__BackingField: 0
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2093921595

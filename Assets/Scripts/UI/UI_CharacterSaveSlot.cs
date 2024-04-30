@@ -9,6 +9,7 @@ public class UI_CharacterSaveSlot : MonoBehaviour
 
     [Header("Game Slot")]
     public CharacterSlot characterSlot;
+    [SerializeField] private string gameSlotName;
 
     [Header("References")]
     [SerializeField] private TextMeshProUGUI characterNameText;
@@ -16,7 +17,8 @@ public class UI_CharacterSaveSlot : MonoBehaviour
 
     private void OnEnable()
     {
-        LoadSaveSlotFromWriter();
+        //LoadSaveSlotFromWriter();
+        LoadSaveDataFromSystem();
     }
 
     private void LoadSaveSlotFromWriter()
@@ -100,10 +102,26 @@ public class UI_CharacterSaveSlot : MonoBehaviour
 
     }
 
+    private void LoadSaveDataFromSystem()
+    {
+        gameSlotName = SaveLoadSystem.Instance.DecideCharacterFileNameBasedOnSlotBeingUsed(characterSlot);
+        int indexSlot = SaveLoadSystem.Instance.characterSlotDatas?.FindIndex(slot => slot != null && slot.FileName != null && slot.FileName.Equals(gameSlotName)) ?? -1;
+        if (indexSlot < 0)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            characterNameText.text = SaveLoadSystem.Instance.characterSlotDatas[indexSlot].playerData.CharacterName;
+        }
+    }
+
     public void LoadGameDataFromThisSlot()
     {
-        WorldSaveManager.Instance.currentSlot = characterSlot;
-        WorldSaveManager.Instance.LoadGame();
+        //WorldSaveManager.Instance.currentSlot = characterSlot;
+        //WorldSaveManager.Instance.LoadGame();
+        SaveLoadSystem.Instance.currentGameDataSlot = characterSlot;
+        SaveLoadSystem.Instance.LoadGame(gameSlotName);
     }
 
     public void SelectThisSlot()
