@@ -7,26 +7,84 @@ public class PlayerStat : CharacterStat
 {
     [Header("Stamina Regeneration")]
     public float staminaRegenerationAmount = 2;
-    public float staminaRegenerationTimer = 0;
-    public float staminaRegenerationDelay = 2;
-    [SerializeField] private float staminaTickTimer = 0;
+    public float staminaRegenerationTimerValue = 0.2f;
+    public float staminaRegenerationDelayValue = 2;
+
+    private List<Timer> timers;
+    public CountdownTimer staminaRegenerateTimer;
+    public CountdownTimer staminaRegenerateDelayTimer;
 
     protected override void Awake()
     {
         base.Awake();
+        
+        SetupTimer();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
         InitializePlayerStat();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+    }
+
+    public void OnIncreaseVitalityStat(int oldVitality, int newVitality)
+    {
+        maxHealth = CalculateHealthBasedOnVitalityLevel(newVitality);
+        currentHealth = maxHealth;
+        PlayerUI.Instance.playerUIHud.HandleMaxHealthValue(maxHealth);
+    }
+
+    public void OnIncreaseEnduranceStat(int oldEndurance, int newEndurance)
+    {
+        maxStamina = CalculateStaninaBasedOnEnduranceLevel(newEndurance);
+        currentStamina = maxStamina;
+        PlayerUI.Instance.playerUIHud.HandleMaxStaminaValue(maxStamina);
+    }
+
+    private void SetupTimer()
+    {
+        staminaRegenerateTimer = new CountdownTimer(staminaRegenerationTimerValue);
+        staminaRegenerateDelayTimer = new CountdownTimer(staminaRegenerationDelayValue);
+        timers = new List<Timer>(2) { staminaRegenerateTimer, staminaRegenerateDelayTimer};
     }
 
     private void InitializePlayerStat()
     {
-        maxStamina = CalculateStaninaBasedOnEnduranceLevel(endurance);
-        PlayerUI.Instance.playerUIHud.HandleMaxStaminaValue(maxStamina);
+        //Stamina
+        maxStamina = CalculateStaninaBasedOnEnduranceLevel(Endurance);
         currentStamina = maxStamina;
+        PlayerUI.Instance.playerUIHud.HandleMaxStaminaValue(maxStamina);
+        IncreaseVitalityStat += OnIncreaseVitalityStat;
+
+        //Health
+        maxHealth = CalculateHealthBasedOnVitalityLevel(Vitality);
+        currentHealth = maxHealth;
+        PlayerUI.Instance.playerUIHud.HandleMaxHealthValue(maxHealth);
+        IncreaseEnduranceStat += OnIncreaseEnduranceStat;
     }
 
     public override void OnDrainStaminaBasedOnAction(int stamina, bool isContinuous)
     {
-        base.OnDrainStaminaBasedOnAction(stamina, isContinuous); 
+        base.OnDrainStaminaBasedOnAction(stamina, isContinuous);
+        ResetStaminaRegenerationTimer(maxStamina, currentStamina);
+    }
+
+    public void ResetStaminaRegenerationTimer(float oldValue, float newValue)
+    {
+        if (!staminaRegenerateDelayTimer.IsRunning)
+        {
+            staminaRegenerateDelayTimer.Start();
+        }
+        
+        if (newValue < oldValue)
+        {
+            staminaRegenerateDelayTimer.Reset();
+        }
     }
 
     public void RegenerateStamina()
@@ -35,23 +93,23 @@ public class PlayerStat : CharacterStat
         {
             return;
         }
-        
-        staminaRegenerationTimer += Time.deltaTime;
 
-        if(staminaRegenerationTimer >= staminaRegenerationDelay)
+        staminaRegenerateDelayTimer.Tick(Time.deltaTime);
+
+        if (staminaRegenerateDelayTimer.IsFinished())
         {
-            if(PlayerManager.Instance.playerStat.currentStamina < PlayerManager.Instance.playerStat.maxStamina)
+            if (currentStamina < maxStamina)
             {
-                staminaTickTimer += Time.deltaTime;
-
-                if(staminaTickTimer >= 0.1)
+                staminaRegenerateTimer.Tick(Time.deltaTime);
+                if (staminaRegenerateTimer.IsFinished())
                 {
-                    staminaTickTimer = 0;
-                    PlayerManager.Instance.playerStat.currentStamina += staminaRegenerationAmount;
+                    staminaRegenerateTimer.Reset();
+                    staminaRegenerateTimer.Start();
+                    currentStamina += staminaRegenerationAmount;
                 }
             }
         }
+
         OnRegeneratingStamina();
     }
-
 }

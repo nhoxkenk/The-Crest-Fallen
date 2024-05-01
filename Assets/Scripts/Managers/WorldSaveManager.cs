@@ -175,7 +175,7 @@ public class WorldSaveManager : Singleton<WorldSaveManager>
         saveFileDataWriter.saveFileDataPath = Application.persistentDataPath;
         saveFileDataWriter.saveFileName = saveFileName;
 
-        PlayerManager.Instance.SaveGameDataToCurrentCharacterData(ref currentCharacterData);
+        //PlayerManager.Instance.SaveGameDataToCurrentCharacterData(ref currentCharacterData);
 
         saveFileDataWriter.CreateNewCharacterSaveFile(currentCharacterData);
     }

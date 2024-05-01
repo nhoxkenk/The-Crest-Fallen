@@ -13,9 +13,11 @@ public class CharacterManager : MonoBehaviour
    [Header("Animation Flags")]
     public bool isPerformingAction = false;
     public bool applyRootMotion = false;
+
     [Header("Movement Flags")]
     public bool canMove = true;
     public bool canRotate = true;
+
     [Header("Jump Flags")]
     public bool isJumping = false;
     public bool isGrounded = true;

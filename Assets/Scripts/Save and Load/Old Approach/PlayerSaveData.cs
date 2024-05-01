@@ -16,11 +16,23 @@ public class PlayerSaveData : MonoBehaviour, IBind<PlayerData>
         this.data.CharacterName = CharacterName;
         transform.position = data.position;
         transform.rotation = data.rotation;
+
+        this.data.vitality = data.vitality;
+        this.data.endurance = data.endurance;
+
+        this.data.currentHealth = data.currentHealth;
+        this.data.currentStamina = data.currentStamina;
     }
 
     private void Update()
     {
         data.position = transform.position;
         data.rotation = transform.rotation;
+        
+        data.vitality = PlayerManager.Instance.playerStat.Vitality;
+        data.endurance = PlayerManager.Instance.playerStat.Endurance;
+
+        data.currentHealth = PlayerManager.Instance.playerStat.currentHealth;
+        data.currentStamina = PlayerManager.Instance.playerStat.currentStamina;
     }
 }

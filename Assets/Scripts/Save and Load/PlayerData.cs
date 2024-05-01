@@ -12,4 +12,12 @@ public class PlayerData : ISaveable
 
     public Vector3 position;
     public Quaternion rotation;
+
+    [Header("Stats")]
+    public int vitality;
+    public int endurance;
+
+    [Header("Stat Resources")]
+    public float currentHealth;
+    public float currentStamina;
 }
