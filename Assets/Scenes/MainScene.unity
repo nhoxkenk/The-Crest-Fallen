@@ -5114,7 +5114,7 @@ RectTransform:
   m_GameObject: {fileID: 356481174}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 628108511}
@@ -5140,7 +5140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scalebarLengthWithStats: 1
-  widthScaleMultiplier: 1.1
+  widthScaleMultiplier: 1.5
 --- !u!114 &356481177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8489,7 +8489,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 356481175}
   m_RootOrder: -1
@@ -14964,7 +14964,7 @@ RectTransform:
   m_GameObject: {fileID: 1028652984}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1385154852}
@@ -15041,7 +15041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scalebarLengthWithStats: 1
-  widthScaleMultiplier: 0.7
+  widthScaleMultiplier: 1
 --- !u!1 &1031655071
 GameObject:
   m_ObjectHideFlags: 0
@@ -32840,6 +32840,7 @@ MonoBehaviour:
   playerAnimator: {fileID: 0}
   playerInventory: {fileID: 0}
   playerStat: {fileID: 0}
+  playerSaveData: {fileID: 0}
 --- !u!114 &2093920631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36398,6 +36399,7 @@ MonoBehaviour:
   playerAnimator: {fileID: 0}
   playerInventory: {fileID: 0}
   playerStat: {fileID: 0}
+  playerSaveData: {fileID: 0}
 --- !u!114 &6964276849754882535
 MonoBehaviour:
   m_ObjectHideFlags: 0

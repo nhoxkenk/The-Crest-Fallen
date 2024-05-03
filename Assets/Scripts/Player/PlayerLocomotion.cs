@@ -112,7 +112,7 @@ public class PlayerLocomotion : CharacterLocomotion
             return;
         }
 
-        if (PlayerManager.Instance.playerStat.currentStamina <= 0)
+        if (PlayerManager.Instance.playerStat.CurrentStamina <= 0)
         {
             return;
         }
@@ -133,8 +133,8 @@ public class PlayerLocomotion : CharacterLocomotion
             PlayerManager.Instance.playerAnimator.PlayTargetActionAnimation("Back_step", true);
         }
 
-        PlayerManager.Instance.playerStat.OnDrainStaminaBasedOnAction(dodgingStaminaCost, false);
-
+        //PlayerManager.Instance.playerStat.OnDrainStaminaBasedOnAction(dodgingStaminaCost, false);
+        PlayerManager.Instance.playerStat.CurrentStamina -= dodgingStaminaCost;
     }
 
     public void HandleSprinting()
@@ -145,7 +145,7 @@ public class PlayerLocomotion : CharacterLocomotion
             return;
         }
 
-        if(PlayerManager.Instance.playerStat.currentStamina <= 0)
+        if(PlayerManager.Instance.playerStat.CurrentStamina <= 0)
         {
             IsSprinting = false;
             return;
@@ -162,7 +162,8 @@ public class PlayerLocomotion : CharacterLocomotion
 
         if (IsSprinting)
         {
-            PlayerManager.Instance.playerStat.OnDrainStaminaBasedOnAction(sprintingStaminaCost, true);
+            //PlayerManager.Instance.playerStat.OnDrainStaminaBasedOnAction(sprintingStaminaCost, true);
+            PlayerManager.Instance.playerStat.CurrentStamina -= sprintingStaminaCost * Time.deltaTime;
         }
     }
 
@@ -184,7 +185,7 @@ public class PlayerLocomotion : CharacterLocomotion
             return;
         }
 
-        if (PlayerManager.Instance.playerStat.currentStamina <= 0)
+        if (PlayerManager.Instance.playerStat.CurrentStamina <= 0)
         {
             return;
         }
@@ -204,8 +205,8 @@ public class PlayerLocomotion : CharacterLocomotion
 
         Vector3 direction = new Vector3(horizontalMovementValue, 0, verticalMovementValue);
         jumpDirection = CameraDirection(direction, true);
-        PlayerManager.Instance.playerStat.OnDrainStaminaBasedOnAction(jumpingStaminaCost, false);
-
+        //PlayerManager.Instance.playerStat.OnDrainStaminaBasedOnAction(jumpingStaminaCost, false);
+        PlayerManager.Instance.playerStat.CurrentStamina -= jumpingStaminaCost;
         if (jumpDirection == Vector3.zero)
         {
             return;

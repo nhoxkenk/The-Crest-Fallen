@@ -24,7 +24,8 @@ public class PlayerStat : CharacterStat
     protected override void Start()
     {
         base.Start();
-        InitializePlayerStat();
+
+        DrainingStamina += ResetStaminaRegenerationTimer;
     }
 
     protected override void Update()
@@ -35,14 +36,14 @@ public class PlayerStat : CharacterStat
     public void OnIncreaseVitalityStat(int oldVitality, int newVitality)
     {
         maxHealth = CalculateHealthBasedOnVitalityLevel(newVitality);
-        currentHealth = maxHealth;
+        CurrentHealth = maxHealth;
         PlayerUI.Instance.playerUIHud.HandleMaxHealthValue(maxHealth);
     }
 
     public void OnIncreaseEnduranceStat(int oldEndurance, int newEndurance)
     {
         maxStamina = CalculateStaninaBasedOnEnduranceLevel(newEndurance);
-        currentStamina = maxStamina;
+        CurrentStamina = maxStamina;
         PlayerUI.Instance.playerUIHud.HandleMaxStaminaValue(maxStamina);
     }
 
@@ -51,27 +52,6 @@ public class PlayerStat : CharacterStat
         staminaRegenerateTimer = new CountdownTimer(staminaRegenerationTimerValue);
         staminaRegenerateDelayTimer = new CountdownTimer(staminaRegenerationDelayValue);
         timers = new List<Timer>(2) { staminaRegenerateTimer, staminaRegenerateDelayTimer};
-    }
-
-    private void InitializePlayerStat()
-    {
-        //Stamina
-        maxStamina = CalculateStaninaBasedOnEnduranceLevel(Endurance);
-        currentStamina = maxStamina;
-        PlayerUI.Instance.playerUIHud.HandleMaxStaminaValue(maxStamina);
-        IncreaseVitalityStat += OnIncreaseVitalityStat;
-
-        //Health
-        maxHealth = CalculateHealthBasedOnVitalityLevel(Vitality);
-        currentHealth = maxHealth;
-        PlayerUI.Instance.playerUIHud.HandleMaxHealthValue(maxHealth);
-        IncreaseEnduranceStat += OnIncreaseEnduranceStat;
-    }
-
-    public override void OnDrainStaminaBasedOnAction(int stamina, bool isContinuous)
-    {
-        base.OnDrainStaminaBasedOnAction(stamina, isContinuous);
-        ResetStaminaRegenerationTimer(maxStamina, currentStamina);
     }
 
     public void ResetStaminaRegenerationTimer(float oldValue, float newValue)
@@ -98,14 +78,14 @@ public class PlayerStat : CharacterStat
 
         if (staminaRegenerateDelayTimer.IsFinished())
         {
-            if (currentStamina < maxStamina)
+            if (CurrentStamina < maxStamina)
             {
                 staminaRegenerateTimer.Tick(Time.deltaTime);
                 if (staminaRegenerateTimer.IsFinished())
                 {
                     staminaRegenerateTimer.Reset();
                     staminaRegenerateTimer.Start();
-                    currentStamina += staminaRegenerationAmount;
+                    CurrentStamina += staminaRegenerationAmount;
                 }
             }
         }

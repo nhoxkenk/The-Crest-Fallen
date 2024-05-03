@@ -33,6 +33,11 @@ public class CharacterManager : MonoBehaviour
         characterStat = GetComponent<CharacterStat>();     
     }
 
+    protected virtual void Start()
+    {
+
+    }
+
     protected virtual void Update()
     {
         animator.SetBool(characterAnimator.isGroundedValue, isGrounded);

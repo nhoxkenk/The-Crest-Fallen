@@ -21,6 +21,7 @@ public class PlayerManager : CharacterManager
     [HideInInspector] public PlayerAnimator playerAnimator;
     [HideInInspector] public PlayerInventory playerInventory;
     [HideInInspector] public PlayerStat playerStat;
+    [HideInInspector] public PlayerSaveData playerSaveData;
 
    protected override void Awake()
     {
@@ -40,6 +41,14 @@ public class PlayerManager : CharacterManager
         playerAnimator = GetComponentInChildren<PlayerAnimator>();
         playerInventory = GetComponent<PlayerInventory>();
         playerStat = GetComponent<PlayerStat>();
+        playerSaveData = GetComponent<PlayerSaveData>();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        InitializePlayerStat();
     }
 
     protected override void Update()
@@ -56,4 +65,21 @@ public class PlayerManager : CharacterManager
         PlayerCamera.Instance.HandleAllCameraActions();
     }
 
+    /// <summary>
+    /// Initialize Player Stat
+    /// </summary>
+    private void InitializePlayerStat()
+    {
+        //Stamina
+        playerStat.maxStamina = playerStat.CalculateStaninaBasedOnEnduranceLevel(playerSaveData.data.endurance);
+        playerStat.CurrentStamina = playerSaveData.data.currentStamina;
+        PlayerUI.Instance.playerUIHud.HandleMaxStaminaValue(playerStat.maxStamina);
+        playerStat.IncreaseVitalityStat += playerStat.OnIncreaseVitalityStat;
+
+        //Health
+        playerStat.maxHealth = playerStat.CalculateHealthBasedOnVitalityLevel(playerSaveData.data.vitality);
+        playerStat.CurrentHealth = playerSaveData.data.currentHealth;
+        PlayerUI.Instance.playerUIHud.HandleMaxHealthValue(playerStat.maxHealth);
+        playerStat.IncreaseEnduranceStat += playerStat.OnIncreaseEnduranceStat;
+    }
 }

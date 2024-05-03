@@ -48,7 +48,6 @@ public class SaveLoadSystem : Singleton<SaveLoadSystem>
 
     private void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log(scene.name);
         if(scene.name == "MenuScene") return;
         Bind<PlayerSaveData, PlayerData>(gameData.playerData);
     }
@@ -63,7 +62,7 @@ public class SaveLoadSystem : Singleton<SaveLoadSystem>
             {
                 data = new TData { Id = entity.Id };
             }
-            
+
             entity.Bind(data);
         }
     }

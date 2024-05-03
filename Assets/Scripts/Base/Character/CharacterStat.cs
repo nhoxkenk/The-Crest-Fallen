@@ -20,8 +20,24 @@ public class CharacterStat : MonoBehaviour
         }
     }
 
-    
-    public float currentStamina;
+    [SerializeField] private float currentStamina;
+    private float preCurrentStamina;
+    public float CurrentStamina
+    {
+        get
+        {
+            return currentStamina;
+        }
+        set
+        {
+            preCurrentStamina = currentStamina;
+            currentStamina = value;
+            if(preCurrentStamina > currentStamina)
+            {
+                DrainingStamina?.Invoke(maxStamina, currentStamina);
+            } 
+        }
+    }
     public float maxStamina;
 
     [Header("Health Stat")]
@@ -41,7 +57,29 @@ public class CharacterStat : MonoBehaviour
         }
     }
 
-    public float currentHealth;
+    [SerializeField] private float currentHealth;
+    private float preCurrentHealth;
+    public float CurrentHealth
+    {
+        get
+        {
+            return currentHealth;
+        }
+        set
+        {
+            preCurrentHealth = currentHealth;
+            currentHealth = value;
+            if(preCurrentHealth < currentHealth)
+            {
+                IncreaseHealth?.Invoke(maxHealth, currentHealth);
+            }
+            else if(preCurrentHealth >= currentHealth)
+            {
+                DecreaseHealth?.Invoke(maxHealth, currentHealth);
+            }
+            
+        }
+    }
     public float maxHealth;
 
     public event Action<int, int> IncreaseVitalityStat;
@@ -66,12 +104,12 @@ public class CharacterStat : MonoBehaviour
     //Test the function
     protected virtual void Update()
     {
-        //Test function
-        //OnDecreaseHealth();
-        //if(Input.GetKeyDown(KeyCode.H))
-        //{
-        //    Vitality += 10;
-        //}
+        //Test function on Editor
+        DecreaseHealth?.Invoke(maxHealth, currentHealth);
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Vitality += 10;
+        }
     }
 
     public int CalculateHealthBasedOnVitalityLevel(int vitality)
@@ -86,24 +124,8 @@ public class CharacterStat : MonoBehaviour
         return Mathf.RoundToInt(stamina);
     }
 
-    public virtual void OnDrainStaminaBasedOnAction(int stamina, bool isContinuous)
-    {
-        currentStamina -= isContinuous ? stamina * Time.deltaTime : stamina;
-        DrainingStamina?.Invoke(maxStamina, currentStamina);
-    }
-
     public virtual void OnRegeneratingStamina()
     {
         RegeneratingStamina?.Invoke(maxStamina, currentStamina);
-    }
-
-    public virtual void OnDecreaseHealth()
-    {
-        DecreaseHealth?.Invoke(maxHealth, currentHealth);
-    }
-
-    public virtual void OnIncreaseHealth()
-    {
-        IncreaseHealth?.Invoke(maxHealth, currentHealth);
     }
 }

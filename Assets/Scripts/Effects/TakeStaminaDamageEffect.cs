@@ -15,6 +15,7 @@ public class TakeStaminaDamageEffect : ScriptableInstantCharacterEffect
 
     private void CalculateStaminaDamage(CharacterManager characterManager)
     {
-        characterManager.characterStat.OnDrainStaminaBasedOnAction(Mathf.RoundToInt(staminaDamage), false);
+        //characterManager.characterStat.OnDrainStaminaBasedOnAction(Mathf.RoundToInt(staminaDamage), false);
+        characterManager.characterStat.CurrentStamina -= staminaDamage;
     }
 }
