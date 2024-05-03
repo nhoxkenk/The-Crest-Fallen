@@ -9,6 +9,10 @@ public class CharacterManager : MonoBehaviour
     [HideInInspector] public CharacterAnimator characterAnimator;
     [HideInInspector] public CharacterLocomotion characterLocomotion;
     [HideInInspector] public CharacterStat characterStat;
+    [HideInInspector] public CharacterEffects characterEffects;
+
+    [Header("Status")]
+    public bool isAlive = true;
 
    [Header("Animation Flags")]
     public bool isPerformingAction = false;
@@ -30,7 +34,8 @@ public class CharacterManager : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         characterAnimator = GetComponentInChildren<CharacterAnimator>();
         characterLocomotion = GetComponent<CharacterLocomotion>();
-        characterStat = GetComponent<CharacterStat>();     
+        characterStat = GetComponent<CharacterStat>();
+        characterEffects = GetComponent<CharacterEffects>();
     }
 
     protected virtual void Start()

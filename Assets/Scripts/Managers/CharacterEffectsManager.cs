@@ -6,6 +6,9 @@ public class CharacterEffectsManager : Singleton<CharacterEffectsManager>
 {
     [SerializeField] private List<ScriptableInstantCharacterEffect> scriptableInstantCharacterEffects;
 
+    [Header("Damage")]
+    public TakeHealthDamageEffect takeDamageEffect;
+
     protected override void Awake()
     {
         base.Awake();
