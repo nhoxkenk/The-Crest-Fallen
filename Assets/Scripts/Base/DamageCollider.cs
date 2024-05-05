@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DamageCollider : MonoBehaviour
@@ -15,25 +16,25 @@ public class DamageCollider : MonoBehaviour
     [SerializeField] private Vector3 contactPoint;
 
     [Header("Character Damaged")]
-    protected List<CharacterManager> characterDamaged = new List<CharacterManager>();
+    protected List<IEffectable> characterDamaged = new List<IEffectable>();
 
     private void OnTriggerEnter(Collider other)
     {
-        CharacterManager characterManager = other.GetComponent<CharacterManager>();
-        if (characterManager != null)
+        IEffectable characterEffectable = other.GetComponent<IEffectable>();
+        if (characterEffectable != null)
         {
             contactPoint = other.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
-            DamageTarget(characterManager);
+            DamageTarget(characterEffectable);
         }
     }
 
-    protected virtual void DamageTarget(CharacterManager damagedTarget)
+    protected virtual void DamageTarget(IEffectable characterEffectable)
     {
-        if (characterDamaged.Contains(damagedTarget))
+        if (characterDamaged.Contains(characterEffectable))
         {
             return;
         }
-        characterDamaged.Add(damagedTarget);
+        characterDamaged.Add(characterEffectable);
 
         TakeHealthDamageEffect damageEffect = Instantiate(CharacterEffectsManager.Instance.takeDamageEffect);
         damageEffect.physicalDamage = physicalDamage;
@@ -43,6 +44,6 @@ public class DamageCollider : MonoBehaviour
         damageEffect.holyDamage = holyDamage;
         damageEffect.contactPoint = contactPoint;
 
-        damagedTarget.characterEffects.ProcessInstantEffects(damageEffect);
+        characterEffectable.ProcessInstantEffects(damageEffect);
     }
 }

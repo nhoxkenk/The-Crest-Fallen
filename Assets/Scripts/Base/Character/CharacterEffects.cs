@@ -6,15 +6,15 @@ public class CharacterEffects : MonoBehaviour
     //Timed effects (Poison, ...)
     //Static effects (Add/removing buff, ...)
 
-    private CharacterManager characterManager;
+    private IEffectable characterEffectable;
 
     protected virtual void Awake()
     {
-        characterManager = GetComponent<CharacterManager>();
+        characterEffectable = GetComponent<IEffectable>();
     }
 
     public virtual void ProcessInstantEffects(ScriptableInstantCharacterEffect effect)
     {
-        effect.ProcessEffect(characterManager);
+        effect.ProcessEffect(characterEffectable);
     }
 }

@@ -31,19 +31,19 @@ public class TakeHealthDamageEffect : ScriptableInstantCharacterEffect
     public float angleHitFrom;
     public Vector3 contactPoint;
 
-    public override void ProcessEffect(CharacterManager characterManager)
+    public override void ProcessEffect(IEffectable characterEffectable)
     {
-        base.ProcessEffect(characterManager);
+        base.ProcessEffect(characterEffectable);
 
-        if(!characterManager.isAlive)
+        if(!characterEffectable.IsAlive)
         {
             return;
         }
 
-        CalculateDamage(characterManager);
+        CalculateDamage(characterEffectable);
     }
 
-    private void CalculateDamage(CharacterManager characterManager)
+    private void CalculateDamage(IEffectable characterEffectable)
     {
         if(characterCausingDamageManager != null)
         {
@@ -57,6 +57,6 @@ public class TakeHealthDamageEffect : ScriptableInstantCharacterEffect
             finalDamageDealt = 1;
         }
 
-        characterManager.characterStat.CurrentHealth -= finalDamageDealt;
+        characterEffectable.TakeInstantHealthEffect(finalDamageDealt);
     }
 }

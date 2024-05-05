@@ -7,14 +7,14 @@ public class TakeStaminaDamageEffect : ScriptableInstantCharacterEffect
 {
     public float staminaDamage;
 
-    public override void ProcessEffect(CharacterManager characterManager)
+    public override void ProcessEffect(IEffectable characterEffectable)
     {
-        base.ProcessEffect(characterManager);
-        CalculateStaminaDamage(characterManager);
+        base.ProcessEffect(characterEffectable);
+        CalculateStaminaDamage(characterEffectable);
     }
 
-    private void CalculateStaminaDamage(CharacterManager characterManager)
+    private void CalculateStaminaDamage(IEffectable characterEffectable)
     {
-        characterManager.characterStat.CurrentStamina -= staminaDamage;
+        characterEffectable.TakeInstantStaminaEffect(staminaDamage);
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterManager : MonoBehaviour
+public class CharacterManager : MonoBehaviour, IEffectable
 {
     [HideInInspector] public CharacterController characterController;
     [HideInInspector] public Animator animator;
@@ -25,6 +25,25 @@ public class CharacterManager : MonoBehaviour
     [Header("Jump Flags")]
     public bool isJumping = false;
     public bool isGrounded = true;
+
+    #region Effectable Interface Implement
+    public bool IsAlive { get => isAlive; set => isAlive = value; }
+
+    public void ProcessInstantEffects(ScriptableInstantCharacterEffect effect)
+    {
+        characterEffects.ProcessInstantEffects(effect);
+    }
+
+    public virtual void TakeInstantHealthEffect(float damage)
+    {
+        characterStat.CurrentHealth -= damage;
+    }
+
+    public virtual void TakeInstantStaminaEffect(float damage)
+    {
+        characterStat.CurrentStamina -= damage;
+    }
+    #endregion
 
     protected virtual void Awake()
     {
