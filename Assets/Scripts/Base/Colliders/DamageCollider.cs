@@ -5,18 +5,24 @@ using UnityEngine;
 
 public class DamageCollider : MonoBehaviour
 {
+    [Header("Collider")]
+    protected Collider damageCollider;
+
     [Header("Damage")]
-    public float physicalDamage;
-    public float magicDamage;
-    public float fireDamage;
-    public float lightningDamage;
-    public float holyDamage;
+    public int physicalDamage;
+    public int magicDamage;
+    public int fireDamage;
+    public int lightningDamage;
+    public int holyDamage;
 
     [Header("Contact Point")]
     [SerializeField] private Vector3 contactPoint;
 
     [Header("Character Damaged")]
     protected List<IEffectable> characterDamaged = new List<IEffectable>();
+
+    [Header("Character Causing Damage")]
+    public CharacterManager characterCausingDamage;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -34,6 +40,7 @@ public class DamageCollider : MonoBehaviour
         {
             return;
         }
+
         characterDamaged.Add(characterEffectable);
 
         TakeHealthDamageEffect damageEffect = Instantiate(CharacterEffectsManager.Instance.takeDamageEffect);
@@ -45,5 +52,16 @@ public class DamageCollider : MonoBehaviour
         damageEffect.contactPoint = contactPoint;
 
         characterEffectable.ProcessInstantEffects(damageEffect);
+    }
+
+    public virtual void EnableDamageCollider()
+    {
+        damageCollider.enabled = true;
+    }
+
+    public virtual void DisableDamageCollider()
+    {
+        damageCollider.enabled = false;
+        characterDamaged.Clear();
     }
 }

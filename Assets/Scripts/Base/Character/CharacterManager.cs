@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterManager : MonoBehaviour, IEffectable
+public abstract class CharacterManager : MonoBehaviour, IEffectable
 {
     [HideInInspector] public CharacterController characterController;
     [HideInInspector] public Animator animator;
@@ -66,4 +66,19 @@ public class CharacterManager : MonoBehaviour, IEffectable
     {
         animator.SetBool(characterAnimator.isGroundedValue, isGrounded);
     }
+
+    public virtual IEnumerator ProcessDeathEvent(bool manualSelectDeathAnimation = false)
+    {
+        if (!manualSelectDeathAnimation)
+        {
+            characterAnimator.PlayTargetActionAnimation("Death_01", true);
+        }
+
+        isAlive = false;
+        characterStat.CurrentHealth = 0;
+
+        yield return new WaitForSeconds(5f);    
+    }
+
+    public virtual void ReviveCharacter() { }
 }

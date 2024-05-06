@@ -8,6 +8,7 @@ public class PlayerUI : MonoBehaviour
     public static PlayerUI Instance { get { return instance; } }
 
     [HideInInspector] public PlayerUIHud playerUIHud;
+    [HideInInspector] public PlayerUIPopup playerUIPopup;
 
     private void Awake()
     {
@@ -22,5 +23,6 @@ public class PlayerUI : MonoBehaviour
         }
 
         playerUIHud = GetComponentInChildren<PlayerUIHud>();
+        playerUIPopup = GetComponentInChildren<PlayerUIPopup>();
     }
 }

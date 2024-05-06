@@ -21,18 +21,6 @@ public class PlayerStat : CharacterStat
         SetupTimer();
     }
 
-    protected override void Start()
-    {
-        base.Start();
-
-        DrainingStamina += ResetStaminaRegenerationTimer;
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-    }
-
     public void OnIncreaseVitalityStat(int oldVitality, int newVitality)
     {
         maxHealth = CalculateHealthBasedOnVitalityLevel(newVitality);

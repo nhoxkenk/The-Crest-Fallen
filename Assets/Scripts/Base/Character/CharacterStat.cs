@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class CharacterStat : MonoBehaviour
 {
+    private CharacterManager characterManager;
+
     [Header("Stamina Stat")]
     [SerializeField] private int endurance = 10;
-    [SerializeField] private int preEndurance = 0;
+    private int preEndurance = 0;
+
     public int Endurance
     {
         get
@@ -21,7 +24,7 @@ public class CharacterStat : MonoBehaviour
     }
 
     [SerializeField] private float currentStamina;
-    private float preCurrentStamina;
+    [SerializeField] private float preCurrentStamina;
     public float CurrentStamina
     {
         get
@@ -42,7 +45,7 @@ public class CharacterStat : MonoBehaviour
 
     [Header("Health Stat")]
     [SerializeField] private int vitality = 10;
-    [SerializeField] private int preVitality = 0;
+    private int preVitality = 0;
     public int Vitality
     {
         get
@@ -58,7 +61,7 @@ public class CharacterStat : MonoBehaviour
     }
 
     [SerializeField] private float currentHealth;
-    private float preCurrentHealth;
+    [SerializeField] private float preCurrentHealth;
     public float CurrentHealth
     {
         get
@@ -69,15 +72,10 @@ public class CharacterStat : MonoBehaviour
         {
             preCurrentHealth = currentHealth;
             currentHealth = value;
-            if(preCurrentHealth < currentHealth)
+            if(preCurrentHealth != currentHealth)
             {
-                IncreaseHealth?.Invoke(maxHealth, currentHealth);
+                CurrentHealthChange?.Invoke(maxHealth, currentHealth);
             }
-            else if(preCurrentHealth >= currentHealth)
-            {
-                DecreaseHealth?.Invoke(maxHealth, currentHealth);
-            }
-            
         }
     }
     public float maxHealth;
@@ -88,12 +86,11 @@ public class CharacterStat : MonoBehaviour
     public event Action<float, float> DrainingStamina;
     public event Action<float, float> RegeneratingStamina;
 
-    public event Action<float, float> DecreaseHealth;
-    public event Action<float, float> IncreaseHealth;
+    public event Action<float, float> CurrentHealthChange;
 
     protected virtual void Awake()
     {
-
+        characterManager = GetComponent<CharacterManager>();
     }
 
     protected virtual void Start()
@@ -105,7 +102,7 @@ public class CharacterStat : MonoBehaviour
     protected virtual void Update()
     {
         //Test function on Editor
-        DecreaseHealth?.Invoke(maxHealth, currentHealth);
+        CurrentHealthChange?.Invoke(maxHealth, currentHealth);
         if (Input.GetKeyDown(KeyCode.H))
         {
             Vitality += 10;
@@ -127,5 +124,20 @@ public class CharacterStat : MonoBehaviour
     public virtual void OnRegeneratingStamina()
     {
         RegeneratingStamina?.Invoke(maxStamina, currentStamina);
+    }
+
+    public virtual void HandleCurrentHealthChange(float currentHealthValue, float newHealthValue)
+    {
+        if(currentHealth <= 0 && characterManager.isAlive)
+        {
+            StartCoroutine(characterManager.ProcessDeathEvent());
+            preCurrentHealth = currentHealth;
+        }
+
+        if(currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+            preCurrentHealth = currentHealth;
+        }
     }
 }

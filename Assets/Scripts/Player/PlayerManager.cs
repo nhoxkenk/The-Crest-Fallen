@@ -1,8 +1,12 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerManager : CharacterManager
 {
+    [Header("Debug")]
+    public bool revive;
+
     private static PlayerManager instance;
     public static PlayerManager Instance
     {
@@ -36,18 +40,13 @@ public class PlayerManager : CharacterManager
             Destroy(gameObject);
         }
 
-        playerInput = GetComponent<PlayerInput>();
-        playerLocomotion = GetComponent<PlayerLocomotion>();
-        playerAnimator = GetComponentInChildren<PlayerAnimator>();
-        playerInventory = GetComponent<PlayerInventory>();
-        playerStat = GetComponent<PlayerStat>();
-        playerSaveData = GetComponent<PlayerSaveData>();
+        GetComponents();
     }
 
     protected override void Start()
     {
         base.Start();
-
+        BindingPlayerEvents();
         InitializePlayerStat();
     }
 
@@ -58,6 +57,8 @@ public class PlayerManager : CharacterManager
         playerLocomotion.HandleAllMovement();
 
         playerStat.RegenerateStamina();
+
+        DebugMenu();
     }
 
     private void LateUpdate()
@@ -81,5 +82,52 @@ public class PlayerManager : CharacterManager
         playerStat.CurrentHealth = playerSaveData.data.currentHealth;
         PlayerUI.Instance.playerUIHud.HandleMaxHealthValue(playerStat.maxHealth);
         playerStat.IncreaseEnduranceStat += playerStat.OnIncreaseEnduranceStat;
+    }
+
+    private void BindingPlayerEvents()
+    {
+        playerStat.DrainingStamina += PlayerUI.Instance.playerUIHud.HandleNewStaminaValue;
+        playerStat.RegeneratingStamina += PlayerUI.Instance.playerUIHud.HandleNewStaminaValue;
+
+        playerStat.CurrentHealthChange += PlayerUI.Instance.playerUIHud.HandleNewHealthValue;
+        playerStat.CurrentHealthChange += playerStat.HandleCurrentHealthChange;
+
+        playerStat.DrainingStamina += playerStat.ResetStaminaRegenerationTimer;
+    }
+
+    private void GetComponents()
+    {
+        playerInput = GetComponent<PlayerInput>();
+        playerLocomotion = GetComponent<PlayerLocomotion>();
+        playerAnimator = GetComponentInChildren<PlayerAnimator>();
+        playerInventory = GetComponent<PlayerInventory>();
+        playerStat = GetComponent<PlayerStat>();
+        playerSaveData = GetComponent<PlayerSaveData>();
+    }
+    public override IEnumerator ProcessDeathEvent(bool manualSelectDeathAnimation = false)
+    {
+        PlayerUI.Instance.playerUIPopup.SendYouDiedPopUp();
+        return base.ProcessDeathEvent(manualSelectDeathAnimation);
+    }
+
+    public override void ReviveCharacter()
+    {
+        base.ReviveCharacter();
+
+        playerStat.CurrentHealth = playerStat.maxHealth;
+        playerStat.CurrentStamina = playerStat.maxStamina;
+
+        playerAnimator.PlayTargetActionAnimation("Empty", false);
+
+        isAlive = true;
+    }
+
+    private void DebugMenu()
+    {
+        if (revive)
+        {
+            revive = false;
+            ReviveCharacter();
+        }
     }
 }

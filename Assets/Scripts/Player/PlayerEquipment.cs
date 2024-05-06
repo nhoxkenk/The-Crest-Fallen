@@ -8,6 +8,11 @@ public class PlayerEquipment : CharacterEquipment
     public WeaponModelInstantiationSlot rightHandSlot;
     public WeaponModelInstantiationSlot leftHandSlot;
 
+    [Header("Weapon Manager")]
+    [SerializeField] private WeaponManager rightHandWeaponManager;
+    [SerializeField] private WeaponManager leftHandWeaponManager;
+
+    [Header("Weapon Model")]
     [SerializeField] private GameObject rightHandWeaponModel;
     [SerializeField] private GameObject leftHandWeaponModel;
 
@@ -49,8 +54,10 @@ public class PlayerEquipment : CharacterEquipment
     {
         if(PlayerManager.Instance.playerInventory.currentLeftHandWeapon != null)
         {
-            rightHandWeaponModel = Instantiate(PlayerManager.Instance.playerInventory.currentLeftHandWeapon.weaponModelPrefab);
-            leftHandSlot.LoadWeaponModel(rightHandWeaponModel);
+            leftHandWeaponModel = Instantiate(PlayerManager.Instance.playerInventory.currentLeftHandWeapon.weaponModelPrefab);
+            leftHandSlot.LoadWeaponModel(leftHandWeaponModel);
+            leftHandWeaponManager = leftHandWeaponModel.GetComponent<WeaponManager>();
+            leftHandWeaponManager.SetWeaponDamage(PlayerManager.Instance, PlayerManager.Instance.playerInventory.currentLeftHandWeapon);
         }
     }
 
@@ -58,8 +65,10 @@ public class PlayerEquipment : CharacterEquipment
     {
         if (PlayerManager.Instance.playerInventory.currentRightHandWeapon != null)
         {
-            leftHandWeaponModel = Instantiate(PlayerManager.Instance.playerInventory.currentRightHandWeapon.weaponModelPrefab);
-            rightHandSlot.LoadWeaponModel(leftHandWeaponModel);
+            rightHandWeaponModel = Instantiate(PlayerManager.Instance.playerInventory.currentRightHandWeapon.weaponModelPrefab);
+            rightHandSlot.LoadWeaponModel(rightHandWeaponModel);
+            rightHandWeaponManager = rightHandWeaponModel.GetComponent<WeaponManager>();
+            rightHandWeaponManager.SetWeaponDamage(PlayerManager.Instance, PlayerManager.Instance.playerInventory.currentRightHandWeapon);
         }
     }
 }
