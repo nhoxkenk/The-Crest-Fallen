@@ -33073,10 +33073,10 @@ GameObject:
   - component: {fileID: 2093920631}
   - component: {fileID: 2093920638}
   - component: {fileID: 2093920639}
-  - component: {fileID: 2093920636}
   - component: {fileID: 2093920635}
-  - component: {fileID: 2093920637}
   - component: {fileID: 2093920640}
+  - component: {fileID: 2093920636}
+  - component: {fileID: 2093920637}
   m_Layer: 6
   m_Name: Hero
   m_TagString: Untagged
@@ -33110,12 +33110,14 @@ MonoBehaviour:
   isJumping: 0
   isGrounded: 0
   revive: 0
+  switchRightWeapon: 0
   playerInput: {fileID: 0}
   playerLocomotion: {fileID: 0}
   playerAnimator: {fileID: 0}
   playerInventory: {fileID: 0}
   playerStat: {fileID: 0}
   playerSaveData: {fileID: 0}
+  playerEquipment: {fileID: 0}
 --- !u!114 &2093920631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33224,6 +33226,8 @@ MonoBehaviour:
   leftHandWeaponManager: {fileID: 0}
   rightHandWeaponModel: {fileID: 0}
   leftHandWeaponModel: {fileID: 0}
+  currentRightHandWeaponId: 0
+  currentLeftHandWeaponId: 0
 --- !u!114 &2093920636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33236,8 +33240,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37eb17f3165aaac47b2a5bd6aeb519e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentRightHandWeapon: {fileID: 11400000, guid: c230d9994fe472e4ba9655ff323f962f, type: 2}
-  currentLeftHandWeapon: {fileID: 11400000, guid: a86e9616c89401f4d98d5dbbe27055dd, type: 2}
+  currentRightHandWeapon: {fileID: 11400000, guid: 4897c184f32847b458c8778bb64a717d, type: 2}
+  currentLeftHandWeapon: {fileID: 11400000, guid: 4897c184f32847b458c8778bb64a717d, type: 2}
+  rightHandWeaponIndex: 0
+  weaponsInRightHandSlots:
+  - {fileID: 11400000, guid: 4897c184f32847b458c8778bb64a717d, type: 2}
+  - {fileID: 11400000, guid: 4897c184f32847b458c8778bb64a717d, type: 2}
+  - {fileID: 11400000, guid: c230d9994fe472e4ba9655ff323f962f, type: 2}
+  leftHandWeaponIndex: 0
+  weaponsInLeftHandSlots:
+  - {fileID: 11400000, guid: 4897c184f32847b458c8778bb64a717d, type: 2}
+  - {fileID: 11400000, guid: 4897c184f32847b458c8778bb64a717d, type: 2}
+  - {fileID: 11400000, guid: 4897c184f32847b458c8778bb64a717d, type: 2}
 --- !u!114 &2093920637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36660,12 +36674,14 @@ MonoBehaviour:
   isJumping: 0
   isGrounded: 0
   revive: 0
+  switchRightWeapon: 0
   playerInput: {fileID: 0}
   playerLocomotion: {fileID: 0}
   playerAnimator: {fileID: 0}
   playerInventory: {fileID: 0}
   playerStat: {fileID: 0}
   playerSaveData: {fileID: 0}
+  playerEquipment: {fileID: 0}
 --- !u!114 &6964276849754882535
 MonoBehaviour:
   m_ObjectHideFlags: 0

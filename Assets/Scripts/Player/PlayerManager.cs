@@ -6,6 +6,7 @@ public class PlayerManager : CharacterManager
 {
     [Header("Debug")]
     public bool revive;
+    public bool switchRightWeapon;
 
     private static PlayerManager instance;
     public static PlayerManager Instance
@@ -26,6 +27,7 @@ public class PlayerManager : CharacterManager
     [HideInInspector] public PlayerInventory playerInventory;
     [HideInInspector] public PlayerStat playerStat;
     [HideInInspector] public PlayerSaveData playerSaveData;
+    [HideInInspector] public PlayerEquipment playerEquipment;
 
    protected override void Awake()
     {
@@ -86,6 +88,7 @@ public class PlayerManager : CharacterManager
 
     private void BindingPlayerEvents()
     {
+        //Stats
         playerStat.DrainingStamina += PlayerUI.Instance.playerUIHud.HandleNewStaminaValue;
         playerStat.RegeneratingStamina += PlayerUI.Instance.playerUIHud.HandleNewStaminaValue;
 
@@ -93,6 +96,10 @@ public class PlayerManager : CharacterManager
         playerStat.CurrentHealthChange += playerStat.HandleCurrentHealthChange;
 
         playerStat.DrainingStamina += playerStat.ResetStaminaRegenerationTimer;
+
+        //Weapons
+        playerEquipment.LeftHandWeaponIdChange += playerEquipment.HandleCurrentLeftHandWeaponIdChange;
+        playerEquipment.RightHandWeaponIdChange += playerEquipment.HandleCurrentRightHandWeaponIdChange;
     }
 
     private void GetComponents()
@@ -103,6 +110,7 @@ public class PlayerManager : CharacterManager
         playerInventory = GetComponent<PlayerInventory>();
         playerStat = GetComponent<PlayerStat>();
         playerSaveData = GetComponent<PlayerSaveData>();
+        playerEquipment = GetComponent<PlayerEquipment>();
     }
     public override IEnumerator ProcessDeathEvent(bool manualSelectDeathAnimation = false)
     {
@@ -128,6 +136,12 @@ public class PlayerManager : CharacterManager
         {
             revive = false;
             ReviveCharacter();
+        }
+
+        if (switchRightWeapon)
+        {
+            switchRightWeapon = false;
+            playerEquipment.SwitchRightWeapon();
         }
     }
 }
