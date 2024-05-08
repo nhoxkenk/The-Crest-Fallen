@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Big Straight Sword
   itemIcon: {fileID: 21300000, guid: 97115cd50eb704ef183d5a2543016954, type: 3}
   itemDescription: 
-  itemID: 0
+  itemID: 2
   isUnarmed: 0
   weaponModelPrefab: {fileID: 4651863922596782672, guid: f2f892ad67c423f42a17a2fd3c0cd707, type: 3}
   strengthREQ: 20
@@ -29,5 +29,4 @@ MonoBehaviour:
   holyDamage: 0
   poiseDamage: 5
   baseStaminaCost: 20
-  oneHand_Light_Attack_1: 
-  oneHand_Heavy_Attack_1: 
+  leftMouseButtonAction: {fileID: 11400000, guid: c1ca763129629624484eb68aadda6130, type: 2}

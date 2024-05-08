@@ -21,13 +21,14 @@ public class PlayerManager : CharacterManager
         }
     }
 
-    [HideInInspector] public PlayerInput playerInput;
+    [HideInInspector] public InputReader playerInput;
     [HideInInspector] public PlayerLocomotion playerLocomotion;
     [HideInInspector] public PlayerAnimator playerAnimator;
     [HideInInspector] public PlayerInventory playerInventory;
     [HideInInspector] public PlayerStat playerStat;
     [HideInInspector] public PlayerSaveData playerSaveData;
     [HideInInspector] public PlayerEquipment playerEquipment;
+    [HideInInspector] public PlayerCombat playerCombat;
 
    protected override void Awake()
     {
@@ -100,18 +101,25 @@ public class PlayerManager : CharacterManager
         //Weapons
         playerEquipment.LeftHandWeaponIdChange += playerEquipment.HandleCurrentLeftHandWeaponIdChange;
         playerEquipment.RightHandWeaponIdChange += playerEquipment.HandleCurrentRightHandWeaponIdChange;
+
+        //Combat
+        playerEquipment.CurrentWeaponBeingUsedIdChange += playerEquipment.HandleCurrentWeaponUsedIdChange;
     }
 
-    private void GetComponents()
+    protected override void GetComponents()
     {
-        playerInput = GetComponent<PlayerInput>();
+        base.GetComponents();
+
+        playerInput = GetComponent<InputReader>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
         playerAnimator = GetComponentInChildren<PlayerAnimator>();
         playerInventory = GetComponent<PlayerInventory>();
         playerStat = GetComponent<PlayerStat>();
         playerSaveData = GetComponent<PlayerSaveData>();
         playerEquipment = GetComponent<PlayerEquipment>();
+        playerCombat = GetComponent<PlayerCombat>();
     }
+
     public override IEnumerator ProcessDeathEvent(bool manualSelectDeathAnimation = false)
     {
         PlayerUI.Instance.playerUIPopup.SendYouDiedPopUp();

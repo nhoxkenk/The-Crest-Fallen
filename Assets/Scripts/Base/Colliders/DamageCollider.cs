@@ -26,7 +26,7 @@ public class DamageCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        IEffectable characterEffectable = other.GetComponent<IEffectable>();
+        IEffectable characterEffectable = other.GetComponentInParent<IEffectable>();
         if (characterEffectable != null)
         {
             contactPoint = other.GetComponent<Collider>().ClosestPointOnBounds(transform.position);

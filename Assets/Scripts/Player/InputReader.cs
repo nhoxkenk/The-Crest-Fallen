@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+public class InputReader : MonoBehaviour
 {
     private PlayerControls playerControls;
 
@@ -21,10 +21,8 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private bool dodgeInput;
     [SerializeField] private bool sprintInput;
     [SerializeField] private bool jumpInput;
-
-    [Header("Player Attacks")]
-    [SerializeField] private bool lightAttackInput;
-    [SerializeField] private bool heavyAttackInput;
+    [SerializeField] private bool leftMouseInput;
+    [SerializeField] private bool rightMouseInput;
 
     private void OnEnable()
     {
@@ -39,8 +37,8 @@ public class PlayerInput : MonoBehaviour
             playerControls.Player.Sprint.canceled += i => sprintInput = false;
             playerControls.Player.Jump.performed += i => jumpInput = true;
 
-            playerControls.Player.LightAttack.performed += i => lightAttackInput = true;
-            playerControls.Player.HeavyAttack.performed += i => heavyAttackInput = true;
+            playerControls.Player.LightAttack.performed += i => leftMouseInput = true;
+            playerControls.Player.HeavyAttack.performed += i => rightMouseInput = true;
         }
 
         playerControls.Enable();
@@ -63,7 +61,8 @@ public class PlayerInput : MonoBehaviour
         HandleDodgeInput();
         HandleSprintingInput();
         HandleJumpInput();
-        HandleAttackInput();
+        HandleLeftMouseInput();
+        HandleRightMouseInput();
     }
 
     private void HandleCameraMovementInput()
@@ -127,16 +126,24 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    private void HandleAttackInput()
+    private void HandleLeftMouseInput()
     {
-        if (lightAttackInput)
+        var inventory = PlayerManager.Instance.playerInventory;
+        if (leftMouseInput)
         {
-            lightAttackInput = false;
-        }
+            leftMouseInput = false;
 
-        if (heavyAttackInput)
+            PlayerManager.Instance.playerCombat.SetCharacterActionHand(true);
+
+            PlayerManager.Instance.playerCombat.PerformWeaponBasedAction(inventory.currentRightHandWeapon.leftMouseButtonAction, inventory.currentRightHandWeapon);
+        }
+    }
+
+    private void HandleRightMouseInput()
+    {
+        if (rightMouseInput)
         {
-            heavyAttackInput = false;
+            rightMouseInput = false;
         }
     }
 }

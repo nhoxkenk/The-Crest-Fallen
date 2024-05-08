@@ -49,6 +49,7 @@ public class PlayerEquipment : CharacterEquipment
     }
     public event Action<int, int> LeftHandWeaponIdChange;
 
+
     protected override void Awake()
     {
         base.Awake();
@@ -97,15 +98,50 @@ public class PlayerEquipment : CharacterEquipment
         if (inventory.leftHandWeaponIndex < 0 || inventory.leftHandWeaponIndex >= inventory.weaponsInLeftHandSlots.Length)
         {
             inventory.leftHandWeaponIndex = 0;
-        }
 
-        foreach (WeaponItem weaponItem in inventory.weaponsInLeftHandSlots)
-        {
-            if (inventory.weaponsInLeftHandSlots[inventory.leftHandWeaponIndex].itemID != AllItemsManager.Instance.unarmedWeapon.itemID)
+            //Checking if hold more than one weapon
+            int weaponCurrentHold = 0;
+            int firstWeaponIndex = 0;
+            WeaponItem firstWeapon = null;
+
+            for (int i = 0; i < inventory.weaponsInLeftHandSlots.Length; i++)
             {
-                selectedWeapon = inventory.weaponsInLeftHandSlots[inventory.leftHandWeaponIndex];
+                if (inventory.weaponsInLeftHandSlots[i].itemID != AllItemsManager.Instance.unarmedWeapon.itemID)
+                {
+                    weaponCurrentHold++;
+
+                    if (firstWeapon == null)
+                    {
+                        firstWeapon = inventory.weaponsInLeftHandSlots[i];
+                        firstWeaponIndex = i;
+                    }
+                }
+            }
+
+            if (weaponCurrentHold <= 1)
+            {
+                inventory.leftHandWeaponIndex = -1;
+                selectedWeapon = AllItemsManager.Instance.unarmedWeapon;
                 CurrentLeftHandWeaponId = selectedWeapon.itemID;
             }
+            else
+            {
+                inventory.leftHandWeaponIndex = firstWeaponIndex;
+                CurrentLeftHandWeaponId = firstWeapon.itemID;
+            }
+            return;
+        }
+
+        if (inventory.weaponsInLeftHandSlots[inventory.leftHandWeaponIndex].itemID != AllItemsManager.Instance.unarmedWeapon.itemID)
+        {
+            selectedWeapon = inventory.weaponsInLeftHandSlots[inventory.leftHandWeaponIndex];
+            CurrentLeftHandWeaponId = selectedWeapon.itemID;
+            return;
+        }
+
+        if(selectedWeapon == null && inventory.leftHandWeaponIndex < inventory.weaponsInLeftHandSlots.Length)
+        {
+            SwitchLeftWeapon();
         }
     }
 
@@ -214,4 +250,10 @@ public class PlayerEquipment : CharacterEquipment
     }
 
     #endregion
+
+    public void HandleCurrentWeaponUsedIdChange(int oldId, int newId)
+    {
+        WeaponItem weaponItem = Instantiate(AllItemsManager.Instance.GetWeaponItemById(newId));
+        PlayerManager.Instance.playerCombat.currentWeaponUsed = weaponItem;
+    }
 }

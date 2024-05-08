@@ -28,7 +28,6 @@ public class WeaponItem : ScriptableItem
     [Header("Weapon Base Damage")]
     public int baseStaminaCost = 20;
 
-    [Header("One Handed Attack Animations")]
-    public string oneHand_Light_Attack_1;
-    public string oneHand_Heavy_Attack_1;
+    [Header("Actions")]
+    public ScriptableWeaponItemAction leftMouseButtonAction;
 }

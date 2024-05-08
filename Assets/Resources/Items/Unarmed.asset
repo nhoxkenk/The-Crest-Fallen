@@ -29,5 +29,4 @@ MonoBehaviour:
   holyDamage: 0
   poiseDamage: 5
   baseStaminaCost: 1
-  oneHand_Light_Attack_1: 
-  oneHand_Heavy_Attack_1: 
+  leftMouseButtonAction: {fileID: 11400000, guid: 00d871bfe735dfd41b4aad2516d09406, type: 2}

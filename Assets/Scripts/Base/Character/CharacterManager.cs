@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public abstract class CharacterManager : MonoBehaviour, IEffectable
@@ -10,6 +11,9 @@ public abstract class CharacterManager : MonoBehaviour, IEffectable
     [HideInInspector] public CharacterLocomotion characterLocomotion;
     [HideInInspector] public CharacterStat characterStat;
     [HideInInspector] public CharacterEffects characterEffects;
+    [HideInInspector] public CharacterInventory characterInventory;
+    [HideInInspector] public CharacterEquipment characterEquipment;
+    [HideInInspector] public CharacterCombat characterCombat;
 
     [Header("Status")]
     public bool isAlive = true;
@@ -48,23 +52,30 @@ public abstract class CharacterManager : MonoBehaviour, IEffectable
     protected virtual void Awake()
     {
         DontDestroyOnLoad(this);
+        GetComponents();
+    }
 
+    protected virtual void Start()
+    {
+        IgnoreCharacterOwnCollision();
+    }
+
+    protected virtual void Update()
+    {
+        animator.SetBool(characterAnimator.isGroundedValue, isGrounded);
+    }
+
+    protected virtual void GetComponents()
+    {
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         characterAnimator = GetComponentInChildren<CharacterAnimator>();
         characterLocomotion = GetComponent<CharacterLocomotion>();
         characterStat = GetComponent<CharacterStat>();
         characterEffects = GetComponent<CharacterEffects>();
-    }
-
-    protected virtual void Start()
-    {
-
-    }
-
-    protected virtual void Update()
-    {
-        animator.SetBool(characterAnimator.isGroundedValue, isGrounded);
+        characterInventory = GetComponent<CharacterInventory>();
+        characterEquipment = GetComponent<CharacterEquipment>();
+        characterCombat = GetComponent<CharacterCombat>();
     }
 
     public virtual IEnumerator ProcessDeathEvent(bool manualSelectDeathAnimation = false)
@@ -81,4 +92,27 @@ public abstract class CharacterManager : MonoBehaviour, IEffectable
     }
 
     public virtual void ReviveCharacter() { }
+
+    private void IgnoreCharacterOwnCollision()
+    {
+        Collider characterControllerCollider = GetComponent<Collider>();
+        Collider[] characterDamageableCollider = GetComponentsInChildren<Collider>();
+
+        List<Collider> collidersWillBeIgnore = new List<Collider>();
+
+        foreach(var collider in characterDamageableCollider)
+        {
+            collidersWillBeIgnore.Add(collider);
+        }
+        collidersWillBeIgnore.Add(characterControllerCollider);
+
+        foreach(var collider in collidersWillBeIgnore)
+        {
+            foreach (var otherCollider in collidersWillBeIgnore)
+            {
+                Physics.IgnoreCollision(collider, otherCollider, true);
+            }
+        }
+        
+    }
 }

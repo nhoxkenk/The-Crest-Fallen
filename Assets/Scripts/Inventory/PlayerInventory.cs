@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerInventory : CharacterInventory
 {
-
     public WeaponItem currentRightHandWeapon;
     public WeaponItem currentLeftHandWeapon;
 
