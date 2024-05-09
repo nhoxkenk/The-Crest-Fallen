@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    [SerializeField] private DamageCollider damageCollider;
+    public DamageCollider damageCollider;
 
     private void Awake()
     {
@@ -19,5 +19,8 @@ public class WeaponManager : MonoBehaviour
         damageCollider.fireDamage = weaponItem.fireDamage;
         damageCollider.lightningDamage = weaponItem.lightningDamage;
         damageCollider.holyDamage = weaponItem.holyDamage;
+
+        var modifiers = damageCollider.GetComponent<IWeaponModifier>();
+        modifiers.LightAttack01Modifier = weaponItem.lightAttack01Modifier;
     }
 }

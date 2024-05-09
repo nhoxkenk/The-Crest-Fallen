@@ -4,5 +4,28 @@ using UnityEngine;
 
 public class PlayerCombat : CharacterCombat
 {
-   
+    /// <summary>
+    /// This function is register as an event in Animation events of Light Attack Animation.
+    /// </summary>
+    public override void DrainStaminaBaseOnWeaponAction()
+    {
+        if(currentWeaponBeingUsed == null)
+        {
+            return;
+        }
+
+        float staminaDeducted = 0;
+
+        switch(currentAttackType)
+        {
+            case AttackType.lightAttack01:
+                staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.lightAttackStaminaCostMultiplier;
+                break;
+
+            default:
+                break;
+        }
+
+        PlayerManager.Instance.playerStat.CurrentStamina -= staminaDeducted;
+    }
 }

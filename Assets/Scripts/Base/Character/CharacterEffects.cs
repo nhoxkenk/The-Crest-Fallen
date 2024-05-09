@@ -6,15 +6,31 @@ public class CharacterEffects : MonoBehaviour
     //Timed effects (Poison, ...)
     //Static effects (Add/removing buff, ...)
 
-    private IEffectable characterEffectable;
+    private CharacterManager characterEffectable;
+
+    private VfxFactory vfxFactory;
+    private IVfx vfx;
 
     protected virtual void Awake()
     {
-        characterEffectable = GetComponent<IEffectable>();
+        characterEffectable = GetComponent<CharacterManager>();
+    }
+
+    protected virtual void Start()
+    {
+        
     }
 
     public virtual void ProcessInstantEffects(ScriptableInstantCharacterEffect effect)
     {
         effect.ProcessEffect(characterEffectable);
+    }
+
+    public virtual void PlayBloodSplatterVFX(Vector3 contactPoint)
+    {
+        vfxFactory = new BloodSplatFactory();
+        vfx = vfxFactory.CreateVfx();
+
+        vfx.PlayVfx(contactPoint);
     }
 }

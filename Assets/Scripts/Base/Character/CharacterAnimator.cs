@@ -36,9 +36,11 @@ public class CharacterAnimator : MonoBehaviour
         characterManager.canRotate = canRotate;
     }
 
-    public virtual void PlayTargetAttackAnimation(string targetAnimationName, bool isPerformingAction, bool applyRootMotion = true, bool canMove = false, bool canRotate = false)
+    public virtual void PlayTargetAttackAnimation(AttackType type, string targetAnimationName, bool isPerformingAction, bool applyRootMotion = true, bool canMove = false, bool canRotate = false)
     {
         //Keep track of last attack
+        characterManager.characterCombat.currentAttackType = type;
+
         characterManager.applyRootMotion = applyRootMotion;
         characterManager.animator.CrossFade(targetAnimationName, 0.2f);
         characterManager.isPerformingAction = isPerformingAction;

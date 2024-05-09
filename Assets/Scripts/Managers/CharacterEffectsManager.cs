@@ -9,6 +9,9 @@ public class CharacterEffectsManager : Singleton<CharacterEffectsManager>
     [Header("Damage")]
     public TakeHealthDamageEffect takeDamageEffect;
 
+    [Header("VFX")]
+    public GameObject bloodSplatVFX;
+
     protected override void Awake()
     {
         base.Awake();

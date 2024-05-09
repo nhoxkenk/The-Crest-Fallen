@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterCombat : MonoBehaviour
+public abstract class CharacterCombat : MonoBehaviour
 {
-    public WeaponItem currentWeaponUsed;
+    public WeaponItem currentWeaponBeingUsed;
+    public AttackType currentAttackType;
 
     [Header("Actions Input")]
     [SerializeField] protected bool isUsingLeftHandWeapon;
@@ -62,6 +63,37 @@ public class CharacterCombat : MonoBehaviour
         if (action != null)
         {
             action.AttempToPerformAction(PlayerManager.Instance, weapon);
+        }
+    }
+
+    public abstract void DrainStaminaBaseOnWeaponAction();
+
+    /// <summary>
+    /// Register as an event to Animations Events
+    /// </summary>
+    public void OpenWeaponDamageCollider()
+    {
+        if (isUsingLeftHandWeapon)
+        {
+            PlayerManager.Instance.playerEquipment.leftHandWeaponManager.damageCollider.EnableDamageCollider();
+        }
+        if (isUsingRightHandWeapon)
+        {
+            PlayerManager.Instance.playerEquipment.rightHandWeaponManager.damageCollider.EnableDamageCollider();
+        }
+    }
+    /// <summary>
+    /// Register as an event to Animations Events
+    /// </summary>
+    public void CloseWeaponDamageCollider()
+    {
+        if (isUsingLeftHandWeapon)
+        {
+            PlayerManager.Instance.playerEquipment.leftHandWeaponManager.damageCollider.DisableDamageCollider();
+        }
+        if (isUsingRightHandWeapon)
+        {
+            PlayerManager.Instance.playerEquipment.rightHandWeaponManager.damageCollider.DisableDamageCollider();
         }
     }
 }

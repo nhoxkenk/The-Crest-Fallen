@@ -10,8 +10,8 @@ public class PlayerEquipment : CharacterEquipment
     public WeaponModelInstantiationSlot leftHandSlot;
 
     [Header("Weapon Manager")]
-    [SerializeField] private WeaponManager rightHandWeaponManager;
-    [SerializeField] private WeaponManager leftHandWeaponManager;
+    public WeaponManager rightHandWeaponManager;
+    public WeaponManager leftHandWeaponManager;
 
     [Header("Weapon Model")]
     [SerializeField] private GameObject rightHandWeaponModel;
@@ -254,6 +254,6 @@ public class PlayerEquipment : CharacterEquipment
     public void HandleCurrentWeaponUsedIdChange(int oldId, int newId)
     {
         WeaponItem weaponItem = Instantiate(AllItemsManager.Instance.GetWeaponItemById(newId));
-        PlayerManager.Instance.playerCombat.currentWeaponUsed = weaponItem;
+        PlayerManager.Instance.playerCombat.currentWeaponBeingUsed = weaponItem;
     }
 }

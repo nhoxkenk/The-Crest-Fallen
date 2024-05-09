@@ -16,7 +16,7 @@ public class DamageCollider : MonoBehaviour
     public int holyDamage;
 
     [Header("Contact Point")]
-    [SerializeField] private Vector3 contactPoint;
+    [SerializeField] protected Vector3 contactPoint;
 
     [Header("Character Damaged")]
     protected List<IEffectable> characterDamaged = new List<IEffectable>();
@@ -24,7 +24,12 @@ public class DamageCollider : MonoBehaviour
     [Header("Character Causing Damage")]
     public CharacterManager characterCausingDamage;
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void Awake()
+    {
+        damageCollider = GetComponent<Collider>();
+    }
+
+    protected virtual void OnTriggerEnter(Collider other)
     {
         IEffectable characterEffectable = other.GetComponentInParent<IEffectable>();
         if (characterEffectable != null)
