@@ -6,6 +6,7 @@ using UnityEngine;
 public class LightAttackAction : ScriptableWeaponItemAction
 {
     [SerializeField] private string lightAttack_01 = "Main_Light_Attack_01";
+
     public override void AttempToPerformAction(CharacterManager characterPerformAction, WeaponItem weaponPerformAction)
     {
         base.AttempToPerformAction(characterPerformAction, weaponPerformAction);

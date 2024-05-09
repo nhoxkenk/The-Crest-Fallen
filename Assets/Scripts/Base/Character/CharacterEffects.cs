@@ -8,8 +8,7 @@ public class CharacterEffects : MonoBehaviour
 
     private CharacterManager characterEffectable;
 
-    private VfxFactory vfxFactory;
-    private IVfx vfx;
+    [SerializeField] private VfxFactory vfxFactory;
 
     protected virtual void Awake()
     {
@@ -28,9 +27,6 @@ public class CharacterEffects : MonoBehaviour
 
     public virtual void PlayBloodSplatterVFX(Vector3 contactPoint)
     {
-        vfxFactory = new BloodSplatFactory();
-        vfx = vfxFactory.CreateVfx();
-
-        vfx.PlayVfx(contactPoint);
+        vfxFactory.GetVfx(contactPoint);
     }
 }

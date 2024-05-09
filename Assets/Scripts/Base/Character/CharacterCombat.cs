@@ -51,19 +51,6 @@ public abstract class CharacterCombat : MonoBehaviour
     public virtual void PerformWeaponBasedAction(ScriptableWeaponItemAction weaponAction, WeaponItem weapon)
     {
         weaponAction.AttempToPerformAction(PlayerManager.Instance, weapon);
-
-        PerformWeaponAction(weaponAction.actionId, weapon.itemID);
-    }
-
-    protected virtual void PerformWeaponAction(int actionId, int weaponId)
-    {
-        ScriptableWeaponItemAction action = CharacterActionsManager.Instance.GetWeaponItemActionById(actionId);
-        WeaponItem weapon = AllItemsManager.Instance.GetWeaponItemById(weaponId);
-
-        if (action != null)
-        {
-            action.AttempToPerformAction(PlayerManager.Instance, weapon);
-        }
     }
 
     public abstract void DrainStaminaBaseOnWeaponAction();

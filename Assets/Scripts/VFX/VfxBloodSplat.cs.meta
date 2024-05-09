@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 13bb2866b5744e646a6ab1dd356e2731
+guid: 3961c410a94bf1d4aaa54d467b38fa5d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - bloodSplatVFX: {fileID: 6944379831466527493, guid: f40043ef3b8baf64b8a93d5c71c04ce5, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
