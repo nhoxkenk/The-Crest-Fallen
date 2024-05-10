@@ -2932,7 +2932,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5649822251182342639}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2955,7 +2955,7 @@ Transform:
   - {fileID: 7734694879790724477}
   - {fileID: 6115938805937796705}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8155807294900901339
 Animator:
@@ -3049,6 +3049,9 @@ MonoBehaviour:
   characterLocomotion: {fileID: 0}
   characterStat: {fileID: 0}
   characterEffects: {fileID: 0}
+  characterInventory: {fileID: 0}
+  characterEquipment: {fileID: 0}
+  characterCombat: {fileID: 0}
   isAlive: 1
   isPerformingAction: 0
   applyRootMotion: 0
@@ -3065,6 +3068,7 @@ MonoBehaviour:
   playerStat: {fileID: 0}
   playerSaveData: {fileID: 0}
   playerEquipment: {fileID: 0}
+  playerCombat: {fileID: 0}
 --- !u!114 &4452300291533999704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3094,8 +3098,8 @@ MonoBehaviour:
   dodgeInput: 0
   sprintInput: 0
   jumpInput: 0
-  lightAttackInput: 0
-  heavyAttackInput: 0
+  leftMouseInput: 0
+  rightMouseInput: 0
 --- !u!114 &1889250531522432930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3164,6 +3168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 723b37c765da5db4caa30a4002864941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vfxFactory: {fileID: 11400000, guid: af4e59bf16330a04d83744df707f9670, type: 2}
   temporaryEffect: {fileID: 11400000, guid: 68f5cd52b1bcbb94188eeeea03c3e898, type: 2}
   isTriggerEffect: 0
 --- !u!114 &4306274004316304572
@@ -3178,10 +3183,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2219f1dfedb8474dabcc64f4b7df932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponBeingUsedId: 0
   rightHandSlot: {fileID: 0}
   leftHandSlot: {fileID: 0}
-  rightHandWeaponManager: {fileID: 0}
-  leftHandWeaponManager: {fileID: 0}
   rightHandWeaponModel: {fileID: 0}
   leftHandWeaponModel: {fileID: 0}
   currentRightHandWeaponId: 0
@@ -3246,6 +3250,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a8a5d41bccc8542a9e3779c7e1a6e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponBeingUsed: {fileID: 0}
+  currentAttackType: 0
+  isUsingLeftHandWeapon: 0
+  isUsingRightHandWeapon: 0
 --- !u!1 &5832903397001620302
 GameObject:
   m_ObjectHideFlags: 0

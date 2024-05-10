@@ -9,9 +9,12 @@ public class PlayerEquipment : CharacterEquipment
     public WeaponModelInstantiationSlot rightHandSlot;
     public WeaponModelInstantiationSlot leftHandSlot;
 
+    [Header("Factory")]
+    [SerializeField] private ItemFactory itemFactory;
+
     [Header("Weapon Manager")]
-    public WeaponManager rightHandWeaponManager;
-    public WeaponManager leftHandWeaponManager;
+    public IWeapon rightHandWeaponManager;
+    public IWeapon leftHandWeaponManager;
 
     [Header("Weapon Model")]
     [SerializeField] private GameObject rightHandWeaponModel;
@@ -19,6 +22,7 @@ public class PlayerEquipment : CharacterEquipment
 
     [Header("Right Equipment ID")]
     [SerializeField] private int currentRightHandWeaponId;
+
     public int CurrentRightHandWeaponId
     {
         get
@@ -147,12 +151,12 @@ public class PlayerEquipment : CharacterEquipment
 
     public void LoadLeftWeapon()
     {
-        if(PlayerManager.Instance.playerInventory.currentLeftHandWeapon != null)
+        var currentLeftHandWeaponInInventory = PlayerManager.Instance.playerInventory.currentLeftHandWeapon;
+        if (currentLeftHandWeaponInInventory != null)
         {
-            leftHandWeaponModel = Instantiate(PlayerManager.Instance.playerInventory.currentLeftHandWeapon.weaponModelPrefab);
-            leftHandSlot.LoadWeaponModel(leftHandWeaponModel);
-            leftHandWeaponManager = leftHandWeaponModel.GetComponent<WeaponManager>();
-            leftHandWeaponManager.SetWeaponDamage(PlayerManager.Instance, PlayerManager.Instance.playerInventory.currentLeftHandWeapon);
+            leftHandWeaponManager = itemFactory.CreateAndGetWeapon(PlayerManager.Instance, currentLeftHandWeaponInInventory);
+
+            leftHandSlot.LoadWeaponModel(itemFactory.GetWeaponModel());
         }
     }
 
@@ -160,7 +164,7 @@ public class PlayerEquipment : CharacterEquipment
     {
         WeaponItem weaponItem = Instantiate(AllItemsManager.Instance.GetWeaponItemById(newId));
         PlayerManager.Instance.playerInventory.currentLeftHandWeapon = weaponItem;
-        PlayerManager.Instance.playerEquipment.LoadLeftWeapon();
+        LoadLeftWeapon();
     }
 
     #endregion
@@ -233,12 +237,12 @@ public class PlayerEquipment : CharacterEquipment
 
     public void LoadRightWeapon()
     {
-        if (PlayerManager.Instance.playerInventory.currentRightHandWeapon != null)
+        var currentRightHandWeaponInInventory = PlayerManager.Instance.playerInventory.currentRightHandWeapon;
+        if (currentRightHandWeaponInInventory != null)
         {
-            rightHandWeaponModel = Instantiate(PlayerManager.Instance.playerInventory.currentRightHandWeapon.weaponModelPrefab);
-            rightHandSlot.LoadWeaponModel(rightHandWeaponModel);
-            rightHandWeaponManager = rightHandWeaponModel.GetComponent<WeaponManager>();
-            rightHandWeaponManager.SetWeaponDamage(PlayerManager.Instance, PlayerManager.Instance.playerInventory.currentRightHandWeapon);
+            rightHandWeaponManager = itemFactory.CreateAndGetWeapon(PlayerManager.Instance, currentRightHandWeaponInInventory);
+
+            rightHandSlot.LoadWeaponModel(itemFactory.GetWeaponModel());
         }
     }
 
@@ -246,7 +250,7 @@ public class PlayerEquipment : CharacterEquipment
     {
         WeaponItem weaponItem = Instantiate(AllItemsManager.Instance.GetWeaponItemById(newId));
         PlayerManager.Instance.playerInventory.currentRightHandWeapon = weaponItem;
-        PlayerManager.Instance.playerEquipment.LoadRightWeapon();
+        LoadRightWeapon();
     }
 
     #endregion

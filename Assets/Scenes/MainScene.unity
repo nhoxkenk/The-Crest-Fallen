@@ -31922,14 +31922,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4306274004316304572, guid: 1683c1d0e1309b6498f0237f368952ac, type: 3}
+      propertyPath: itemFactory
+      value: 
+      objectReference: {fileID: 11400000, guid: 4cf949f44e3cecc43b31fb40629905e5, type: 2}
     - target: {fileID: 5649822251182342639, guid: 1683c1d0e1309b6498f0237f368952ac, type: 3}
       propertyPath: m_Name
       value: Hero
       objectReference: {fileID: 0}
-    - target: {fileID: 7619259729933875569, guid: 1683c1d0e1309b6498f0237f368952ac, type: 3}
-      propertyPath: vfxFactory
-      value: 
-      objectReference: {fileID: 11400000, guid: af4e59bf16330a04d83744df707f9670, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

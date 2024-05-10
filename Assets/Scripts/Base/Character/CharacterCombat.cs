@@ -62,11 +62,11 @@ public abstract class CharacterCombat : MonoBehaviour
     {
         if (isUsingLeftHandWeapon)
         {
-            PlayerManager.Instance.playerEquipment.leftHandWeaponManager.damageCollider.EnableDamageCollider();
+            PlayerManager.Instance.playerEquipment.leftHandWeaponManager.DamageCollider.EnableDamageCollider();
         }
         if (isUsingRightHandWeapon)
         {
-            PlayerManager.Instance.playerEquipment.rightHandWeaponManager.damageCollider.EnableDamageCollider();
+            PlayerManager.Instance.playerEquipment.rightHandWeaponManager.DamageCollider.EnableDamageCollider();
         }
     }
     /// <summary>
@@ -76,11 +76,11 @@ public abstract class CharacterCombat : MonoBehaviour
     {
         if (isUsingLeftHandWeapon)
         {
-            PlayerManager.Instance.playerEquipment.leftHandWeaponManager.damageCollider.DisableDamageCollider();
+            PlayerManager.Instance.playerEquipment.leftHandWeaponManager.DamageCollider.DisableDamageCollider();
         }
         if (isUsingRightHandWeapon)
         {
-            PlayerManager.Instance.playerEquipment.rightHandWeaponManager.damageCollider.DisableDamageCollider();
+            PlayerManager.Instance.playerEquipment.rightHandWeaponManager.DamageCollider.DisableDamageCollider();
         }
     }
 }
