@@ -24,6 +24,9 @@ public class InputReader : MonoBehaviour
     [SerializeField] private bool leftMouseInput;
     [SerializeField] private bool rightMouseInput;
 
+    [Header("Lock On Input")]
+    [SerializeField] private bool LockOnInput;
+
     private void OnEnable()
     {
         if(playerControls == null)
@@ -39,6 +42,8 @@ public class InputReader : MonoBehaviour
 
             playerControls.Player.LightAttack.performed += i => leftMouseInput = true;
             playerControls.Player.HeavyAttack.performed += i => rightMouseInput = true;
+
+            playerControls.Player.LockOn.performed += i => LockOnInput = true;
         }
 
         playerControls.Enable();
@@ -63,6 +68,7 @@ public class InputReader : MonoBehaviour
         HandleJumpInput();
         HandleLeftMouseInput();
         HandleRightMouseInput();
+        HandleLockOnInput();
     }
 
     private void HandleCameraMovementInput()
@@ -144,6 +150,34 @@ public class InputReader : MonoBehaviour
         if (rightMouseInput)
         {
             rightMouseInput = false;
+        }
+    }
+
+    private void HandleLockOnInput()
+    {
+        if(PlayerManager.Instance.isLockOn)
+        {
+            if(PlayerManager.Instance.playerCombat.currentTargetManager == null)
+            {
+                return;
+            }
+
+            if(!PlayerManager.Instance.playerCombat.currentTargetManager.IsAlive)
+            {
+                PlayerManager.Instance.isLockOn = false;
+            }
+        }
+
+        if (LockOnInput && PlayerManager.Instance.isLockOn)
+        {
+            LockOnInput = false;
+            return;
+        }
+
+        if (LockOnInput && !PlayerManager.Instance.isLockOn)
+        {
+            LockOnInput = false;
+            PlayerCamera.Instance.HandleLocatingTargetBeingLockOn();
         }
     }
 }

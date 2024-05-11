@@ -6,7 +6,7 @@ public class VfxBloodSplat : MonoBehaviour, IVfx
 {
     private ParticleSystem particleSystemVfx;
 
-    public void InitializeVfx()
+    public void InitializeVisualFX()
     {
         particleSystemVfx = GetComponent<ParticleSystem>();
         particleSystemVfx?.Stop();

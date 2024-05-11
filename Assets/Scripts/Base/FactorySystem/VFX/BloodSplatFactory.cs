@@ -12,7 +12,7 @@ public class BloodSplatFactory : VfxFactory
         GameObject instance = Object.Instantiate(vfxbloodSplatPrefab.gameObject, position, Quaternion.identity);
         VfxBloodSplat newVfx = instance.GetComponent<VfxBloodSplat>();
 
-        newVfx.InitializeVfx();
+        newVfx.InitializeVisualFX();
 
         return newVfx;
     }

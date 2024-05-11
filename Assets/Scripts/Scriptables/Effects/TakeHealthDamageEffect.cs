@@ -42,6 +42,8 @@ public class TakeHealthDamageEffect : ScriptableInstantCharacterEffect
 
         CalculateDamage(characterEffectable);
         PlayVfxHappenDuringAttack(characterEffectable);
+        PlaySoundFXHappenDuringAttack(characterEffectable);
+        PlayDamagedAnimationBasedOnHitDirection(characterEffectable);
     }
 
     private void CalculateDamage(CharacterManager characterEffectable)
@@ -64,5 +66,39 @@ public class TakeHealthDamageEffect : ScriptableInstantCharacterEffect
     private void PlayVfxHappenDuringAttack(CharacterManager characterEffectable)
     {
         characterEffectable.characterEffects.PlayBloodSplatterVFX(contactPoint);
+    }
+
+    private void PlaySoundFXHappenDuringAttack(CharacterManager characterEffectable)
+    {
+        AudioClip soundClip = SoundEffectsManager.Instance.hitSFX;
+        characterEffectable.characterSoundEffect.PlaySoundFX(soundClip);
+    }
+
+    private void PlayDamagedAnimationBasedOnHitDirection(CharacterManager characterEffectable)
+    {
+        IsPoiseBroken = true;
+
+        var characterAnimator = characterEffectable.characterAnimator;
+        if ((angleHitFrom >= 145 && angleHitFrom <= 180) || (angleHitFrom <= -145 && angleHitFrom >= -180))
+        {
+            damagedAnimation = characterAnimator.hit_Forward_Medium_01;
+        }
+        else if (angleHitFrom >= -45 && angleHitFrom <= 45)
+        {
+            damagedAnimation = characterAnimator.hit_Backward_Medium_01;
+        }
+        else if (angleHitFrom >= -144 && angleHitFrom < -45)
+        {
+            damagedAnimation = characterAnimator.hit_Left_Medium_01;
+        }
+        else if (angleHitFrom > 45 && angleHitFrom <= 144)
+        {
+            damagedAnimation = characterAnimator.hit_Right_Medium_01;
+        }
+
+        if(IsPoiseBroken)
+        {
+            characterAnimator.PlayTargetActionAnimation(damagedAnimation, true);
+        }
     }
 }

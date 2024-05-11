@@ -9,15 +9,11 @@ public class CharacterEffects : MonoBehaviour
     private CharacterManager characterEffectable;
 
     [SerializeField] private VfxFactory vfxFactory;
+    private IVfx bloodSplatVfx;
 
     protected virtual void Awake()
     {
         characterEffectable = GetComponent<CharacterManager>();
-    }
-
-    protected virtual void Start()
-    {
-        
     }
 
     public virtual void ProcessInstantEffects(ScriptableInstantCharacterEffect effect)
@@ -27,6 +23,6 @@ public class CharacterEffects : MonoBehaviour
 
     public virtual void PlayBloodSplatterVFX(Vector3 contactPoint)
     {
-        vfxFactory.GetVfx(contactPoint);
+        bloodSplatVfx = vfxFactory.GetVfx(contactPoint);
     }
 }

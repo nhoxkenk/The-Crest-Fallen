@@ -1,16 +1,18 @@
 using UnityEngine;
 
-public class SoundEffectsManager : MonoBehaviour
+public class SoundEffectsManager : Singleton<SoundEffectsManager>
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Action Sounds")]
+    public AudioClip rollSFX;
+    public AudioClip hitSFX;
 
-    // Update is called once per frame
-    void Update()
+    [Header("Damage Sounds")]
+    public AudioClip[] physicalDamageSFX;
+
+
+    public AudioClip PlayRandomSwingSoundEffect()
     {
-        
+        int index = Random.Range(0, physicalDamageSFX.Length);
+        return physicalDamageSFX[index];
     }
 }

@@ -23,7 +23,7 @@ public class PlayerUIPopup : MonoBehaviour
     private IEnumerator StretchPopUpTextOverTime(TextMeshProUGUI text, float duration, float stretchAmount)
     {
         CountdownTimer timer = new CountdownTimer(duration);
-        Debug.Log(duration);
+
         if (duration > 0)
         {
             text.characterSpacing = 0;

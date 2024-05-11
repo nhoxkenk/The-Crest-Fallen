@@ -19,7 +19,7 @@ public class DamageCollider : MonoBehaviour
     [SerializeField] protected Vector3 contactPoint;
 
     [Header("Character Damaged")]
-    protected List<IEffectable> characterDamaged = new List<IEffectable>();
+    protected List<CharacterManager> characterDamaged = new List<CharacterManager>();
 
     [Header("Character Causing Damage")]
     public CharacterManager characterCausingDamage;
@@ -31,7 +31,7 @@ public class DamageCollider : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        IEffectable characterEffectable = other.GetComponentInParent<IEffectable>();
+        CharacterManager characterEffectable = other.GetComponentInParent<CharacterManager>();
         if (characterEffectable != null)
         {
             contactPoint = other.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
@@ -39,7 +39,7 @@ public class DamageCollider : MonoBehaviour
         }
     }
 
-    protected virtual void DamageTarget(IEffectable characterEffectable)
+    protected virtual void DamageTarget(CharacterManager characterEffectable)
     {
         if (characterDamaged.Contains(characterEffectable))
         {

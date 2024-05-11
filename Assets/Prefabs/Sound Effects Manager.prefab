@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8646328374380214361}
+  - component: {fileID: 8514576355783134761}
   m_Layer: 0
   m_Name: Sound Effects Manager
   m_TagString: Untagged
@@ -23,11 +24,30 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5270104052036481718}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8514576355783134761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5270104052036481718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890ac525617b8d64ba66effd6e0e08de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rollSFX: {fileID: 8300000, guid: e5b790b78113b4e49b2c3ec5c9ec01ad, type: 3}
+  hitSFX: {fileID: 8300000, guid: 00898178343ebf743a1da5ff2359ca33, type: 3}
+  physicalDamageSFX:
+  - {fileID: 8300000, guid: 06f489e43bbcb3742b524d8359b6b04a, type: 3}
+  - {fileID: 8300000, guid: f17d8308ea4012b47bcd2db039864ea1, type: 3}
+  - {fileID: 8300000, guid: b724d98b20f91a948b88df1892d6be33, type: 3}
+  - {fileID: 8300000, guid: cdfb4805427e1f547bc3e32f0c507c02, type: 3}

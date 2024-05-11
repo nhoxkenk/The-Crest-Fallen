@@ -14,9 +14,10 @@ public abstract class CharacterManager : MonoBehaviour, IEffectable
     [HideInInspector] public CharacterInventory characterInventory;
     [HideInInspector] public CharacterEquipment characterEquipment;
     [HideInInspector] public CharacterCombat characterCombat;
+    [HideInInspector] public CharacterSoundEffect characterSoundEffect;
 
     [Header("Status")]
-    public bool isAlive = true;
+    [SerializeField] private bool isAlive = true;
 
    [Header("Animation Flags")]
     public bool isPerformingAction = false;
@@ -29,6 +30,9 @@ public abstract class CharacterManager : MonoBehaviour, IEffectable
     [Header("Jump Flags")]
     public bool isJumping = false;
     public bool isGrounded = true;
+
+    [Header("Lock On Flags")]
+    public bool isLockOn;
 
     #region Effectable Interface Implement
     public bool IsAlive { get => isAlive; set => isAlive = value; }
@@ -76,6 +80,7 @@ public abstract class CharacterManager : MonoBehaviour, IEffectable
         characterInventory = GetComponent<CharacterInventory>();
         characterEquipment = GetComponent<CharacterEquipment>();
         characterCombat = GetComponent<CharacterCombat>();
+        characterSoundEffect = GetComponent<CharacterSoundEffect>();
     }
 
     public virtual IEnumerator ProcessDeathEvent(bool manualSelectDeathAnimation = false)

@@ -128,7 +128,7 @@ public class CharacterStat : MonoBehaviour
 
     public virtual void HandleCurrentHealthChange(float currentHealthValue, float newHealthValue)
     {
-        if(currentHealth <= 0 && characterManager.isAlive)
+        if(currentHealth <= 0 && characterManager.IsAlive)
         {
             StartCoroutine(characterManager.ProcessDeathEvent());
             preCurrentHealth = currentHealth;

@@ -17,11 +17,11 @@ public class MeleeWeaponDamageCollider : DamageCollider, IWeaponModifier
 
     protected override void OnTriggerEnter(Collider other)
     {
-        IEffectable characterEffectable = other.GetComponentInParent<IEffectable>();
+        CharacterManager characterEffectable = other.GetComponentInParent<CharacterManager>();
 
         if (characterEffectable != null)
         {
-            if (other.GetComponentInParent<CharacterManager>() == characterCausingDamage)
+            if (characterEffectable == characterCausingDamage)
             {
                 return;
             }
@@ -30,7 +30,7 @@ public class MeleeWeaponDamageCollider : DamageCollider, IWeaponModifier
         }
     }
 
-    protected override void DamageTarget(IEffectable characterEffectable)
+    protected override void DamageTarget(CharacterManager characterEffectable)
     {
         if (characterDamaged.Contains(characterEffectable))
         {
@@ -46,6 +46,7 @@ public class MeleeWeaponDamageCollider : DamageCollider, IWeaponModifier
         damageEffect.lightningDamage = lightningDamage;
         damageEffect.holyDamage = holyDamage;
         damageEffect.contactPoint = contactPoint;
+        damageEffect.angleHitFrom = Vector3.SignedAngle(characterCausingDamage.transform.forward, characterEffectable.transform.forward, Vector3.up);
 
         switch (characterCausingDamage.characterCombat.currentAttackType)
         {

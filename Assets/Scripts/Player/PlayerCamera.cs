@@ -27,6 +27,11 @@ public class PlayerCamera : MonoBehaviour
     private float cameraZPosition;
     private float targetCameraZPosition;
 
+    [Header("Lock On")]
+    [SerializeField] private float lockOnRadius = 20;
+    [SerializeField] private float viewableAngle = 50;
+    [SerializeField] private float maxiumLockOnDistance = 30;
+
     private void Awake()
     {
         if (Instance == null)
@@ -103,5 +108,60 @@ public class PlayerCamera : MonoBehaviour
         //Apply our final position
         cameraObjectPositionWhenCollided.z = Mathf.Lerp(cameraPlayer.transform.localPosition.z, targetCameraZPosition, 0.15f);
         cameraPlayer.transform.localPosition = cameraObjectPositionWhenCollided;
+    }
+
+    public void HandleLocatingTargetBeingLockOn()
+    {
+        float shortestDistance = Mathf.Infinity;
+        float shortestDistanceOfRightTarget = Mathf.Infinity;       //Shortest Distance on one axis to the right of the current target (+)
+        float shortestDistanceOfleftTarget = -Mathf.Infinity;       //Shortest Distance on one axis to the left of the current target (-)
+
+        Collider[] colliders = Physics.OverlapSphere(PlayerManager.Instance.transform.position, lockOnRadius, CharacterLayersManager.Instance.CharacterLayerMask);
+
+        for(int i = 0; i < colliders.Length; i++)
+        {
+            CharacterManager lockOnTarget = colliders[i].GetComponent<CharacterManager>();
+
+            if(lockOnTarget != null)
+            {
+                //if target is within the viewable field
+                Vector3 lockOnTargetDirection = Vector3.Normalize(lockOnTarget.transform.position - PlayerManager.Instance.transform.position);
+                float distanceFromTarget = Vector3.Distance(PlayerManager.Instance.transform.position, lockOnTarget.transform.position);
+                float viewableAngle = Vector3.Angle(lockOnTargetDirection, cameraPlayer.transform.forward);
+
+                //if target is dead
+                if(!lockOnTarget.IsAlive)
+                {
+                    continue;
+                }
+
+                //if target is us
+                if(lockOnTarget.transform.root == PlayerManager.Instance.transform.root)
+                {
+                    continue;
+                }
+
+                if(distanceFromTarget > maxiumLockOnDistance)
+                {
+                    continue;
+                }
+
+                if(viewableAngle > -this.viewableAngle && viewableAngle < this.viewableAngle)
+                {
+                    RaycastHit hit;
+
+                    if (Physics.Raycast(PlayerManager.Instance.playerCombat.lockOnTransform.position, 
+                        lockOnTarget.characterCombat.lockOnTransform.position, 
+                        out hit, CharacterLayersManager.Instance.EnvironmentLayerMask))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        Debug.Log("We have made it");
+                    }
+                }
+            }
+        }
     }
 }

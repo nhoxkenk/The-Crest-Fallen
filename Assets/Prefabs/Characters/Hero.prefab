@@ -2906,8 +2906,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1254285534176110841}
   - component: {fileID: 8155807294900901339}
+  - component: {fileID: 6635615369900795496}
   - component: {fileID: 4828200696766418082}
   - component: {fileID: 2448777603929401431}
+  - component: {fileID: 5509223695526808873}
   - component: {fileID: 145861101329128756}
   - component: {fileID: 4452300291533999704}
   - component: {fileID: 3997179545584415397}
@@ -2955,7 +2957,7 @@ Transform:
   - {fileID: 7734694879790724477}
   - {fileID: 6115938805937796705}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8155807294900901339
 Animator:
@@ -2978,6 +2980,102 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!82 &6635615369900795496
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5649822251182342639}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!143 &4828200696766418082
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3031,6 +3129,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5509223695526808873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5649822251182342639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81319272396c59d4b9c1458237e21b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &145861101329128756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3052,6 +3162,7 @@ MonoBehaviour:
   characterInventory: {fileID: 0}
   characterEquipment: {fileID: 0}
   characterCombat: {fileID: 0}
+  characterSoundEffect: {fileID: 0}
   isAlive: 1
   isPerformingAction: 0
   applyRootMotion: 0
@@ -3059,6 +3170,7 @@ MonoBehaviour:
   canRotate: 1
   isJumping: 0
   isGrounded: 0
+  isLockOn: 0
   revive: 0
   switchRightWeapon: 0
   playerInput: {fileID: 0}
@@ -3081,6 +3193,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 659da8ee49b11804ab715e2779502f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hit_Forward_Medium_01: hit_Forward_Medium_01
+  hit_Backward_Medium_01: hit_Backward_Medium_01
+  hit_Left_Medium_01: hit_Left_Medium_01
+  hit_Right_Medium_01: hit_Right_Medium_01
 --- !u!114 &3997179545584415397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3100,6 +3216,7 @@ MonoBehaviour:
   jumpInput: 0
   leftMouseInput: 0
   rightMouseInput: 0
+  LockOnInput: 0
 --- !u!114 &1889250531522432930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3186,6 +3303,7 @@ MonoBehaviour:
   currentWeaponBeingUsedId: 0
   rightHandSlot: {fileID: 0}
   leftHandSlot: {fileID: 0}
+  itemFactory: {fileID: 11400000, guid: 4cf949f44e3cecc43b31fb40629905e5, type: 2}
   rightHandWeaponModel: {fileID: 0}
   leftHandWeaponModel: {fileID: 0}
   currentRightHandWeaponId: 0
@@ -3252,6 +3370,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWeaponBeingUsed: {fileID: 0}
   currentAttackType: 0
+  currentTargetManager: {fileID: 0}
+  currentTargetTransform: {fileID: 741233075083844407}
   isUsingLeftHandWeapon: 0
   isUsingRightHandWeapon: 0
 --- !u!1 &5832903397001620302

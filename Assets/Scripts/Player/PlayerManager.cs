@@ -135,7 +135,7 @@ public class PlayerManager : CharacterManager
 
         playerAnimator.PlayTargetActionAnimation("Empty", false);
 
-        isAlive = true;
+        IsAlive = true;
     }
 
     private void DebugMenu()

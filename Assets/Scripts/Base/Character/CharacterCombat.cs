@@ -7,6 +7,12 @@ public abstract class CharacterCombat : MonoBehaviour
     public WeaponItem currentWeaponBeingUsed;
     public AttackType currentAttackType;
 
+    [Header("Target")]
+    public CharacterManager currentTargetManager;
+
+    [Header("Lock On transform")]
+    public Transform lockOnTransform;
+
     [Header("Actions Input")]
     [SerializeField] protected bool isUsingLeftHandWeapon;
     public bool IsUsingLeftHandWeapon

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6939173606100836320}
   - component: {fileID: 8253859102970962490}
   - component: {fileID: -9093362266291340164}
+  - component: {fileID: -6969950493296680218}
   m_Layer: 0
   m_Name: FX_BloodSplat
   m_TagString: Untagged
@@ -4722,3 +4723,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3961c410a94bf1d4aaa54d467b38fa5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6969950493296680218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6944379831466527493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1499cb32cd0d0d45a1977b5b919eb3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeUntilDestroy: 5

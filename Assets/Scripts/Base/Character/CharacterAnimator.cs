@@ -8,6 +8,12 @@ public class CharacterAnimator : MonoBehaviour
     public readonly int isGroundedValue = Animator.StringToHash("isGrounded");
     public readonly int inAirTimerValue = Animator.StringToHash("inAirTimer");
 
+    [Header("Damage Animation")]
+    public string hit_Forward_Medium_01 = "hit_Forward_Medium_01";
+    public string hit_Backward_Medium_01 = "hit_Backward_Medium_01";
+    public string hit_Left_Medium_01 = "hit_Left_Medium_01";
+    public string hit_Right_Medium_01 = "hit_Right_Medium_01";
+
     protected virtual void Awake()
     {
         characterManager = GetComponentInParent<CharacterManager>();
