@@ -56,7 +56,7 @@ public class DamageCollider : MonoBehaviour
         damageEffect.holyDamage = holyDamage;
         damageEffect.contactPoint = contactPoint;
 
-        characterEffectable.ProcessInstantEffects(damageEffect);
+        characterEffectable.characterEffects.ProcessInstantEffects(damageEffect);
     }
 
     public virtual void EnableDamageCollider()

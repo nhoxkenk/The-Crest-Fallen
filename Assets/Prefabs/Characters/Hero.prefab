@@ -2920,6 +2920,7 @@ GameObject:
   - component: {fileID: 4640261714163038094}
   - component: {fileID: 3303584000757416130}
   - component: {fileID: 4403558137938795625}
+  - component: {fileID: 4298964964865386819}
   m_Layer: 6
   m_Name: Hero
   m_TagString: Untagged
@@ -2957,7 +2958,7 @@ Transform:
   - {fileID: 7734694879790724477}
   - {fileID: 6115938805937796705}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8155807294900901339
 Animator:
@@ -3371,9 +3372,25 @@ MonoBehaviour:
   currentWeaponBeingUsed: {fileID: 0}
   currentAttackType: 0
   currentTargetManager: {fileID: 0}
-  currentTargetTransform: {fileID: 741233075083844407}
+  lockOnTransform: {fileID: 741233075083844407}
   isUsingLeftHandWeapon: 0
   isUsingRightHandWeapon: 0
+--- !u!114 &4298964964865386819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5649822251182342639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 417dcc1c0b7995f408fcff5a44b3bb34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventChannel: {fileID: 11400000, guid: 05f479c2779cc3e46a31c0dbe2c0a960, type: 2}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5832903397001620302
 GameObject:
   m_ObjectHideFlags: 0

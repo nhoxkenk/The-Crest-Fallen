@@ -31,19 +31,30 @@ public class TakeHealthDamageEffect : ScriptableInstantCharacterEffect
     public float angleHitFrom;
     public Vector3 contactPoint;
 
+    private void OnEnable()
+    {
+        OnProcessEffect += CalculateDamage;
+        OnProcessEffect += PlayVfxHappenDuringAttack;
+        OnProcessEffect += PlaySoundFXHappenDuringAttack;
+        OnProcessEffect += PlayDamagedAnimationBasedOnHitDirection;
+    }
+
+    private void OnDisable()
+    {
+        OnProcessEffect -= CalculateDamage;
+        OnProcessEffect -= PlayVfxHappenDuringAttack;
+        OnProcessEffect -= PlaySoundFXHappenDuringAttack;
+        OnProcessEffect -= PlayDamagedAnimationBasedOnHitDirection;
+    }
+
     public override void ProcessEffect(CharacterManager characterEffectable)
     {
-        base.ProcessEffect(characterEffectable);
-
         if(!characterEffectable.IsAlive)
         {
             return;
         }
 
-        CalculateDamage(characterEffectable);
-        PlayVfxHappenDuringAttack(characterEffectable);
-        PlaySoundFXHappenDuringAttack(characterEffectable);
-        PlayDamagedAnimationBasedOnHitDirection(characterEffectable);
+        base.ProcessEffect(characterEffectable);
     }
 
     private void CalculateDamage(CharacterManager characterEffectable)
@@ -60,7 +71,7 @@ public class TakeHealthDamageEffect : ScriptableInstantCharacterEffect
             finalDamageDealt = 1;
         }
 
-        characterEffectable.TakeInstantHealthEffect(finalDamageDealt);
+        characterEffectable.characterStat.CurrentHealth -= finalDamageDealt;
     }
 
     private void PlayVfxHappenDuringAttack(CharacterManager characterEffectable)

@@ -36932,10 +36932,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4403558137938795625, guid: 1683c1d0e1309b6498f0237f368952ac, type: 3}
-      propertyPath: lockOnTransform
-      value: 
-      objectReference: {fileID: 8200235771753691160}
     - target: {fileID: 5649822251182342639, guid: 1683c1d0e1309b6498f0237f368952ac, type: 3}
       propertyPath: m_Name
       value: Hero
@@ -36945,11 +36941,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1683c1d0e1309b6498f0237f368952ac, type: 3}
---- !u!4 &8200235771753691160 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 741233075083844407, guid: 1683c1d0e1309b6498f0237f368952ac, type: 3}
-  m_PrefabInstance: {fileID: 8200235771753691159}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8200882434075565346
 GameObject:
   m_ObjectHideFlags: 0

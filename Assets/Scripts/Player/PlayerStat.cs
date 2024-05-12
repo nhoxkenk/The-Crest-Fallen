@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStat : CharacterStat
+public class PlayerStat : EnumStat
 {
     [Header("Stamina Regeneration")]
     public float staminaRegenerationAmount = 2;

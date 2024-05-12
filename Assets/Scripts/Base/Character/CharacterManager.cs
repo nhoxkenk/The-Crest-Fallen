@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public abstract class CharacterManager : MonoBehaviour, IEffectable
+public abstract class CharacterManager : MonoBehaviour
 {
     [HideInInspector] public CharacterController characterController;
     [HideInInspector] public Animator animator;
     [HideInInspector] public CharacterAnimator characterAnimator;
     [HideInInspector] public CharacterLocomotion characterLocomotion;
-    [HideInInspector] public CharacterStat characterStat;
+    [HideInInspector] public EnumStat characterStat;
     [HideInInspector] public CharacterEffects characterEffects;
     [HideInInspector] public CharacterInventory characterInventory;
     [HideInInspector] public CharacterEquipment characterEquipment;
@@ -34,24 +34,7 @@ public abstract class CharacterManager : MonoBehaviour, IEffectable
     [Header("Lock On Flags")]
     public bool isLockOn;
 
-    #region Effectable Interface Implement
     public bool IsAlive { get => isAlive; set => isAlive = value; }
-
-    public void ProcessInstantEffects(ScriptableInstantCharacterEffect effect)
-    {
-        characterEffects.ProcessInstantEffects(effect);
-    }
-
-    public virtual void TakeInstantHealthEffect(float damage)
-    {
-        characterStat.CurrentHealth -= damage;
-    }
-
-    public virtual void TakeInstantStaminaEffect(float damage)
-    {
-        characterStat.CurrentStamina -= damage;
-    }
-    #endregion
 
     protected virtual void Awake()
     {
@@ -75,7 +58,7 @@ public abstract class CharacterManager : MonoBehaviour, IEffectable
         animator = GetComponentInChildren<Animator>();
         characterAnimator = GetComponentInChildren<CharacterAnimator>();
         characterLocomotion = GetComponent<CharacterLocomotion>();
-        characterStat = GetComponent<CharacterStat>();
+        characterStat = GetComponent<EnumStat>();
         characterEffects = GetComponent<CharacterEffects>();
         characterInventory = GetComponent<CharacterInventory>();
         characterEquipment = GetComponent<CharacterEquipment>();

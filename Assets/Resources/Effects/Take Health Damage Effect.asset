@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Take Health Damage Effect
   m_EditorClassIdentifier: 
   instantEffectID: 0
+  type: 0
   characterCausingDamageManager: {fileID: 0}
   physicalDamage: 0
   magicDamage: 0

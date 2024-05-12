@@ -57,7 +57,7 @@ public class MeleeWeaponDamageCollider : DamageCollider, IWeaponModifier
                 break;
         }
 
-        characterEffectable.ProcessInstantEffects(damageEffect); 
+        characterEffectable.characterEffects.ProcessInstantEffects(damageEffect); 
     }
 
     private void ApplyAttackDamageModifiers(float modifier, TakeHealthDamageEffect takeHealthDamageEffect)
