@@ -57,9 +57,14 @@ public class PlayerManager : CharacterManager
     {
         base.Update();
 
-        playerLocomotion.HandleAllMovement();
+        if (IsAlive)
+        {
+            playerLocomotion.HandleAllMovement();
 
-        playerStat.RegenerateStamina();
+            playerAnimator.UpdateAnimator();
+
+            playerStat.RegenerateStamina();
+        }
 
         DebugMenu();
     }

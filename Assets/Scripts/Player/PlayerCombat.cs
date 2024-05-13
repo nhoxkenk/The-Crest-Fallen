@@ -1,9 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCombat : CharacterCombat
 {
+    [SerializeField] private ScriptableInputReader inputReader;
+
+    private void OnEnable()
+    {
+        inputReader.LightAttack += OnLightAttack;
+    }
+
+    private void OnLightAttack(bool lightAttackInput)
+    {
+        if(lightAttackInput)
+        {
+            var inventory = PlayerManager.Instance.playerInventory;
+
+            SetCharacterActionHand(true);
+            PerformWeaponBasedAction(inventory.currentRightHandWeapon.leftMouseButtonAction, inventory.currentRightHandWeapon);
+        }
+    }
+
     /// <summary>
     /// This function is register as an event in Animation events of Light Attack Animation.
     /// </summary>

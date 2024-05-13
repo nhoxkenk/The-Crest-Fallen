@@ -21,9 +21,9 @@ public class EnemyManager : CharacterManager
         }
     }
 
-    [HideInInspector] public PlayerAnimator playerAnimator;
-    [HideInInspector] public PlayerStat playerStat;
-    [HideInInspector] public PlayerCombat playerCombat;
+    [HideInInspector] public CharacterAnimator playerAnimator;
+    [HideInInspector] public CharacterStat playerStat;
+    [HideInInspector] public CharacterCombat playerCombat;
 
     protected override void Awake()
     {
@@ -45,7 +45,7 @@ public class EnemyManager : CharacterManager
     {
         base.Start();
         //BindingPlayerEvents();
-        InitializePlayerStat();
+        InitializeStat();
     }
 
     protected override void Update()
@@ -65,31 +65,14 @@ public class EnemyManager : CharacterManager
     /// <summary>
     /// Initialize Player Stat
     /// </summary>
-    private void InitializePlayerStat()
+    private void InitializeStat()
     {
         //Stamina
-        playerStat.maxStamina = playerStat.CalculateStaninaBasedOnEnduranceLevel(playerStat.Endurance);
-        playerStat.CurrentStamina = playerStat.maxStamina;
-        PlayerUI.Instance.playerUIHud.HandleMaxStaminaValue(playerStat.maxStamina);
-        playerStat.IncreaseVitalityStat += playerStat.OnIncreaseVitalityStat;
-
+        characterStat.maxStamina = characterStat.CalculateStaninaBasedOnEnduranceLevel(characterStat.Endurance);
+        characterStat.CurrentStamina = characterStat.maxStamina;
         //Health
-        playerStat.maxHealth = playerStat.CalculateHealthBasedOnVitalityLevel(playerStat.Vitality);
-        playerStat.CurrentHealth = playerStat.maxHealth;
-        PlayerUI.Instance.playerUIHud.HandleMaxHealthValue(playerStat.maxHealth);
-        playerStat.IncreaseEnduranceStat += playerStat.OnIncreaseEnduranceStat;
-    }
-
-    private void BindingPlayerEvents()
-    {
-        //Stats
-        playerStat.DrainingStamina += PlayerUI.Instance.playerUIHud.HandleNewStaminaValue;
-        playerStat.RegeneratingStamina += PlayerUI.Instance.playerUIHud.HandleNewStaminaValue;
-
-        playerStat.CurrentHealthChange += PlayerUI.Instance.playerUIHud.HandleNewHealthValue;
-        playerStat.CurrentHealthChange += playerStat.HandleCurrentHealthChange;
-
-        playerStat.DrainingStamina += playerStat.ResetStaminaRegenerationTimer;
+        characterStat.maxHealth = characterStat.CalculateHealthBasedOnVitalityLevel(characterStat.Vitality);
+        characterStat.CurrentHealth = characterStat.maxHealth;
     }
 
     protected override void GetComponents()

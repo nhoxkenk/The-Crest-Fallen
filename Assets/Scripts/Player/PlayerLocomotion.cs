@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,25 +35,56 @@ public class PlayerLocomotion : CharacterLocomotion
 
     public bool IsSprinting { get; set; }
 
+    [SerializeField] private ScriptableInputReader inputReader;
+
     protected override void Awake()
     {
         base.Awake();
     }
 
+    private void OnEnable()
+    {
+        inputReader.Dodge += OnDodge;
+        inputReader.Jump += OnJump;
+    }
+
+    private void OnJump(bool jumpInput)
+    {
+        if (jumpInput)
+        {
+            AttemptToPerformJump();
+        }
+    }
+
+    private void OnDodge(bool dodgeInput)
+    {
+        if (dodgeInput)
+        {
+            AttemptToPerformDodge();
+        }
+    }
+
     public void HandleAllMovement()
     {
-        GetVerticalAndHorizontalInput();
         HandleGroundedMovement();
         HandleRotation();
         HandleJumpingMovement();
         HandleFreeFallMovement();
+
+        //New
+        HandleSprintInput();
     }
 
-    private void GetVerticalAndHorizontalInput()
+    private void HandleSprintInput()
     {
-        verticalMovementValue = PlayerManager.Instance.playerInput.VerticalInput;
-        horizontalMovementValue = PlayerManager.Instance.playerInput.HorizontalInput;
-        movementAmount = PlayerManager.Instance.playerInput.MoveAmount;
+        if (inputReader.IsSprinting)
+        {
+            HandleSprinting();
+        }
+        else
+        {
+            IsSprinting = false;
+        }
     }
 
     private void HandleGroundedMovement()
@@ -62,7 +94,7 @@ public class PlayerLocomotion : CharacterLocomotion
             return;
         }
 
-        Vector3 movement = new Vector3(horizontalMovementValue, 0, verticalMovementValue);
+        Vector3 movement = new Vector3(inputReader.MoveDirection.x, 0, inputReader.MoveDirection.y);
         movementDirection = CameraDirection(movement, false);
 
         if (IsSprinting)
@@ -71,12 +103,12 @@ public class PlayerLocomotion : CharacterLocomotion
         }
         else
         {
-            if (movementAmount > 0.5f)
+            if (inputReader.MovementAmount > 0.5f)
             {
                 PlayerManager.Instance.characterController.Move(movementDirection * runningSpeed * Time.deltaTime);
             }
             else
-            if (movementAmount <= 0.5f)
+            if (inputReader.MovementAmount <= 0.5f)
             {
                 PlayerManager.Instance.characterController.Move(movementDirection * walkingSpeed * Time.deltaTime);
             }
@@ -91,7 +123,7 @@ public class PlayerLocomotion : CharacterLocomotion
             return;
         }
 
-        Vector3 rotation = new Vector3(horizontalMovementValue, 0, verticalMovementValue);
+        Vector3 rotation = new Vector3(inputReader.MoveDirection.x, 0, inputReader.MoveDirection.y);
         rotationDirection = CameraDirection(rotation, true);
 
         //if the player stop moving, all vertical and horizontal value equal to 0
@@ -117,9 +149,10 @@ public class PlayerLocomotion : CharacterLocomotion
             return;
         }
 
-        if (movementAmount > 0)
+        if(inputReader.MovementAmount > 0)
         {
-            Vector3 direction = new Vector3(horizontalMovementValue, 0, verticalMovementValue);
+           // Vector3 direction = new Vector3(horizontalMovementValue, 0, verticalMovementValue);
+            Vector3 direction = new Vector3(inputReader.MoveDirection.x, 0, inputReader.MoveDirection.y);
             dodgeDirection = CameraDirection(direction, true);
 
             Quaternion dodgeRotation = Quaternion.LookRotation(dodgeDirection);
@@ -133,7 +166,6 @@ public class PlayerLocomotion : CharacterLocomotion
             PlayerManager.Instance.playerAnimator.PlayTargetActionAnimation("Back_step", true);
         }
 
-        //PlayerManager.Instance.playerStat.OnDrainStaminaBasedOnAction(dodgingStaminaCost, false);
         PlayerManager.Instance.playerStat.CurrentStamina -= dodgingStaminaCost;
     }
 
@@ -151,7 +183,7 @@ public class PlayerLocomotion : CharacterLocomotion
             return;
         }
 
-        if (movementAmount > 0.5f)
+        if (inputReader.MovementAmount > 0.5f)
         {
             IsSprinting = true;
         }
@@ -162,7 +194,6 @@ public class PlayerLocomotion : CharacterLocomotion
 
         if (IsSprinting)
         {
-            //PlayerManager.Instance.playerStat.OnDrainStaminaBasedOnAction(sprintingStaminaCost, true);
             PlayerManager.Instance.playerStat.CurrentStamina -= sprintingStaminaCost * Time.deltaTime;
         }
     }
@@ -171,7 +202,7 @@ public class PlayerLocomotion : CharacterLocomotion
     {
         if(!PlayerManager.Instance.isGrounded)
         {
-            Vector3 freeFallDirection = new Vector3(horizontalMovementValue, 0, verticalMovementValue);
+            Vector3 freeFallDirection = new Vector3(inputReader.MoveDirection.x, 0, inputReader.MoveDirection.y);
             freeFallDirection = CameraDirection(freeFallDirection, true);
 
             PlayerManager.Instance.characterController.Move(freeFallDirection * jumpFreeVelocity * Time.deltaTime);
@@ -203,10 +234,11 @@ public class PlayerLocomotion : CharacterLocomotion
         PlayerManager.Instance.playerAnimator.PlayTargetActionAnimation("Main_Jump_01", false);
         PlayerManager.Instance.isJumping = true;
 
-        Vector3 direction = new Vector3(horizontalMovementValue, 0, verticalMovementValue);
+        Vector3 direction = new Vector3(inputReader.MoveDirection.x, 0, inputReader.MoveDirection.y);
+
         jumpDirection = CameraDirection(direction, true);
-        //PlayerManager.Instance.playerStat.OnDrainStaminaBasedOnAction(jumpingStaminaCost, false);
         PlayerManager.Instance.playerStat.CurrentStamina -= jumpingStaminaCost;
+
         if (jumpDirection == Vector3.zero)
         {
             return;

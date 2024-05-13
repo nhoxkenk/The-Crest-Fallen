@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public abstract class CharacterManager : MonoBehaviour
+public class CharacterManager : MonoBehaviour
 {
     [HideInInspector] public CharacterController characterController;
     [HideInInspector] public Animator animator;
     [HideInInspector] public CharacterAnimator characterAnimator;
     [HideInInspector] public CharacterLocomotion characterLocomotion;
-    [HideInInspector] public EnumStat characterStat;
+    [HideInInspector] public CharacterStat characterStat;
     [HideInInspector] public CharacterEffects characterEffects;
     [HideInInspector] public CharacterInventory characterInventory;
     [HideInInspector] public CharacterEquipment characterEquipment;
@@ -58,7 +58,7 @@ public abstract class CharacterManager : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         characterAnimator = GetComponentInChildren<CharacterAnimator>();
         characterLocomotion = GetComponent<CharacterLocomotion>();
-        characterStat = GetComponent<EnumStat>();
+        characterStat = GetComponent<CharacterStat>();
         characterEffects = GetComponent<CharacterEffects>();
         characterInventory = GetComponent<CharacterInventory>();
         characterEquipment = GetComponent<CharacterEquipment>();
@@ -100,7 +100,6 @@ public abstract class CharacterManager : MonoBehaviour
             {
                 Physics.IgnoreCollision(collider, otherCollider, true);
             }
-        }
-        
+        }  
     }
 }

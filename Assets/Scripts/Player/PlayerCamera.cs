@@ -32,6 +32,9 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float viewableAngle = 50;
     [SerializeField] private float maxiumLockOnDistance = 30;
 
+    //New change
+    [SerializeField] private ScriptableInputReader inputReader;
+
     private void Awake()
     {
         if (Instance == null)
@@ -68,8 +71,8 @@ public class PlayerCamera : MonoBehaviour
 
     private void HandleRotations()
     {
-        horizontalLookAngle += PlayerManager.Instance.playerInput.cameraHorizontalInput * horizontalRotationSpeed * Time.deltaTime;
-        verticalLookAngle -= PlayerManager.Instance.playerInput.cameraVerticalInput * verticalRotationSpeed * Time.deltaTime;
+        horizontalLookAngle += inputReader.LookDirection.x * horizontalRotationSpeed * Time.deltaTime;
+        verticalLookAngle -= inputReader.LookDirection.y * verticalRotationSpeed * Time.deltaTime;
         verticalLookAngle = Mathf.Clamp(verticalLookAngle, miniumPivot, maximumPivot);
 
         // Left and Right
@@ -112,9 +115,9 @@ public class PlayerCamera : MonoBehaviour
 
     public void HandleLocatingTargetBeingLockOn()
     {
-        float shortestDistance = Mathf.Infinity;
-        float shortestDistanceOfRightTarget = Mathf.Infinity;       //Shortest Distance on one axis to the right of the current target (+)
-        float shortestDistanceOfleftTarget = -Mathf.Infinity;       //Shortest Distance on one axis to the left of the current target (-)
+        //float shortestDistance = Mathf.Infinity;
+        //float shortestDistanceOfRightTarget = Mathf.Infinity;       //Shortest Distance on one axis to the right of the current target (+)
+        //float shortestDistanceOfleftTarget = -Mathf.Infinity;       //Shortest Distance on one axis to the left of the current target (-)
 
         Collider[] colliders = Physics.OverlapSphere(PlayerManager.Instance.transform.position, lockOnRadius, CharacterLayersManager.Instance.CharacterLayerMask);
 

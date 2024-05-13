@@ -2912,7 +2912,6 @@ GameObject:
   - component: {fileID: 5509223695526808873}
   - component: {fileID: 145861101329128756}
   - component: {fileID: 4452300291533999704}
-  - component: {fileID: 3997179545584415397}
   - component: {fileID: 1889250531522432930}
   - component: {fileID: 614341782979246505}
   - component: {fileID: 7619259729933875569}
@@ -3198,26 +3197,7 @@ MonoBehaviour:
   hit_Backward_Medium_01: hit_Backward_Medium_01
   hit_Left_Medium_01: hit_Left_Medium_01
   hit_Right_Medium_01: hit_Right_Medium_01
---- !u!114 &3997179545584415397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5649822251182342639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2203c41f317bd1f42b81bfde62f4a79b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementInput: {x: 0, y: 0}
-  cameraInput: {x: 0, y: 0}
-  dodgeInput: 0
-  sprintInput: 0
-  jumpInput: 0
-  leftMouseInput: 0
-  rightMouseInput: 0
-  LockOnInput: 0
+  inputReader: {fileID: 11400000, guid: fb9f5bd7e6a374742957fa3874de03f1, type: 2}
 --- !u!114 &1889250531522432930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3251,6 +3231,7 @@ MonoBehaviour:
   dodgingStaminaCost: 25
   sprintSpeed: 10
   sprintingStaminaCost: 5
+  inputReader: {fileID: 11400000, guid: fb9f5bd7e6a374742957fa3874de03f1, type: 2}
 --- !u!114 &614341782979246505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3375,6 +3356,7 @@ MonoBehaviour:
   lockOnTransform: {fileID: 741233075083844407}
   isUsingLeftHandWeapon: 0
   isUsingRightHandWeapon: 0
+  inputReader: {fileID: 11400000, guid: fb9f5bd7e6a374742957fa3874de03f1, type: 2}
 --- !u!114 &4298964964865386819
 MonoBehaviour:
   m_ObjectHideFlags: 0

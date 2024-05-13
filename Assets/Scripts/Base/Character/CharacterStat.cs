@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class EnumStat : MonoBehaviour
+public class CharacterStat : MonoBehaviour
 {
     private CharacterManager characterManager;
 
