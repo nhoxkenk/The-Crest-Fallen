@@ -6807,7 +6807,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 503101435}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9898,6 +9898,10 @@ MonoBehaviour:
   verticalLookAngle: 0
   lockOnRadius: 20
   viewableAngle: 50
+  lockOnRotateSpeed: 0.2
+  setCameraHeightSpeed: 0.05
+  lockedCameraHeight: 2
+  unlockedCameraHeight: 1.6
   potentialTarget: []
   nearestLockOnTarget: {fileID: 0}
   inputReader: {fileID: 11400000, guid: fb9f5bd7e6a374742957fa3874de03f1, type: 2}

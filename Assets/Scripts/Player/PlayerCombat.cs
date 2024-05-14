@@ -52,7 +52,13 @@ public class PlayerCombat : CharacterCombat
     {
         if(!value)
         {
-            currentTarget = null;
+            SetTarget(null);
         }
+    }
+
+    public override void SetTarget(CharacterManager target)
+    {
+        base.SetTarget(target);
+        PlayerCamera.Instance.SetLockOnCameraHeight();
     }
 }

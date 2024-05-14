@@ -23,7 +23,16 @@ public class PlayerAnimator : CharacterAnimator
         {
             MoveAmount = 1;
         }
-        UpdateAnimatorMovementParameters(0, MoveAmount, PlayerManager.Instance.playerLocomotion.IsSprinting);
+
+        if(PlayerManager.Instance.IsLockOn && !PlayerManager.Instance.playerLocomotion.IsSprinting)
+        {
+            UpdateAnimatorMovementParameters(inputReader.MoveDirection.x, inputReader.MoveDirection.y, PlayerManager.Instance.playerLocomotion.IsSprinting);
+        }
+        else
+        {
+            UpdateAnimatorMovementParameters(0, MoveAmount, PlayerManager.Instance.playerLocomotion.IsSprinting);
+        }
+        
     }
 
     private void OnAnimatorMove()

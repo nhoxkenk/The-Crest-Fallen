@@ -31,9 +31,16 @@ public class PlayerCamera : MonoBehaviour
     [Header("Lock On")]
     [SerializeField] private float lockOnRadius = 20;
     [SerializeField] private float viewableAngle = 50;
-    [SerializeField] private float lockOnRotateSpeed = 5;
+    [SerializeField] private float lockOnRotateSpeed = 0.2f;
+    [SerializeField] private float setCameraHeightSpeed = 1f;
+    [SerializeField] private float lockedCameraHeight = 2;
+    [SerializeField] private float unlockedCameraHeight = 1.6f;
     [SerializeField] private List<CharacterManager> potentialTarget = new List<CharacterManager>();
     [SerializeField] private CharacterManager nearestLockOnTarget;
+    private Coroutine cameraLockOnHeightCoroutine;
+
+    private float cameraHeightDuration = 0.5f;
+    private CountdownTimer cameraHeightTimer;
 
     //New change
     [SerializeField] private ScriptableInputReader inputReader;
@@ -49,7 +56,10 @@ public class PlayerCamera : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         cameraPlayer = GetComponentInChildren<Camera>();
+
+        cameraHeightTimer = new CountdownTimer(cameraHeightDuration);
     }
 
     private void OnEnable()
@@ -240,6 +250,64 @@ public class PlayerCamera : MonoBehaviour
                 ClearLockOnTargets();
             }
         }
+    }
+
+    public void SetLockOnCameraHeight()
+    {
+        if(cameraLockOnHeightCoroutine != null)
+        {
+            StopCoroutine(cameraLockOnHeightCoroutine);
+        }
+
+        cameraLockOnHeightCoroutine = StartCoroutine(SetCameraHeight());
+    }
+
+    private IEnumerator SetCameraHeight()
+    {
+        if (cameraHeightTimer.IsFinished())
+        {
+            cameraHeightTimer.Reset();
+        }
+        
+        cameraHeightTimer.Start();
+
+        Vector3 velocity = Vector3.zero;
+        Vector3 newLockCameraHeight = new Vector3(cameraPivotTransform.transform.localPosition.x, lockedCameraHeight);
+        Vector3 newUnlockCameraHeight = new Vector3(cameraPivotTransform.transform.localPosition.x, unlockedCameraHeight);
+
+        while (!cameraHeightTimer.IsFinished())
+        {
+            cameraHeightTimer.Tick(Time.deltaTime);
+            if(PlayerManager.Instance != null)
+            {
+                if(PlayerManager.Instance.playerCombat.currentTarget != null)
+                {
+                    cameraPivotTransform.transform.localPosition = Vector3.SmoothDamp(cameraPivotTransform.transform.localPosition, newLockCameraHeight, ref velocity, setCameraHeightSpeed);
+                    cameraPivotTransform.transform.localRotation = Quaternion.Lerp(cameraPivotTransform.transform.localRotation, Quaternion.identity, setCameraHeightSpeed);
+
+                }
+                else
+                {
+                    cameraPivotTransform.transform.localPosition = Vector3.SmoothDamp(cameraPivotTransform.transform.localPosition, newUnlockCameraHeight, ref velocity, setCameraHeightSpeed);
+                }
+            }
+            yield return null;
+        }
+
+        if(PlayerManager.Instance != null)
+        {
+            if (PlayerManager.Instance.playerCombat.currentTarget != null)
+            {
+                cameraPivotTransform.transform.localPosition = newLockCameraHeight;
+                cameraPivotTransform.transform.localRotation = Quaternion.identity;
+
+            }
+            else
+            {
+                cameraPivotTransform.transform.localPosition = newUnlockCameraHeight;
+            }
+        }
+        yield return null;
     }
 
     public void ClearLockOnTargets()

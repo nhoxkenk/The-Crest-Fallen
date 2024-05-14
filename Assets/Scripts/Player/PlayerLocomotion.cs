@@ -123,18 +123,58 @@ public class PlayerLocomotion : CharacterLocomotion
             return;
         }
 
-        Vector3 rotation = new Vector3(inputReader.MoveDirection.x, 0, inputReader.MoveDirection.y);
-        rotationDirection = CameraDirection(rotation, true);
-
-        //if the player stop moving, all vertical and horizontal value equal to 0
-        if (rotationDirection == Vector3.zero)
+        if (PlayerManager.Instance.IsLockOn)
         {
-            rotationDirection = transform.forward;
-        }
+            if (IsSprinting)
+            {
+                Vector3 targetDirection = new Vector3(inputReader.MoveDirection.x, 0, inputReader.MoveDirection.y);
+                targetDirection = CameraDirection(targetDirection, true);
+                targetDirection.Normalize();
 
-        Quaternion newRotation = Quaternion.LookRotation(rotationDirection);
-        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
-        transform.rotation = targetRotation;
+                if(targetDirection == Vector3.zero)
+                {
+                    targetDirection = transform.forward;
+                }
+
+                Quaternion rotation = Quaternion.LookRotation(targetDirection);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+            }
+            else
+            {
+                var target = PlayerManager.Instance.playerCombat.currentTarget;
+                if (target == null)
+                {
+                    return;
+                }
+
+                Vector3 direction = target.transform.position - transform.position;
+                direction.y = 0;
+                direction.Normalize();
+
+                if (direction == Vector3.zero)
+                {
+                    direction = transform.forward;
+                }
+
+                Quaternion rotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+            }
+        }
+        else
+        {
+            Vector3 rotation = new Vector3(inputReader.MoveDirection.x, 0, inputReader.MoveDirection.y);
+            rotationDirection = CameraDirection(rotation, true);
+
+            //if the player stop moving, all vertical and horizontal value equal to 0
+            if (rotationDirection == Vector3.zero)
+            {
+                rotationDirection = transform.forward;
+            }
+
+            Quaternion newRotation = Quaternion.LookRotation(rotationDirection);
+            Quaternion targetRotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
+            transform.rotation = targetRotation;
+        }
     }
 
     public void AttemptToPerformDodge()
