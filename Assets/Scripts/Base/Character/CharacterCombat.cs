@@ -8,13 +8,14 @@ public abstract class CharacterCombat : MonoBehaviour
     public AttackType currentAttackType;
 
     [Header("Target")]
-    public CharacterManager currentTargetManager;
+    public CharacterManager currentTarget;
 
     [Header("Lock On transform")]
     public Transform lockOnTransform;
 
     [Header("Actions Input")]
     [SerializeField] protected bool isUsingLeftHandWeapon;
+
     public bool IsUsingLeftHandWeapon
     {
         get
@@ -87,6 +88,18 @@ public abstract class CharacterCombat : MonoBehaviour
         if (isUsingRightHandWeapon)
         {
             PlayerManager.Instance.playerEquipment.rightHandWeaponManager.DamageCollider.DisableDamageCollider();
+        }
+    }
+
+    public virtual void SetTarget(CharacterManager target)
+    {
+        if(target != null)
+        {
+            currentTarget = target;
+        }
+        else
+        {
+            currentTarget = null;
         }
     }
 }

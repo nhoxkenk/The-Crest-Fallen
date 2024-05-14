@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class CharacterManager : MonoBehaviour
+public abstract class CharacterManager : MonoBehaviour
 {
     [HideInInspector] public CharacterController characterController;
     [HideInInspector] public Animator animator;
@@ -30,9 +30,6 @@ public class CharacterManager : MonoBehaviour
     [Header("Jump Flags")]
     public bool isJumping = false;
     public bool isGrounded = true;
-
-    [Header("Lock On Flags")]
-    public bool isLockOn;
 
     public bool IsAlive { get => isAlive; set => isAlive = value; }
 

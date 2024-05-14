@@ -1,9 +1,24 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerManager : CharacterManager
 {
+    [Header("Lock On Flags")]
+    [SerializeField] private bool isLockOn;
+
+    public bool IsLockOn 
+    { 
+        get => isLockOn; 
+        set 
+        {
+            OnIsLockOnChanged?.Invoke(value);
+            isLockOn = value; 
+        } 
+    }
+    private event UnityAction<bool> OnIsLockOnChanged;
+
     [Header("Debug")]
     public bool revive;
     public bool switchRightWeapon;
@@ -107,8 +122,11 @@ public class PlayerManager : CharacterManager
         playerEquipment.LeftHandWeaponIdChange += playerEquipment.HandleCurrentLeftHandWeaponIdChange;
         playerEquipment.RightHandWeaponIdChange += playerEquipment.HandleCurrentRightHandWeaponIdChange;
 
-        //Combat
+        //Equipment
         playerEquipment.CurrentWeaponBeingUsedIdChange += playerEquipment.HandleCurrentWeaponUsedIdChange;
+
+        //Combat
+        OnIsLockOnChanged += playerCombat.HandleIsLockOnChanged;
     }
 
     protected override void GetComponents()

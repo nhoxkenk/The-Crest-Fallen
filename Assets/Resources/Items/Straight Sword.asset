@@ -22,11 +22,13 @@ MonoBehaviour:
   dexREQ: 0
   intREQ: 0
   faithREQ: 0
-  physicalDamage: 11
+  physicalDamage: 100
   magicDamage: 0
   fireDamage: 0
   lightningDamage: 0
   holyDamage: 0
   poiseDamage: 5
+  lightAttack01Modifier: 1.1
   baseStaminaCost: 20
+  lightAttackStaminaCostMultiplier: 0.9
   leftMouseButtonAction: {fileID: 11400000, guid: c1ca763129629624484eb68aadda6130, type: 2}

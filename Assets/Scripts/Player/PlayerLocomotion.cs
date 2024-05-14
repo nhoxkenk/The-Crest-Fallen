@@ -139,7 +139,7 @@ public class PlayerLocomotion : CharacterLocomotion
 
     public void AttemptToPerformDodge()
     {
-        if (PlayerManager.Instance.isPerformingAction)
+        if (PlayerManager.Instance.isPerformingAction || PlayerManager.Instance.isJumping)
         {
             return;
         }

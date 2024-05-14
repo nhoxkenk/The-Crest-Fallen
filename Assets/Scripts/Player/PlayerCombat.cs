@@ -47,4 +47,12 @@ public class PlayerCombat : CharacterCombat
 
         PlayerManager.Instance.playerStat.CurrentStamina -= staminaDeducted;
     }
+
+    public void HandleIsLockOnChanged(bool value)
+    {
+        if(!value)
+        {
+            currentTarget = null;
+        }
+    }
 }

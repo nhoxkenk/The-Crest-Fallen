@@ -155,26 +155,26 @@ public class InputReader : MonoBehaviour
 
     private void HandleLockOnInput()
     {
-        if(PlayerManager.Instance.isLockOn)
+        if(PlayerManager.Instance.IsLockOn)
         {
-            if(PlayerManager.Instance.playerCombat.currentTargetManager == null)
+            if(PlayerManager.Instance.playerCombat.currentTarget == null)
             {
                 return;
             }
 
-            if(!PlayerManager.Instance.playerCombat.currentTargetManager.IsAlive)
+            if(!PlayerManager.Instance.playerCombat.currentTarget.IsAlive)
             {
-                PlayerManager.Instance.isLockOn = false;
+                PlayerManager.Instance.IsLockOn = false;
             }
         }
 
-        if (LockOnInput && PlayerManager.Instance.isLockOn)
+        if (LockOnInput && PlayerManager.Instance.IsLockOn)
         {
             LockOnInput = false;
             return;
         }
 
-        if (LockOnInput && !PlayerManager.Instance.isLockOn)
+        if (LockOnInput && !PlayerManager.Instance.IsLockOn)
         {
             LockOnInput = false;
             PlayerCamera.Instance.HandleLocatingTargetBeingLockOn();
