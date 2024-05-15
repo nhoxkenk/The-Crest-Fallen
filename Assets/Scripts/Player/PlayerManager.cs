@@ -122,7 +122,10 @@ public class PlayerManager : CharacterManager
 
         //Weapons
         playerEquipment.LeftHandWeaponIdChange += playerEquipment.HandleCurrentLeftHandWeaponIdChange;
+        playerEquipment.LeftHandWeaponIdChange += PlayerUI.Instance.playerUIHud.SetLeftWeaponQuickSlotImage;
+
         playerEquipment.RightHandWeaponIdChange += playerEquipment.HandleCurrentRightHandWeaponIdChange;
+        playerEquipment.RightHandWeaponIdChange += PlayerUI.Instance.playerUIHud.SetRightWeaponQuickSlotImage;
 
         //Equipment
         playerEquipment.CurrentWeaponBeingUsedIdChange += playerEquipment.HandleCurrentWeaponUsedIdChange;

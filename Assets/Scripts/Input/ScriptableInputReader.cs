@@ -16,6 +16,8 @@ public class ScriptableInputReader : ScriptableObject, ICameraActions, IPlayerAc
     public event UnityAction<bool> LightAttack = delegate { };
     public event UnityAction<bool> HeavyAttack = delegate { };
     public event UnityAction<bool> ChargeAttack = delegate { };
+    public event UnityAction SwitchRightWeapon = delegate { };
+    public event UnityAction SwitchLeftWeapon = delegate { };
 
     private PlayerControls playerControls;
 
@@ -152,5 +154,15 @@ public class ScriptableInputReader : ScriptableObject, ICameraActions, IPlayerAc
                 ChargeAttack.Invoke(false);
                 break;
         }
+    }
+
+    public void OnSwitchRightWeapon(InputAction.CallbackContext context)
+    {
+        SwitchRightWeapon?.Invoke();
+    }
+
+    public void OnSwitchLeftWeapon(InputAction.CallbackContext context)
+    {
+        SwitchLeftWeapon?.Invoke();
     }
 }

@@ -6,8 +6,6 @@ using UnityEngine.Events;
 
 public class PlayerCombat : CharacterCombat
 {
-    [SerializeField] private ScriptableInputReader inputReader;
-
     [SerializeField] private bool isChargingAttack;
     private bool IsChargingAttack 
     { 
@@ -18,8 +16,9 @@ public class PlayerCombat : CharacterCombat
             OnIsChargingAttack?.Invoke(IsChargingAttack);
         }
     }
-
     public event UnityAction<bool> OnIsChargingAttack;
+
+    [SerializeField] private ScriptableInputReader inputReader;
 
     private void OnEnable()
     {

@@ -293,21 +293,6 @@ public class PlayerCamera : MonoBehaviour
             }
             yield return null;
         }
-
-        if(PlayerManager.Instance != null)
-        {
-            if (PlayerManager.Instance.playerCombat.currentTarget != null)
-            {
-                cameraPivotTransform.transform.localPosition = newLockCameraHeight;
-                cameraPivotTransform.transform.localRotation = Quaternion.identity;
-
-            }
-            else
-            {
-                cameraPivotTransform.transform.localPosition = newUnlockCameraHeight;
-            }
-        }
-        yield return null;
     }
 
     public void ClearLockOnTargets()

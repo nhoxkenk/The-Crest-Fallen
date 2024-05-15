@@ -2957,7 +2957,7 @@ Transform:
   - {fileID: 7734694879790724477}
   - {fileID: 6115938805937796705}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8155807294900901339
 Animator:
@@ -3290,6 +3290,7 @@ MonoBehaviour:
   leftHandWeaponModel: {fileID: 0}
   currentRightHandWeaponId: 0
   currentLeftHandWeaponId: 0
+  inputReader: {fileID: 11400000, guid: fb9f5bd7e6a374742957fa3874de03f1, type: 2}
 --- !u!114 &4640261714163038094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3352,10 +3353,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWeaponBeingUsed: {fileID: 0}
   currentAttackType: 0
-  currentTargetManager: {fileID: 0}
+  currentTarget: {fileID: 0}
   lockOnTransform: {fileID: 741233075083844407}
   isUsingLeftHandWeapon: 0
   isUsingRightHandWeapon: 0
+  isChargingAttack: 0
   inputReader: {fileID: 11400000, guid: fb9f5bd7e6a374742957fa3874de03f1, type: 2}
 --- !u!114 &4298964964865386819
 MonoBehaviour:

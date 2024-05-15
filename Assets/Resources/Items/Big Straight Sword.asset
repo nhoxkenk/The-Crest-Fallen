@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Big Straight Sword
   m_EditorClassIdentifier: 
   itemName: Big Straight Sword
-  itemIcon: {fileID: 21300000, guid: 97115cd50eb704ef183d5a2543016954, type: 3}
+  itemIcon: {fileID: 21300000, guid: 52a59ea2342d94e02be3dbaef87780cc, type: 3}
   itemDescription: 
   itemID: 2
   isUnarmed: 0
@@ -29,6 +29,8 @@ MonoBehaviour:
   holyDamage: 0
   poiseDamage: 5
   lightAttack01Modifier: 1.1
+  heavyAttack01Modifier: 1.5
+  chargeAttack01Modifier: 2
   baseStaminaCost: 20
   lightAttackStaminaCostMultiplier: 0.9
   leftMouseButtonAction: {fileID: 11400000, guid: c1ca763129629624484eb68aadda6130, type: 2}

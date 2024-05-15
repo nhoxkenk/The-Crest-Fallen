@@ -31,11 +31,11 @@ public class PlayerEquipment : CharacterEquipment
         }
         set
         {
-            RightHandWeaponIdChange?.Invoke(currentRightHandWeaponId, value);
+            RightHandWeaponIdChange?.Invoke(value);
             currentRightHandWeaponId = value;
         }
     }
-    public event Action<int, int> RightHandWeaponIdChange;
+    public event Action<int> RightHandWeaponIdChange;
 
     [Header("Left Equipment ID")]
     [SerializeField] private int currentLeftHandWeaponId;
@@ -47,17 +47,25 @@ public class PlayerEquipment : CharacterEquipment
         }
         set
         {
-            LeftHandWeaponIdChange?.Invoke(currentLeftHandWeaponId, value);
+            LeftHandWeaponIdChange?.Invoke(value);
             currentLeftHandWeaponId = value;
         }
     }
-    public event Action<int, int> LeftHandWeaponIdChange;
+    public event Action<int> LeftHandWeaponIdChange;
 
+    [Header("Input Reader")]
+    [SerializeField] private ScriptableInputReader inputReader;
 
     protected override void Awake()
     {
         base.Awake();
         InitializeWeaponSlots();
+    }
+
+    private void OnEnable()
+    {
+        inputReader.SwitchRightWeapon += SwitchRightWeapon;
+        inputReader.SwitchLeftWeapon += SwitchLeftWeapon;
     }
 
     protected override void Start()
@@ -91,7 +99,7 @@ public class PlayerEquipment : CharacterEquipment
     #region Left Hand
     public void SwitchLeftWeapon()
     {
-        PlayerManager.Instance.playerAnimator.PlayTargetActionAnimation("Swap_Left_Weapon_01", false);
+        PlayerManager.Instance.playerAnimator.PlayTargetActionAnimation("Swap_Left_Weapon_01", false, false, true, true);
 
         WeaponItem selectedWeapon = null;
 
@@ -160,7 +168,7 @@ public class PlayerEquipment : CharacterEquipment
         }
     }
 
-    public void HandleCurrentLeftHandWeaponIdChange(int oldId, int newId)
+    public void HandleCurrentLeftHandWeaponIdChange(int newId)
     {
         WeaponItem weaponItem = Instantiate(AllItemsManager.Instance.GetWeaponItemById(newId));
         PlayerManager.Instance.playerInventory.currentLeftHandWeapon = weaponItem;
@@ -246,7 +254,7 @@ public class PlayerEquipment : CharacterEquipment
         }
     }
 
-    public void HandleCurrentRightHandWeaponIdChange(int oldId, int newId)
+    public void HandleCurrentRightHandWeaponIdChange(int newId)
     {
         WeaponItem weaponItem = Instantiate(AllItemsManager.Instance.GetWeaponItemById(newId));
         PlayerManager.Instance.playerInventory.currentRightHandWeapon = weaponItem;
