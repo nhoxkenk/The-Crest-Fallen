@@ -2,14 +2,40 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerCombat : CharacterCombat
 {
     [SerializeField] private ScriptableInputReader inputReader;
 
+    [SerializeField] private bool isChargingAttack;
+    private bool IsChargingAttack 
+    { 
+        get { return isChargingAttack; }
+        set
+        {
+            isChargingAttack = value;
+            OnIsChargingAttack?.Invoke(IsChargingAttack);
+        }
+    }
+
+    public event UnityAction<bool> OnIsChargingAttack;
+
     private void OnEnable()
     {
         inputReader.LightAttack += OnLightAttack;
+        inputReader.HeavyAttack += OnHeavyAttack;
+    }
+
+    private void OnHeavyAttack(bool heavyAttackInput)
+    {
+        if (heavyAttackInput)
+        {
+            var inventory = PlayerManager.Instance.playerInventory;
+
+            SetCharacterActionHand(true);
+            PerformWeaponBasedAction(inventory.currentRightHandWeapon.rightMouseButtonAction, inventory.currentRightHandWeapon);
+        }
     }
 
     private void OnLightAttack(bool lightAttackInput)
@@ -48,6 +74,11 @@ public class PlayerCombat : CharacterCombat
         PlayerManager.Instance.playerStat.CurrentStamina -= staminaDeducted;
     }
 
+    public void HandleAllHoldingInputAction()
+    {
+        HandleChargeAttackInput();
+    }
+
     public void HandleIsLockOnChanged(bool value)
     {
         if(!value)
@@ -60,5 +91,16 @@ public class PlayerCombat : CharacterCombat
     {
         base.SetTarget(target);
         PlayerCamera.Instance.SetLockOnCameraHeight();
+    }
+
+    private void HandleChargeAttackInput() 
+    {
+        if (PlayerManager.Instance.isPerformingAction)
+        {
+            if (isUsingRightHandWeapon)
+            {
+                IsChargingAttack = inputReader.IsChargingAttack;
+            }
+        }
     }
 }

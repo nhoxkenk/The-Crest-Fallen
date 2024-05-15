@@ -14,12 +14,16 @@ public class ScriptableInputReader : ScriptableObject, ICameraActions, IPlayerAc
     public event UnityAction<bool> Sprint = delegate { };
     public event UnityAction<bool> LockOn = delegate { };
     public event UnityAction<bool> LightAttack = delegate { };
+    public event UnityAction<bool> HeavyAttack = delegate { };
+    public event UnityAction<bool> ChargeAttack = delegate { };
 
     private PlayerControls playerControls;
 
     public Vector3 MoveDirection => playerControls.Player.Movement.ReadValue<Vector2>();
     public Vector3 LookDirection => playerControls.Camera.Look.ReadValue<Vector2>();
     public bool IsSprinting { get; private set; } = false;
+
+    public bool IsChargingAttack { get; private set; } = false;
 
     public float MovementAmount 
     {
@@ -51,10 +55,6 @@ public class ScriptableInputReader : ScriptableObject, ICameraActions, IPlayerAc
                 Dodge.Invoke(false);
                 break;
         }
-    }
-
-    public void OnHeavyAttack(InputAction.CallbackContext context)
-    {
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -122,6 +122,34 @@ public class ScriptableInputReader : ScriptableObject, ICameraActions, IPlayerAc
             case InputActionPhase.Canceled:
                 IsSprinting = false;
                 Sprint.Invoke(false);
+                break;
+        }
+    }
+
+    public void OnHeavyAttack(InputAction.CallbackContext context)
+    {
+        switch (context.phase)
+        {
+            case InputActionPhase.Started:
+                HeavyAttack.Invoke(true);
+                break;
+            case InputActionPhase.Canceled:
+                HeavyAttack.Invoke(false);
+                break;
+        }
+    }
+
+    public void OnChargeAttack(InputAction.CallbackContext context)
+    {
+        switch (context.phase)
+        {
+            case InputActionPhase.Started:
+                IsChargingAttack = true;
+                ChargeAttack.Invoke(true);
+                break;
+            case InputActionPhase.Canceled:
+                IsChargingAttack = false;
+                ChargeAttack.Invoke(false);
                 break;
         }
     }

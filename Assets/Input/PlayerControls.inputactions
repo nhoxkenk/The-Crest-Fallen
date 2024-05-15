@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Charge Attack",
+                    "type": "PassThrough",
+                    "id": "44c5bc96-b28d-46b0-8e1a-3805d5ac838c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(pressPoint=0.1)",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Lock On",
                     "type": "Button",
                     "id": "30262abb-dd58-403a-8adf-676829f9a4ce",
@@ -188,6 +197,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Lock On",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "50e442eb-e4f2-4e00-9319-9c1ac3dd1281",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Charge Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

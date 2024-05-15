@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class CharacterAnimator : MonoBehaviour
 {
-    private CharacterManager characterManager;
+    protected CharacterManager characterManager;
     private readonly int HorizontalValue = Animator.StringToHash("Horizontal");
     private readonly int VericalValue = Animator.StringToHash("Vertical");
     public readonly int isGroundedValue = Animator.StringToHash("isGrounded");
     public readonly int inAirTimerValue = Animator.StringToHash("inAirTimer");
+    public readonly int isChargingAttack = Animator.StringToHash("isChargingAttack");
 
     [Header("Damage Animation")]
     public string hit_Forward_Medium_01 = "hit_Forward_Medium_01";
@@ -52,5 +53,10 @@ public class CharacterAnimator : MonoBehaviour
         characterManager.isPerformingAction = isPerformingAction;
         characterManager.canMove = canMove;
         characterManager.canRotate = canRotate;
+    }
+
+    public void HandleIsChargingAttack(bool value)
+    {
+        characterManager.animator.SetBool(isChargingAttack, value);
     }
 }

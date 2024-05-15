@@ -24,5 +24,7 @@ public class Weapon : MonoBehaviour, IWeapon
 
         var modifiers = damageCollider.GetComponent<IWeaponModifier>();
         modifiers.LightAttack01Modifier = weaponItem.lightAttack01Modifier;
+        modifiers.HeavyAttack01Modifier = weaponItem.heavyAttack01Modifier;
+        modifiers.ChargeAttack01Modifier = weaponItem.chargeAttack01Modifier;
     }
 }

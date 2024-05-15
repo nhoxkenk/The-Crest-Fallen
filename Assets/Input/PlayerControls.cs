@@ -82,6 +82,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Charge Attack"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""44c5bc96-b28d-46b0-8e1a-3805d5ac838c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(pressPoint=0.1)"",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Lock On"",
                     ""type"": ""Button"",
                     ""id"": ""30262abb-dd58-403a-8adf-676829f9a4ce"",
@@ -212,6 +221,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Lock On"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""50e442eb-e4f2-4e00-9319-9c1ac3dd1281"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Charge Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -302,6 +322,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_LightAttack = m_Player.FindAction("Light Attack", throwIfNotFound: true);
         m_Player_HeavyAttack = m_Player.FindAction("Heavy Attack", throwIfNotFound: true);
+        m_Player_ChargeAttack = m_Player.FindAction("Charge Attack", throwIfNotFound: true);
         m_Player_LockOn = m_Player.FindAction("Lock On", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
@@ -377,6 +398,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_LightAttack;
     private readonly InputAction m_Player_HeavyAttack;
+    private readonly InputAction m_Player_ChargeAttack;
     private readonly InputAction m_Player_LockOn;
     public struct PlayerActions
     {
@@ -388,6 +410,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @LightAttack => m_Wrapper.m_Player_LightAttack;
         public InputAction @HeavyAttack => m_Wrapper.m_Player_HeavyAttack;
+        public InputAction @ChargeAttack => m_Wrapper.m_Player_ChargeAttack;
         public InputAction @LockOn => m_Wrapper.m_Player_LockOn;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -416,6 +439,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @HeavyAttack.started += instance.OnHeavyAttack;
             @HeavyAttack.performed += instance.OnHeavyAttack;
             @HeavyAttack.canceled += instance.OnHeavyAttack;
+            @ChargeAttack.started += instance.OnChargeAttack;
+            @ChargeAttack.performed += instance.OnChargeAttack;
+            @ChargeAttack.canceled += instance.OnChargeAttack;
             @LockOn.started += instance.OnLockOn;
             @LockOn.performed += instance.OnLockOn;
             @LockOn.canceled += instance.OnLockOn;
@@ -441,6 +467,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @HeavyAttack.started -= instance.OnHeavyAttack;
             @HeavyAttack.performed -= instance.OnHeavyAttack;
             @HeavyAttack.canceled -= instance.OnHeavyAttack;
+            @ChargeAttack.started -= instance.OnChargeAttack;
+            @ChargeAttack.performed -= instance.OnChargeAttack;
+            @ChargeAttack.canceled -= instance.OnChargeAttack;
             @LockOn.started -= instance.OnLockOn;
             @LockOn.performed -= instance.OnLockOn;
             @LockOn.canceled -= instance.OnLockOn;
@@ -569,6 +598,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnLightAttack(InputAction.CallbackContext context);
         void OnHeavyAttack(InputAction.CallbackContext context);
+        void OnChargeAttack(InputAction.CallbackContext context);
         void OnLockOn(InputAction.CallbackContext context);
     }
     public interface ICameraActions

@@ -79,6 +79,8 @@ public class PlayerManager : CharacterManager
             playerAnimator.UpdateAnimator();
 
             playerStat.RegenerateStamina();
+
+            playerCombat.HandleAllHoldingInputAction();
         }
 
         DebugMenu();
@@ -127,6 +129,7 @@ public class PlayerManager : CharacterManager
 
         //Combat
         OnIsLockOnChanged += playerCombat.HandleIsLockOnChanged;
+        playerCombat.OnIsChargingAttack += playerAnimator.HandleIsChargingAttack;
     }
 
     protected override void GetComponents()

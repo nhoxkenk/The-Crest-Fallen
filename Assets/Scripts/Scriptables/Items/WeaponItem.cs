@@ -27,6 +27,8 @@ public class WeaponItem : ScriptableItem
 
     [Header("Attack Modifiers")]
     public float lightAttack01Modifier = 1.1f;
+    public float heavyAttack01Modifier = 1.5f;
+    public float chargeAttack01Modifier = 2.0f;
 
     [Header("Stamina Cost")]
     public int baseStaminaCost = 20;
@@ -34,4 +36,5 @@ public class WeaponItem : ScriptableItem
 
     [Header("Actions")]
     public ScriptableWeaponItemAction leftMouseButtonAction;
+    public ScriptableWeaponItemAction rightMouseButtonAction;
 }

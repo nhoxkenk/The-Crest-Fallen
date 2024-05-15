@@ -32,7 +32,6 @@ public class PlayerAnimator : CharacterAnimator
         {
             UpdateAnimatorMovementParameters(0, MoveAmount, PlayerManager.Instance.playerLocomotion.IsSprinting);
         }
-        
     }
 
     private void OnAnimatorMove()
