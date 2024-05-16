@@ -43,4 +43,23 @@ public class PlayerAnimator : CharacterAnimator
             PlayerManager.Instance.transform.rotation *= PlayerManager.Instance.animator.deltaRotation;
         }
     }
+
+    /// <summary>
+    /// This function is register as an event in Animation events of Light Attack Animation.
+    /// </summary>
+    public override void EnableCanDoCombo()
+    {
+        if (PlayerManager.Instance.playerCombat.IsUsingRightHandWeapon)
+        {
+            PlayerManager.Instance.playerCombat.canComboWithMainHandWeapon = true;
+        }
+    }
+
+    /// <summary>
+    /// This function is register as an event in Animation events of Light Attack Animation.
+    /// </summary>
+    public override void DisableCanDoCombo()
+    {
+        PlayerManager.Instance.playerCombat.canComboWithMainHandWeapon = false;
+    }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class LightAttackAction : ScriptableWeaponItemAction
 {
     [SerializeField] private string lightAttack_01 = "Main_Light_Attack_01";
+    [SerializeField] private string lightAttack_02 = "Main_Light_Attack_02";
 
     public override void AttempToPerformAction(CharacterManager characterPerformAction, WeaponItem weaponPerformAction)
     {
@@ -21,12 +22,19 @@ public class LightAttackAction : ScriptableWeaponItemAction
 
     private void PerformLightAttack(CharacterManager characterPerformingAction, WeaponItem weaponPerformingAction)
     {
-        if (characterPerformingAction.characterCombat.IsUsingLeftHandWeapon)
+        if (characterPerformingAction.isPerformingAction && characterPerformingAction.characterCombat.canComboWithMainHandWeapon)
         {
-
+            characterPerformingAction.characterCombat.canComboWithMainHandWeapon = false;
+            if(characterPerformingAction.characterCombat.lastAttackAnimation == lightAttack_01)
+            {
+                characterPerformingAction.characterAnimator.PlayTargetAttackAnimation(AttackType.lightAttack02, lightAttack_02, true);
+            }
+            else
+            {
+                characterPerformingAction.characterAnimator.PlayTargetAttackAnimation(AttackType.lightAttack01, lightAttack_01, true);
+            }
         }
-
-        if (characterPerformingAction.characterCombat.IsUsingRightHandWeapon)
+        else if(!characterPerformingAction.isPerformingAction)
         {
             characterPerformingAction.characterAnimator.PlayTargetAttackAnimation(AttackType.lightAttack01, lightAttack_01, true);
         }

@@ -57,10 +57,19 @@ public class MeleeWeaponDamageCollider : DamageCollider, IWeaponModifier
             case AttackType.lightAttack01:
                 ApplyAttackDamageModifiers(LightAttack01Modifier, damageEffect);
                 break;
+            case AttackType.lightAttack02:
+                ApplyAttackDamageModifiers(LightAttack01Modifier, damageEffect);
+                break;
             case AttackType.HeavyAttack01:
                 ApplyAttackDamageModifiers(HeavyAttack01Modifier, damageEffect);
                 break;
+            case AttackType.HeavyAttack02:
+                ApplyAttackDamageModifiers(HeavyAttack01Modifier, damageEffect);
+                break;
             case AttackType.ChargeAttack01:
+                ApplyAttackDamageModifiers(ChargeAttack01Modifier, damageEffect);
+                break;
+            case AttackType.ChargeAttack02:
                 ApplyAttackDamageModifiers(ChargeAttack01Modifier, damageEffect);
                 break;
             default:

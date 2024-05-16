@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public abstract class CharacterManager : MonoBehaviour
+public class CharacterManager : MonoBehaviour
 {
     [HideInInspector] public CharacterController characterController;
     [HideInInspector] public Animator animator;
@@ -15,6 +15,10 @@ public abstract class CharacterManager : MonoBehaviour
     [HideInInspector] public CharacterEquipment characterEquipment;
     [HideInInspector] public CharacterCombat characterCombat;
     [HideInInspector] public CharacterSoundEffect characterSoundEffect;
+
+    [Header("Character Type")]
+    [SerializeField] private CharacterType type;
+    public CharacterType Type {  get => type; private set => type = value; }
 
     [Header("Status")]
     [SerializeField] private bool isAlive = true;
@@ -47,6 +51,11 @@ public abstract class CharacterManager : MonoBehaviour
     protected virtual void Update()
     {
         animator.SetBool(characterAnimator.isGroundedValue, isGrounded);
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        
     }
 
     protected virtual void GetComponents()
@@ -98,5 +107,10 @@ public abstract class CharacterManager : MonoBehaviour
                 Physics.IgnoreCollision(collider, otherCollider, true);
             }
         }  
+    }
+
+    public bool CanDealDamageTo(CharacterManager characterManager)
+    {
+        return Type != characterManager.Type;
     }
 }

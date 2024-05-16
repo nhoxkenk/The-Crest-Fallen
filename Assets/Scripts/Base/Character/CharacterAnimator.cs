@@ -47,6 +47,7 @@ public class CharacterAnimator : MonoBehaviour
     {
         //Keep track of last attack
         characterManager.characterCombat.currentAttackType = type;
+        characterManager.characterCombat.lastAttackAnimation = targetAnimationName;
 
         characterManager.applyRootMotion = applyRootMotion;
         characterManager.animator.CrossFade(targetAnimationName, 0.2f);
@@ -58,5 +59,15 @@ public class CharacterAnimator : MonoBehaviour
     public void HandleIsChargingAttack(bool value)
     {
         characterManager.animator.SetBool(isChargingAttack, value);
+    }
+
+    public virtual void EnableCanDoCombo()
+    {
+        
+    }
+
+    public virtual void DisableCanDoCombo()
+    {
+        
     }
 }

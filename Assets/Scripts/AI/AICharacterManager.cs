@@ -3,44 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : CharacterManager
+public class AICharacterManager : CharacterManager
 {
-    [Header("Debug")]
-    public bool revive;
-    public bool switchRightWeapon;
+    [Header("Current State")]
+    [SerializeField] private ScriptableAIState currentState;
+
+    [HideInInspector] public AICharacterCombat AICharacterCombat;
 
     protected override void Awake()
     {
         base.Awake();
 
-        GetComponents();
+        AICharacterCombat = GetComponent<AICharacterCombat>();
+
     }
 
     protected override void Start()
     {
         base.Start();
-        BindingPlayerEvents();
+        BindingCharacterEvents();
         InitializeStat();
     }
 
-    private void BindingPlayerEvents()
+    private void BindingCharacterEvents()
     {
         characterStat.CurrentHealthChange += characterStat.HandleCurrentHealthChange;
     }
 
-    protected override void Update()
-    {
-        base.Update();
-        DebugMenu();
-    }
-
-    private void LateUpdate()
-    {
-        //PlayerCamera.Instance.HandleAllCameraActions();
-    }
-
     /// <summary>
-    /// Initialize Player Stat
+    /// Initialize Character Stat
     /// </summary>
     private void InitializeStat()
     {
@@ -57,29 +48,16 @@ public class EnemyManager : CharacterManager
         return base.ProcessDeathEvent(manualSelectDeathAnimation);
     }
 
-    public override void ReviveCharacter()
+    protected override void FixedUpdate()
     {
-        base.ReviveCharacter();
-
-        characterStat.CurrentHealth = characterStat.maxHealth;
-        characterStat.CurrentStamina = characterStat.maxStamina;
-
-        characterAnimator.PlayTargetActionAnimation("Empty", false);
-
-        IsAlive = true;
+        ProcessStateMachine();
     }
 
-    private void DebugMenu()
+    private void ProcessStateMachine()
     {
-        if (revive)
+        if(currentState != null)
         {
-            revive = false;
-            ReviveCharacter();
-        }
-
-        if (switchRightWeapon)
-        {
-            switchRightWeapon = false;
+            currentState.UpdateState(this);
         }
     }
 }

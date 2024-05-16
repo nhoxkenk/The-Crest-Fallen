@@ -58,15 +58,30 @@ public class PlayerCombat : CharacterCombat
             return;
         }
 
-        float staminaDeducted = 0;
+        float staminaDeducted;
 
         switch(currentAttackType)
         {
             case AttackType.lightAttack01:
                 staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.lightAttackStaminaCostMultiplier;
                 break;
-
+            case AttackType.lightAttack02:
+                staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.lightAttackStaminaCostMultiplier;
+                break;
+            case AttackType.HeavyAttack01:
+                staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.heavyAttackStaminaCostMultiplier;
+                break;
+            case AttackType.HeavyAttack02:
+                staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.heavyAttackStaminaCostMultiplier;
+                break;
+            case AttackType.ChargeAttack01:
+                staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.chargeAttackStaminaCostMultiplier;
+                break;
+            case AttackType.ChargeAttack02:
+                staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.chargeAttackStaminaCostMultiplier;
+                break;
             default:
+                staminaDeducted = currentWeaponBeingUsed.baseStaminaCost;
                 break;
         }
 

@@ -9,6 +9,9 @@ public class WeaponItem : ScriptableItem
     [Header("Weapon Model")]
     public GameObject weaponModelPrefab;
 
+    [Header("Stamina Cost")]
+    public int baseStaminaCost = 20;
+
     [Header("Weapon Requirements")]
     public int strengthREQ = 0;
     public int dexREQ = 0;
@@ -30,9 +33,10 @@ public class WeaponItem : ScriptableItem
     public float heavyAttack01Modifier = 1.5f;
     public float chargeAttack01Modifier = 2.0f;
 
-    [Header("Stamina Cost")]
-    public int baseStaminaCost = 20;
+    [Header("Stamina Modifiers")]
     public float lightAttackStaminaCostMultiplier = 0.9f;
+    public float heavyAttackStaminaCostMultiplier = 1.1f;
+    public float chargeAttackStaminaCostMultiplier = 1.2f;
 
     [Header("Actions")]
     public ScriptableWeaponItemAction leftMouseButtonAction;

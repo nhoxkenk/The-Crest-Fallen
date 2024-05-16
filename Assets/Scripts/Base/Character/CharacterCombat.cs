@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CharacterCombat : MonoBehaviour
+public class CharacterCombat : MonoBehaviour
 {
+    [Header("Last Attack Animation")]
+    public string lastAttackAnimation;
+
     public WeaponItem currentWeaponBeingUsed;
     public AttackType currentAttackType;
 
@@ -41,6 +44,9 @@ public abstract class CharacterCombat : MonoBehaviour
         }
     }
 
+    [Header("Flags")]
+    public bool canComboWithMainHandWeapon;
+
     public virtual void SetCharacterActionHand(bool isRightHand)
     {
         if (isRightHand)
@@ -60,7 +66,10 @@ public abstract class CharacterCombat : MonoBehaviour
         weaponAction.AttempToPerformAction(PlayerManager.Instance, weapon);
     }
 
-    public abstract void DrainStaminaBaseOnWeaponAction();
+    public virtual void DrainStaminaBaseOnWeaponAction()
+    {
+
+    }
 
     /// <summary>
     /// Register as an event to Animations Events

@@ -620,6 +620,7 @@ GameObject:
   - component: {fileID: 2347515512085820785}
   - component: {fileID: 8475830940841354539}
   - component: {fileID: 932783442607733983}
+  - component: {fileID: 8936561086584996844}
   m_Layer: 6
   m_Name: Dummy
   m_TagString: Untagged
@@ -657,7 +658,7 @@ Transform:
   - {fileID: 3799016628771557841}
   - {fileID: 3176913112579048697}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3581979609724538367
 Animator:
@@ -879,6 +880,7 @@ MonoBehaviour:
   characterEquipment: {fileID: 0}
   characterCombat: {fileID: 0}
   characterSoundEffect: {fileID: 0}
+  type: 1
   isAlive: 1
   isPerformingAction: 0
   applyRootMotion: 0
@@ -886,9 +888,8 @@ MonoBehaviour:
   canRotate: 1
   isJumping: 0
   isGrounded: 1
-  isLockOn: 0
-  revive: 0
-  switchRightWeapon: 0
+  currentState: {fileID: 11400000, guid: 5da51732ac7b3e2498bcfeb347591c7f, type: 2}
+  AICharacterCombat: {fileID: 0}
 --- !u!114 &2347515512085820785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -936,12 +937,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdbd04501a836094e80193ba8ef49a2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastAttackAnimation: 
   currentWeaponBeingUsed: {fileID: 0}
   currentAttackType: 0
   currentTarget: {fileID: 0}
   lockOnTransform: {fileID: 4094387390375931532}
   isUsingLeftHandWeapon: 0
   isUsingRightHandWeapon: 0
+  canComboWithMainHandWeapon: 0
+  detectionRadius: 15
+  miniumDetectionAngle: -25
+  maxiumDetectionAngle: 35
+--- !u!114 &8936561086584996844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438158529219277926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e95f72192cbad424880e3e1caf148b6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  groundCheckRadius: 1
+  groundedVelocity: -20
+  fallVelocity: -5
+  gravityForce: -5.55
+  yVelocity: {x: 0, y: 0, z: 0}
 --- !u!1 &1536310863242341745
 GameObject:
   m_ObjectHideFlags: 0
