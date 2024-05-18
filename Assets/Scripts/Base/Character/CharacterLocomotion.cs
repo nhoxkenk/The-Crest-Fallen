@@ -32,12 +32,12 @@ public class CharacterLocomotion : MonoBehaviour
 
     protected void HandleGroundCheck()
     {
-        characterManager.isGrounded = Physics.CheckSphere(characterManager.transform.position, groundCheckRadius, groundLayer);
+        characterManager.IsGrounded = Physics.CheckSphere(characterManager.transform.position, groundCheckRadius, groundLayer);
     }
 
     protected void HandleGroundCondition()
     {
-        if (characterManager.isGrounded)
+        if (characterManager.IsGrounded)
         {
             //Not attempting to jump or move up
             if (yVelocity.y < 0)
@@ -50,7 +50,7 @@ public class CharacterLocomotion : MonoBehaviour
         else
         {
             //Not jump, just falling
-            if (!characterManager.isJumping && !fallingVelocityHasBeenSet)
+            if (!characterManager.IsJumping && !fallingVelocityHasBeenSet)
             {
                 fallingVelocityHasBeenSet = true;
                 yVelocity.y = fallVelocity;

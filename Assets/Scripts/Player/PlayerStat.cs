@@ -57,7 +57,7 @@ public class PlayerStat : CharacterStat
 
     public void RegenerateStamina()
     {
-        if (PlayerManager.Instance.playerLocomotion.IsSprinting || PlayerManager.Instance.isPerformingAction)
+        if (PlayerManager.Instance.playerLocomotion.IsSprinting || PlayerManager.Instance.IsPerformingAction)
         {
             return;
         }

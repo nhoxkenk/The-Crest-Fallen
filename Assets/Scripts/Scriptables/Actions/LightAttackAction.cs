@@ -12,7 +12,7 @@ public class LightAttackAction : ScriptableWeaponItemAction
     {
         base.AttempToPerformAction(characterPerformAction, weaponPerformAction);
 
-        if(characterPerformAction.characterStat.CurrentStamina <= 0 || !characterPerformAction.isGrounded)
+        if(characterPerformAction.characterStat.CurrentStamina <= 0 || !characterPerformAction.IsGrounded)
         {
             return;
         }
@@ -22,7 +22,7 @@ public class LightAttackAction : ScriptableWeaponItemAction
 
     private void PerformLightAttack(CharacterManager characterPerformingAction, WeaponItem weaponPerformingAction)
     {
-        if (characterPerformingAction.isPerformingAction && characterPerformingAction.characterCombat.canComboWithMainHandWeapon)
+        if (characterPerformingAction.IsPerformingAction && characterPerformingAction.characterCombat.canComboWithMainHandWeapon)
         {
             characterPerformingAction.characterCombat.canComboWithMainHandWeapon = false;
             if(characterPerformingAction.characterCombat.lastAttackAnimation == lightAttack_01)
@@ -34,7 +34,7 @@ public class LightAttackAction : ScriptableWeaponItemAction
                 characterPerformingAction.characterAnimator.PlayTargetAttackAnimation(AttackType.lightAttack01, lightAttack_01, true);
             }
         }
-        else if(!characterPerformingAction.isPerformingAction)
+        else if(!characterPerformingAction.IsPerformingAction)
         {
             characterPerformingAction.characterAnimator.PlayTargetAttackAnimation(AttackType.lightAttack01, lightAttack_01, true);
         }

@@ -89,7 +89,7 @@ public class PlayerLocomotion : CharacterLocomotion
 
     private void HandleGroundedMovement()
     {
-        if (!PlayerManager.Instance.canMove)
+        if (!PlayerManager.Instance.CanMove)
         {
             return;
         }
@@ -118,7 +118,7 @@ public class PlayerLocomotion : CharacterLocomotion
 
     private void HandleRotation()
     {
-        if (!PlayerManager.Instance.canRotate)
+        if (!PlayerManager.Instance.CanRotate)
         {
             return;
         }
@@ -179,7 +179,7 @@ public class PlayerLocomotion : CharacterLocomotion
 
     public void AttemptToPerformDodge()
     {
-        if (PlayerManager.Instance.isPerformingAction || PlayerManager.Instance.isJumping)
+        if (PlayerManager.Instance.IsPerformingAction || PlayerManager.Instance.IsJumping)
         {
             return;
         }
@@ -211,7 +211,7 @@ public class PlayerLocomotion : CharacterLocomotion
 
     public void HandleSprinting()
     {
-        if (PlayerManager.Instance.isPerformingAction)
+        if (PlayerManager.Instance.IsPerformingAction)
         {
             IsSprinting = false;
             return;
@@ -240,7 +240,7 @@ public class PlayerLocomotion : CharacterLocomotion
 
     private void HandleFreeFallMovement()
     {
-        if(!PlayerManager.Instance.isGrounded)
+        if(!PlayerManager.Instance.IsGrounded)
         {
             Vector3 freeFallDirection = new Vector3(inputReader.MoveDirection.x, 0, inputReader.MoveDirection.y);
             freeFallDirection = CameraDirection(freeFallDirection, true);
@@ -251,7 +251,7 @@ public class PlayerLocomotion : CharacterLocomotion
 
     public void AttemptToPerformJump()
     {
-        if (PlayerManager.Instance.isPerformingAction)
+        if (PlayerManager.Instance.IsPerformingAction)
         {
             return;
         }
@@ -261,18 +261,18 @@ public class PlayerLocomotion : CharacterLocomotion
             return;
         }
 
-        if (PlayerManager.Instance.isJumping)
+        if (PlayerManager.Instance.IsJumping)
         {
             return;
         }
 
-        if (!PlayerManager.Instance.isGrounded)
+        if (!PlayerManager.Instance.IsGrounded)
         {
             return;
         }
 
         PlayerManager.Instance.playerAnimator.PlayTargetActionAnimation("Main_Jump_01", false);
-        PlayerManager.Instance.isJumping = true;
+        PlayerManager.Instance.IsJumping = true;
 
         Vector3 direction = new Vector3(inputReader.MoveDirection.x, 0, inputReader.MoveDirection.y);
 
@@ -300,7 +300,7 @@ public class PlayerLocomotion : CharacterLocomotion
 
     public void HandleJumpingMovement()
     {
-        if (PlayerManager.Instance.isJumping)
+        if (PlayerManager.Instance.IsJumping)
         {
             PlayerManager.Instance.characterController.Move(jumpDirection * jumpFowardVelocity * Time.deltaTime);
         }

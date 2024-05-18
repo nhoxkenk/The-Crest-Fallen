@@ -8,6 +8,7 @@ public class CharacterAnimator : MonoBehaviour
     public readonly int isGroundedValue = Animator.StringToHash("isGrounded");
     public readonly int inAirTimerValue = Animator.StringToHash("inAirTimer");
     public readonly int isChargingAttack = Animator.StringToHash("isChargingAttack");
+    public readonly int isMoving = Animator.StringToHash("isMoving");
 
     [Header("Damage Animation")]
     public string hit_Forward_Medium_01 = "hit_Forward_Medium_01";
@@ -35,12 +36,12 @@ public class CharacterAnimator : MonoBehaviour
     //Whenever we need a specific animation, this function is call, ex: attack, dodge, heal, ...
     public virtual void PlayTargetActionAnimation(string targetAnimationName, bool isPerformingAction, bool applyRootMotion = true, bool canMove = false, bool canRotate = false)
     {
-        characterManager.applyRootMotion = applyRootMotion;
+        characterManager.ApplyRootMotion = applyRootMotion;
         characterManager.animator.CrossFade(targetAnimationName, 0.2f);
         //Stop character from attempting a new actions
-        characterManager.isPerformingAction = isPerformingAction;
-        characterManager.canMove = canMove;
-        characterManager.canRotate = canRotate;
+        characterManager.IsPerformingAction = isPerformingAction;
+        characterManager.CanMove = canMove;
+        characterManager.CanRotate = canRotate;
     }
 
     public virtual void PlayTargetAttackAnimation(AttackType type, string targetAnimationName, bool isPerformingAction, bool applyRootMotion = true, bool canMove = false, bool canRotate = false)
@@ -49,11 +50,11 @@ public class CharacterAnimator : MonoBehaviour
         characterManager.characterCombat.currentAttackType = type;
         characterManager.characterCombat.lastAttackAnimation = targetAnimationName;
 
-        characterManager.applyRootMotion = applyRootMotion;
+        characterManager.ApplyRootMotion = applyRootMotion;
         characterManager.animator.CrossFade(targetAnimationName, 0.2f);
-        characterManager.isPerformingAction = isPerformingAction;
-        characterManager.canMove = canMove;
-        characterManager.canRotate = canRotate;
+        characterManager.IsPerformingAction = isPerformingAction;
+        characterManager.CanMove = canMove;
+        characterManager.CanRotate = canRotate;
     }
 
     public void HandleIsChargingAttack(bool value)

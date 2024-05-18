@@ -24,7 +24,6 @@ public class ScriptableInputReader : ScriptableObject, ICameraActions, IPlayerAc
     public Vector3 MoveDirection => playerControls.Player.Movement.ReadValue<Vector2>();
     public Vector3 LookDirection => playerControls.Camera.Look.ReadValue<Vector2>();
     public bool IsSprinting { get; private set; } = false;
-
     public bool IsChargingAttack { get; private set; } = false;
 
     public float MovementAmount 

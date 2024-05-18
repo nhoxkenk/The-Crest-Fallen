@@ -10,7 +10,7 @@ public class IdleState : ScriptableAIState
         if(characterManager.AICharacterCombat.currentTarget != null)
         {
             Debug.Log("Found A Target");
-            return this;
+            return NextState(characterManager, characterManager.pursueState);
         }
         else
         {

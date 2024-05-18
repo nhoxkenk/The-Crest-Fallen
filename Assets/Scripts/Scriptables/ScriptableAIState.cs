@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class ScriptableAIState : ScriptableObject
 {
-    public virtual ScriptableAIState UpdateState(AICharacterManager characterManager)
+    public virtual ScriptableAIState UpdateState(AICharacterManager aiManager)
     {
-        return new ScriptableAIState();
+        return this;
+    }
+
+    public virtual ScriptableAIState NextState(AICharacterManager aiManager, ScriptableAIState state)
+    {
+        ResetStateFlags(aiManager);
+        return state;
+    }
+
+    public virtual void ResetStateFlags(AICharacterManager aiManager)
+    {
+
     }
 }

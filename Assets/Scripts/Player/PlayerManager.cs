@@ -7,7 +7,6 @@ public class PlayerManager : CharacterManager
 {
     [Header("Lock On Flags")]
     [SerializeField] private bool isLockOn;
-
     public bool IsLockOn 
     { 
         get => isLockOn; 
@@ -36,7 +35,6 @@ public class PlayerManager : CharacterManager
         }
     }
 
-    [HideInInspector] public InputReader playerInput;
     [HideInInspector] public PlayerLocomotion playerLocomotion;
     [HideInInspector] public PlayerAnimator playerAnimator;
     [HideInInspector] public PlayerInventory playerInventory;
@@ -139,7 +137,6 @@ public class PlayerManager : CharacterManager
     {
         base.GetComponents();
 
-        playerInput = GetComponent<InputReader>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
         playerAnimator = GetComponentInChildren<PlayerAnimator>();
         playerInventory = GetComponent<PlayerInventory>();

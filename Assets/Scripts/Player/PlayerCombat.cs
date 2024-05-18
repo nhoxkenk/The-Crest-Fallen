@@ -109,7 +109,7 @@ public class PlayerCombat : CharacterCombat
 
     private void HandleChargeAttackInput() 
     {
-        if (PlayerManager.Instance.isPerformingAction)
+        if (PlayerManager.Instance.IsPerformingAction)
         {
             if (isUsingRightHandWeapon)
             {

@@ -22,20 +22,64 @@ public class CharacterManager : MonoBehaviour
 
     [Header("Status")]
     [SerializeField] private bool isAlive = true;
+    [SerializeField] private bool isMoving = false;
+    public bool IsAlive { get => isAlive; set => isAlive = value; }
+    public bool IsMoving 
+    {   get => isMoving; 
+        set 
+        {
+            isMoving = value;
+            animator.SetBool(characterAnimator.isMoving, isMoving);
+        }  
+    }
 
-   [Header("Animation Flags")]
-    public bool isPerformingAction = false;
-    public bool applyRootMotion = false;
+    [Header("Animation Flags")]
+    [SerializeField] private bool isPerformingAction = false;
+    [SerializeField] private bool applyRootMotion = false;
+
+    public bool IsPerformingAction
+    {
+        get => isPerformingAction;
+        set => isPerformingAction = value;
+    }
+
+    public bool ApplyRootMotion
+    {
+        get => applyRootMotion;
+        set => applyRootMotion = value;
+    }
 
     [Header("Movement Flags")]
-    public bool canMove = true;
-    public bool canRotate = true;
+    [SerializeField] private bool canMove = true;
+    [SerializeField] private bool canRotate = true;
+
+    public bool CanMove
+    {
+        get => canMove;
+        set => canMove = value;
+    }
+
+    public bool CanRotate
+    {
+        get => canRotate;
+        set => canRotate = value;
+    }
 
     [Header("Jump Flags")]
-    public bool isJumping = false;
-    public bool isGrounded = true;
+    [SerializeField] private bool isJumping = false;
+    [SerializeField] private bool isGrounded = true;
 
-    public bool IsAlive { get => isAlive; set => isAlive = value; }
+    public bool IsJumping
+    {
+        get => isJumping;
+        set => isJumping = value;
+    }
+
+    public bool IsGrounded
+    {
+        get => isGrounded;
+        set => isGrounded = value;
+    }
 
     protected virtual void Awake()
     {
@@ -50,7 +94,7 @@ public class CharacterManager : MonoBehaviour
 
     protected virtual void Update()
     {
-        animator.SetBool(characterAnimator.isGroundedValue, isGrounded);
+        animator.SetBool(characterAnimator.isGroundedValue, IsGrounded);
     }
 
     protected virtual void FixedUpdate()

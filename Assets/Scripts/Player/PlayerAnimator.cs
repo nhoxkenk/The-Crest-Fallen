@@ -15,6 +15,9 @@ public class PlayerAnimator : CharacterAnimator
     public void UpdateAnimator()
     {
         float MoveAmount = inputReader.MovementAmount;
+
+        PlayerManager.Instance.IsMoving = MoveAmount != 0 ? true : false;
+
         if (MoveAmount > 0f && MoveAmount <= 0.5f)
         {
             MoveAmount = 0.5f;
@@ -36,7 +39,7 @@ public class PlayerAnimator : CharacterAnimator
 
     private void OnAnimatorMove()
     {
-        if (PlayerManager.Instance.applyRootMotion)
+        if (PlayerManager.Instance.ApplyRootMotion)
         {
             Vector3 velocity = PlayerManager.Instance.animator.deltaPosition;
             PlayerManager.Instance.characterController.Move(velocity);
