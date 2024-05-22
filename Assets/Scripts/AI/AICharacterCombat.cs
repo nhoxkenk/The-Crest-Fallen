@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class AICharacterCombat : CharacterCombat
 {
+    [Header("Target Infomations")]
+    public float distanceFromTarget;
+    public Vector3 targetDirection;
+
     [Header("Detection Range")]
+    public float characterViewableAngle;
+
     [SerializeField] private float detectionRadius = 15f;
     [SerializeField] private float miniumDetectionAngle = -25;
     [SerializeField] private float maxiumDetectionAngle = 35;
@@ -51,9 +57,45 @@ public class AICharacterCombat : CharacterCombat
                 }
                 else
                 {
+                    targetDirection = targetCharacter.transform.position - transform.position;
+                    characterViewableAngle = GetAngleOfTarget(this.transform);
                     characterFinding.characterCombat.SetTarget(targetCharacter);
+                    PivotTowardsTarget(characterFinding);                    
                 }
             }
         }
+    }
+    
+    public void PivotTowardsTarget(AICharacterManager character)
+    {
+        if (character.IsPerformingAction)
+        {
+            return;
+        }
+
+        if(characterViewableAngle >= 40 && characterViewableAngle <= 70)
+        {
+            character.characterAnimator.PlayTargetActionAnimation("Turn_Right", true);
+        }
+
+        if (characterViewableAngle <= -40 && characterViewableAngle >= -70)
+        {
+            character.characterAnimator.PlayTargetActionAnimation("Turn_Left", true);
+        }
+
+        if (characterViewableAngle >= 145 && characterViewableAngle <= 180)
+        {
+            character.characterAnimator.PlayTargetActionAnimation("Turn_Back", true);
+        }
+    }
+
+    public float GetAngleOfTarget(Transform characterTransform)
+    {
+        targetDirection.y = 0;
+        float angle = Vector3.Angle(characterTransform.forward, targetDirection);
+        Vector3 cross = Vector3.Cross(characterTransform.forward, targetDirection);
+        if (cross.y > 0) angle -= angle;
+        Debug.Log(angle);
+        return angle;
     }
 }

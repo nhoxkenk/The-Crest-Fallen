@@ -12,6 +12,7 @@ public class AICharacterManager : CharacterManager
     [Header("List of State")]
     public ScriptableAIState idleState;
     public ScriptableAIState pursueState;
+    public ScriptableAIState combatStanceState;
 
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public AICharacterCombat AICharacterCombat;
@@ -75,6 +76,14 @@ public class AICharacterManager : CharacterManager
     {
         agent.transform.localPosition = Vector3.zero;
         agent.transform.localRotation = Quaternion.identity;
+
+        //Get the Angle needed for animtion turn, but right now the animation set not working
+        if(AICharacterCombat.currentTarget != null)
+        {
+            AICharacterCombat.targetDirection = AICharacterCombat.currentTarget.transform.position - transform.position;
+            AICharacterCombat.characterViewableAngle = AICharacterCombat.GetAngleOfTarget(this.transform);
+            AICharacterCombat.distanceFromTarget = Vector3.Distance(transform.position, AICharacterCombat.currentTarget.transform.position);
+        }
 
         if (agent.enabled)
         {
