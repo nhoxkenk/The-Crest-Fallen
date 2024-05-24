@@ -23,7 +23,14 @@ public class PursueTargetState : ScriptableAIState
             aiManager.agent.enabled = true;
         }
 
+        //Option pivot to face the target if it out of view
+
         aiManager.AICharacterLocomotion.RotateTowardTarget(aiManager);
+
+        if(aiManager.AICharacterCombat.distanceFromTarget <= aiManager.agent.stoppingDistance)
+        {
+            return NextState(aiManager, aiManager.combatStanceState);
+        }
 
         NavMeshPath path = new NavMeshPath();
         aiManager.agent.CalculatePath(aiManager.AICharacterCombat.currentTarget.transform.position, path);

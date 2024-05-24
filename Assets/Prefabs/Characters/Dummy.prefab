@@ -893,6 +893,8 @@ MonoBehaviour:
   currentState: {fileID: 11400000, guid: 5da51732ac7b3e2498bcfeb347591c7f, type: 2}
   idleState: {fileID: 11400000, guid: 5da51732ac7b3e2498bcfeb347591c7f, type: 2}
   pursueState: {fileID: 11400000, guid: 62105136605a97d4fbdc9bdbc68791ea, type: 2}
+  combatStanceState: {fileID: 11400000, guid: 90608d9f657795e4b98955e408975689, type: 2}
+  attackState: {fileID: 11400000, guid: 493a82596b6824b44afeb58e42a6328d, type: 2}
   agent: {fileID: 0}
   AICharacterCombat: {fileID: 0}
   AICharacterLocomotion: {fileID: 0}
@@ -951,9 +953,13 @@ MonoBehaviour:
   isUsingLeftHandWeapon: 0
   isUsingRightHandWeapon: 0
   canComboWithMainHandWeapon: 0
+  attackRotatedSpeed: 25
+  distanceFromTarget: 0
+  targetDirection: {x: 0, y: 0, z: 0}
+  characterViewableAngle: 0
   detectionRadius: 15
-  miniumDetectionAngle: -25
-  maxiumDetectionAngle: 35
+  miniumDetectionAngle: -50
+  maxiumDetectionAngle: 50
 --- !u!114 &8862479395153618104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4700,7 +4706,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 1
+  m_StoppingDistance: 0.8
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

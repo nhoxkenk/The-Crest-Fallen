@@ -13,10 +13,12 @@ public class AICharacterManager : CharacterManager
     public ScriptableAIState idleState;
     public ScriptableAIState pursueState;
     public ScriptableAIState combatStanceState;
+    public AttackState attackState;
 
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public AICharacterCombat AICharacterCombat;
     [HideInInspector] public AICharacterLocomotion AICharacterLocomotion;
+
     protected override void Awake()
     {
         base.Awake();
@@ -31,6 +33,13 @@ public class AICharacterManager : CharacterManager
         base.Start();
         BindingCharacterEvents();
         InitializeStat();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        AICharacterCombat.HandleActionTimer(this);
     }
 
     private void BindingCharacterEvents()

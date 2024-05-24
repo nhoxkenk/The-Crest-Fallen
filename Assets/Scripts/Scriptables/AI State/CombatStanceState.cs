@@ -23,7 +23,7 @@ public class CombatStanceState : ScriptableAIState
     [SerializeField] protected bool hasRolledForComboChance = false;
 
     [Header("Engagement Distance")]
-    [SerializeField] protected float engagementDistance = 5;
+    public float engagementDistance = 5;
 
     public override ScriptableAIState UpdateState(AICharacterManager aiManager)
     {
@@ -45,6 +45,8 @@ public class CombatStanceState : ScriptableAIState
             }
         }
 
+        aiManager.AICharacterCombat.RotateTowardsTarget(aiManager);
+
         if (!hasAttack)
         {
             GetNewAttack(aiManager);
@@ -55,6 +57,9 @@ public class CombatStanceState : ScriptableAIState
             //Pass attack to next state
             //Roll for combo
             //Switch State
+
+            aiManager.attackState.currentAttack = choosenAttackAction;
+            return NextState(aiManager, aiManager.attackState);
         }
 
         if (aiManager.AICharacterCombat.currentTarget == null)
@@ -131,6 +136,7 @@ public class CombatStanceState : ScriptableAIState
                 previousAttackAction = choosenAttackAction;
                 choosenAttackAction = attack;
                 hasAttack = true;
+                return;
             }
         }
     }
