@@ -41,11 +41,21 @@ public class CombatStanceState : ScriptableAIState
         {
             if(aiManager.AICharacterCombat.characterViewableAngle < -30 || aiManager.AICharacterCombat.characterViewableAngle > 30)
             {
-                aiManager.AICharacterCombat.PivotTowardsTarget(aiManager);
+                //aiManager.AICharacterCombat.PivotTowardsTarget(aiManager);
             }
         }
 
         aiManager.AICharacterCombat.RotateTowardsTarget(aiManager);
+
+        if (aiManager.AICharacterCombat.currentTarget == null)
+        {
+            return NextState(aiManager, aiManager.idleState);
+        }
+
+        if (aiManager.AICharacterCombat.distanceFromTarget > engagementDistance)
+        {
+            return NextState(aiManager, aiManager.pursueState);
+        }
 
         if (!hasAttack)
         {
@@ -60,16 +70,6 @@ public class CombatStanceState : ScriptableAIState
 
             aiManager.attackState.currentAttack = choosenAttackAction;
             return NextState(aiManager, aiManager.attackState);
-        }
-
-        if (aiManager.AICharacterCombat.currentTarget == null)
-        {
-            return NextState(aiManager, aiManager.idleState);
-        }
-
-        if (aiManager.AICharacterCombat.distanceFromTarget > engagementDistance)
-        {
-            return NextState(aiManager, aiManager.pursueState);
         }
 
         NavMeshPath path = new NavMeshPath();

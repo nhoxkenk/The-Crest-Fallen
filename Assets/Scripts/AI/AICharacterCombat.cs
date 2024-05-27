@@ -70,7 +70,7 @@ public class AICharacterCombat : CharacterCombat
                     targetDirection = targetCharacter.transform.position - transform.position;
                     characterViewableAngle = GetAngleOfTarget(this.transform);
                     characterFinding.characterCombat.SetTarget(targetCharacter);
-                    PivotTowardsTarget(characterFinding);
+                    //PivotTowardsTarget(characterFinding);
                 }
             }
         }

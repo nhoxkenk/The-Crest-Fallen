@@ -61,4 +61,15 @@ public class CharacterLocomotion : MonoBehaviour
             yVelocity.y += gravityForce * Time.deltaTime;
         }
     }
+
+    public void EnableCanRotate()
+    {
+        characterManager.CanRotate = true;
+    }
+
+    public void DisableCanRotate()
+    {
+        characterManager.CanRotate = false;
+    }
+
 }

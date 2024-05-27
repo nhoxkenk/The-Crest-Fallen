@@ -23,7 +23,8 @@ public class AttackState : ScriptableAIState
             Debug.Log("Attack Phase 1");
             return NextState(aiManager, aiManager.idleState);
         }
-            
+
+        aiManager.AICharacterCombat.RotateTowardsTargetWhileAttack(aiManager);
 
         //Rotate toward target when attacking
         aiManager.characterAnimator.UpdateAnimatorMovementParameters(0, 0, false);
@@ -37,6 +38,11 @@ public class AttackState : ScriptableAIState
                 //hasPerformedFollowUpAttack = true;
                 //currentAttack.comboAction.AttempToPerformAttackAction(aiManager);
             }
+        }
+
+        if ((aiManager.IsPerformingAction))
+        {
+            return this;
         }
 
         if (!hasPerformedAttack)
@@ -56,6 +62,7 @@ public class AttackState : ScriptableAIState
         {
             aiManager.AICharacterCombat.PivotTowardsTarget(aiManager);
         }
+
         Debug.Log("Attack Phase 4");
         return NextState(aiManager, aiManager.combatStanceState);
     }
