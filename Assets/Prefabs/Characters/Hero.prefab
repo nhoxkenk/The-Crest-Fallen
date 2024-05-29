@@ -2957,7 +2957,7 @@ Transform:
   - {fileID: 7734694879790724477}
   - {fileID: 6115938805937796705}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8155807294900901339
 Animator:
@@ -3141,6 +3141,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81319272396c59d4b9c1458237e21b0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageGrunts:
+  - {fileID: 8300000, guid: 5319d335f47c30c45a098c3b7207d360, type: 3}
+  - {fileID: 8300000, guid: a118b77559d9f764cbc3b30b4be64c29, type: 3}
+  - {fileID: 8300000, guid: 949069d19c7e757468367c171ac77160, type: 3}
 --- !u!114 &145861101329128756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3163,7 +3167,9 @@ MonoBehaviour:
   characterEquipment: {fileID: 0}
   characterCombat: {fileID: 0}
   characterSoundEffect: {fileID: 0}
+  type: 0
   isAlive: 1
+  isMoving: 0
   isPerformingAction: 0
   applyRootMotion: 0
   canMove: 1
@@ -3173,7 +3179,6 @@ MonoBehaviour:
   isLockOn: 0
   revive: 0
   switchRightWeapon: 0
-  playerInput: {fileID: 0}
   playerLocomotion: {fileID: 0}
   playerAnimator: {fileID: 0}
   playerInventory: {fileID: 0}
@@ -3351,12 +3356,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a8a5d41bccc8542a9e3779c7e1a6e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastAttackAnimation: 
   currentWeaponBeingUsed: {fileID: 0}
   currentAttackType: 0
   currentTarget: {fileID: 0}
   lockOnTransform: {fileID: 741233075083844407}
   isUsingLeftHandWeapon: 0
   isUsingRightHandWeapon: 0
+  canComboWithMainHandWeapon: 0
   isChargingAttack: 0
   inputReader: {fileID: 11400000, guid: fb9f5bd7e6a374742957fa3874de03f1, type: 2}
 --- !u!114 &4298964964865386819

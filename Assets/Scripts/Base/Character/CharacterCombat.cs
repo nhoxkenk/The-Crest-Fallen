@@ -84,6 +84,7 @@ public class CharacterCombat : MonoBehaviour
         {
             PlayerManager.Instance.playerEquipment.rightHandWeaponManager.DamageCollider.EnableDamageCollider();
         }
+        PlayerManager.Instance.characterSoundEffect.PlaySoundFX(SoundEffectsManager.Instance.PlayRandomSwingSoundEffect());
     }
     /// <summary>
     /// Register as an event to Animations Events

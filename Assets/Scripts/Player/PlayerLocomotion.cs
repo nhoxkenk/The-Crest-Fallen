@@ -206,6 +206,7 @@ public class PlayerLocomotion : CharacterLocomotion
             PlayerManager.Instance.playerAnimator.PlayTargetActionAnimation("Back_step", true);
         }
 
+        PlayerManager.Instance.characterSoundEffect.PlaySoundFX(SoundEffectsManager.Instance.rollSFX);
         PlayerManager.Instance.playerStat.CurrentStamina -= dodgingStaminaCost;
     }
 

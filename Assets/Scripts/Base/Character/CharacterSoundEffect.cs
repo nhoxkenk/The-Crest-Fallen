@@ -6,6 +6,9 @@ public class CharacterSoundEffect : MonoBehaviour
 {
     private AudioSource audioSource;
 
+    [Header("Character Grunts")]
+    [SerializeField] protected AudioClip[] damageGrunts;
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -20,5 +23,10 @@ public class CharacterSoundEffect : MonoBehaviour
         {
             audioSource.pitch += Random.Range(-pitchRandom, pitchRandom);
         }
+    }
+
+    public void PlayGruntSoundFX()
+    {
+        PlaySoundFX(SoundEffectsManager.Instance.PlayRandomSoundFXFromArray(damageGrunts));
     }
 }

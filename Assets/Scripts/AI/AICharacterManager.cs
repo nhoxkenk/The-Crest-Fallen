@@ -23,9 +23,7 @@ public class AICharacterManager : CharacterManager
     {
         base.Awake();
 
-        agent = GetComponentInChildren<NavMeshAgent>();
-        AICharacterCombat = GetComponent<AICharacterCombat>();
-        AICharacterLocomotion = GetComponent<AICharacterLocomotion>();
+        GetComponents();
     }
 
     protected override void Start()
@@ -40,6 +38,15 @@ public class AICharacterManager : CharacterManager
         base.Update();
 
         AICharacterCombat.HandleActionTimer(this);
+    }
+
+    protected override void GetComponents()
+    {
+        base.GetComponents();
+
+        agent = GetComponentInChildren<NavMeshAgent>();
+        AICharacterCombat = GetComponent<AICharacterCombat>();
+        AICharacterLocomotion = GetComponent<AICharacterLocomotion>();
     }
 
     private void BindingCharacterEvents()
@@ -94,7 +101,7 @@ public class AICharacterManager : CharacterManager
             AICharacterCombat.distanceFromTarget = Vector3.Distance(transform.position, AICharacterCombat.currentTarget.transform.position);
         }
 
-        if (agent.enabled)
+        if (agent.enabled && currentState != idleState)
         {
             Vector3 destination = agent.destination;
             float remainingDistance = Vector3.Distance(transform.position, destination);

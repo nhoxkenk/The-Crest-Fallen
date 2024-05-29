@@ -18,12 +18,12 @@ MonoBehaviour:
   itemID: 1
   isUnarmed: 0
   weaponModelPrefab: {fileID: 8167314547197873632, guid: c4746dd902ed9b54dac46b03d990fcfd, type: 3}
-  baseStaminaCost: 20
+  baseStaminaCost: 10
   strengthREQ: 0
   dexREQ: 0
   intREQ: 0
   faithREQ: 0
-  physicalDamage: 10
+  physicalDamage: 50
   magicDamage: 0
   fireDamage: 0
   lightningDamage: 0

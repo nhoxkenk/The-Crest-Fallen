@@ -20,4 +20,4 @@ MonoBehaviour:
   miniumAttackAngle: -35
   maxiumAttackAngle: 35
   miniumAttackDistance: 0.5
-  maxiumAttackDistance: 3
+  maxiumAttackDistance: 2
