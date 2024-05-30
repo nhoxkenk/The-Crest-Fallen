@@ -50,6 +50,7 @@ public class SaveLoadSystem : Singleton<SaveLoadSystem>
     {
         if(scene.name == "MenuScene") return;
         Bind<PlayerSaveData, PlayerData>(gameData.playerData);
+        Bind<BossSaveData, BossData>(gameData.bossData);
     }
 
     //Handle One entity, often is main character
@@ -97,7 +98,8 @@ public class SaveLoadSystem : Singleton<SaveLoadSystem>
 
         gameData = new GameData {
             FileName = DecideCharacterFileNameBasedOnSlotBeingUsed(currentGameDataSlot),
-            playerData = new PlayerData()
+            playerData = new PlayerData(),
+            bossData = new BossData()
         };
 
         StartCoroutine(LoadWorldScene());

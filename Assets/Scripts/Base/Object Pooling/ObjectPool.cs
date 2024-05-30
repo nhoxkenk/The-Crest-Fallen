@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ObjectPool : Singleton<ObjectPool>
 {
+    [Header("AI Mob")]
     [SerializeField] private int poolSize;
     [SerializeField] private PooledObject objectToPool;
 
