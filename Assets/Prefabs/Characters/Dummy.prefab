@@ -916,8 +916,8 @@ MonoBehaviour:
   targetDirection: {x: 0, y: 0, z: 0}
   characterViewableAngle: 0
   detectionRadius: 15
-  miniumDetectionAngle: -60
-  maxiumDetectionAngle: 60
+  miniumDetectionAngle: -35
+  maxiumDetectionAngle: 35
   leftHandCollider: {fileID: 2764067064256489417}
   rightHandCollider: {fileID: 6442250939524027769}
   baseDamage: 25

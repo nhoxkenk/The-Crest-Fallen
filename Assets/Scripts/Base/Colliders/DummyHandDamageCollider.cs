@@ -13,7 +13,7 @@ public class DummyHandDamageCollider : DamageCollider
 
     protected override void DamageTarget(CharacterManager characterEffectable)
     {
-        if (characterDamaged.Contains(characterEffectable))
+        if (characterDamaged.Contains(characterEffectable) || !characterCausingDamage.CanDealDamageTo(characterEffectable))
         {
             return;
         }

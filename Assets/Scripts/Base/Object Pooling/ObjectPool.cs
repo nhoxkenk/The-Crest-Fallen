@@ -26,7 +26,7 @@ public class ObjectPool : Singleton<ObjectPool>
         {
             instance = Instantiate(objectToPool);
             instance.Pool = this;
-            //instance.gameObject.SetActive(false);
+            instance.gameObject.SetActive(false);
             instance.gameObject.transform.SetParent(gameObject.transform, false);
             stack.Push(instance);
         }

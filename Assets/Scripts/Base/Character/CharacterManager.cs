@@ -17,7 +17,7 @@ public class CharacterManager : MonoBehaviour
     [HideInInspector] public CharacterSoundEffect characterSoundEffect;
 
     [Header("Character Type")]
-    [SerializeField] private CharacterType type;
+    public CharacterType type;
     public CharacterType Type {  get => type; private set => type = value; }
 
     [Header("Status")]

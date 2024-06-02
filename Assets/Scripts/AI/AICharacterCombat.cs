@@ -53,16 +53,18 @@ public class AICharacterCombat : CharacterCombat
 
             if (characterFinding.CanDealDamageTo(targetCharacter))
             {
-                Vector3 targetDistance = characterFinding.transform.position - targetCharacter.transform.position;
-                float viewableAngle = Vector3.Angle(targetDistance, targetCharacter.transform.position);
-
+                Vector3 targetDistance = targetCharacter.transform.position - characterFinding.transform.position;
+                float viewableAngle = Vector3.Angle(targetDistance, characterFinding.transform.forward);
+                Debug.Log(viewableAngle);
                 if (viewableAngle < miniumDetectionAngle || viewableAngle > maxiumDetectionAngle)
                 {
                     continue;
                 }
 
-                if (Physics.Linecast(characterFinding.characterCombat.lockOnTransform.position, targetCharacter.characterCombat.lockOnTransform.position, CharacterLayersManager.Instance.EnvironmentLayerMask))
+                if (Physics.Linecast(characterFinding.characterCombat.lockOnTransform.position, targetCharacter.characterCombat.lockOnTransform.position, 
+                    CharacterLayersManager.Instance.EnvironmentLayerMask))
                 {
+                    Debug.DrawLine(characterFinding.characterCombat.lockOnTransform.position, targetCharacter.characterCombat.lockOnTransform.position);
                     Debug.Log("Block By Environment");
                 }
                 else
