@@ -8,7 +8,10 @@ public class GameManager : Singleton<GameManager>
     public bool spawnCharacter;
 
     [Header("AI")]
-    public List<AICharacterSpawner> spawners;
+    public List<AICharacterSpawner> AICharacterSpawners;
+
+    [Header("Fog Wall")]
+    public List<FogWallSpawner> fogWallSpawners;
 
     protected override void Awake()
     {
@@ -27,9 +30,17 @@ public class GameManager : Singleton<GameManager>
 
     public void SpawnAllCharacter()
     {
-        foreach(var character in spawners)
+        foreach(var character in AICharacterSpawners)
         {
             character.AttempToSpawnCharacter();
+        }
+    }
+
+    public void SpawnAllFogWall()
+    {
+        foreach (var fogWall in fogWallSpawners)
+        {
+            fogWall.AttempToSpawnFogWall();
         }
     }
 }

@@ -1070,7 +1070,7 @@ GameObject:
   - component: {fileID: 9048733747837688720}
   - component: {fileID: 7244245259542704161}
   m_Layer: 0
-  m_Name: Object Spawner
+  m_Name: Object Spawner(AI Character)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1091,7 +1091,7 @@ Transform:
   - {fileID: 3419072615321912599}
   - {fileID: 3231967295907791529}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7244245259542704161
 MonoBehaviour:

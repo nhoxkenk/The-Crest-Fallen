@@ -1534,7 +1534,7 @@ MonoBehaviour:
   canRotate: 1
   isJumping: 0
   isGrounded: 1
-  currentState: {fileID: 0}
+  currentState: {fileID: 11400000, guid: 5da51732ac7b3e2498bcfeb347591c7f, type: 2}
   idleState: {fileID: 11400000, guid: 5da51732ac7b3e2498bcfeb347591c7f, type: 2}
   pursueState: {fileID: 11400000, guid: 62105136605a97d4fbdc9bdbc68791ea, type: 2}
   combatStanceState: {fileID: 11400000, guid: 90608d9f657795e4b98955e408975689, type: 2}
@@ -1562,7 +1562,7 @@ MonoBehaviour:
   currentWeaponBeingUsed: {fileID: 0}
   currentAttackType: 0
   currentTarget: {fileID: 0}
-  lockOnTransform: {fileID: 0}
+  lockOnTransform: {fileID: 2141888272793237832}
   isUsingLeftHandWeapon: 0
   isUsingRightHandWeapon: 0
   canComboWithMainHandWeapon: 0
