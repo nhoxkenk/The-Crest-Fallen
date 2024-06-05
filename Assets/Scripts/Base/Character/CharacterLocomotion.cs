@@ -62,11 +62,13 @@ public class CharacterLocomotion : MonoBehaviour
         }
     }
 
+    //Register as animation event
     public void EnableCanRotate()
     {
         characterManager.CanRotate = true;
     }
 
+    //Register as animation event
     public void DisableCanRotate()
     {
         characterManager.CanRotate = false;

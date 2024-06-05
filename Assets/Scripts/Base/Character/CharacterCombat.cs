@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharacterCombat : MonoBehaviour
 {
+    [HideInInspector] private CharacterManager character;
+
     [Header("Last Attack Animation")]
     public string lastAttackAnimation;
 
@@ -46,6 +48,11 @@ public class CharacterCombat : MonoBehaviour
 
     [Header("Flags")]
     public bool canComboWithMainHandWeapon;
+
+    private void Awake()
+    {
+        character = GetComponent<CharacterManager>();
+    }
 
     public virtual void SetCharacterActionHand(bool isRightHand)
     {
@@ -111,5 +118,15 @@ public class CharacterCombat : MonoBehaviour
         {
             currentTarget = null;
         }
+    }
+
+    public void EnableIsInvulnerable()
+    {
+        character.IsInvulnerable = true;
+    }
+
+    public void DisableIsInvulnerable()
+    {
+        character.IsInvulnerable = false;
     }
 }

@@ -35,6 +35,7 @@ public class DamageCollider : MonoBehaviour
         if (characterEffectable != null)
         {
             contactPoint = other.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+
             DamageTarget(characterEffectable);
         }
     }

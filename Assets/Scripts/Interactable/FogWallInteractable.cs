@@ -48,7 +48,6 @@ public class FogWallInteractable : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        Debug.Log(isActive);
         if(!isActive)
         {
             HandleIsActiveChanged(false);

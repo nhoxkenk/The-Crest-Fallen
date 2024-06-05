@@ -36,6 +36,7 @@ public class CharacterManager : MonoBehaviour
     [Header("Animation Flags")]
     [SerializeField] private bool isPerformingAction = false;
     [SerializeField] private bool applyRootMotion = false;
+    [SerializeField] private bool isInvulnerable = false;
 
     public bool IsPerformingAction
     {
@@ -48,6 +49,8 @@ public class CharacterManager : MonoBehaviour
         get => applyRootMotion;
         set => applyRootMotion = value;
     }
+
+    public bool IsInvulnerable { get; set; }
 
     [Header("Movement Flags")]
     [SerializeField] private bool canMove = true;

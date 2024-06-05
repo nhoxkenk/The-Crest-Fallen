@@ -49,7 +49,7 @@ public class TakeHealthDamageEffect : ScriptableInstantCharacterEffect
 
     public override void ProcessEffect(CharacterManager characterEffectable)
     {
-        if(!characterEffectable.IsAlive)
+        if(!characterEffectable.IsAlive || characterEffectable.IsInvulnerable)
         {
             return;
         }

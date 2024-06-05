@@ -12,10 +12,10 @@ public class CombatStanceState : ScriptableAIState
 
     [Header("Attack")]
     public List<AICharacterAttackAction> allAICharacterAttack;
-    private List<AICharacterAttackAction> potentialAttacks;
+    [SerializeField] private List<AICharacterAttackAction> potentialAttacks;
 
-    private AICharacterAttackAction choosenAttackAction;
-    private AICharacterAttackAction previousAttackAction;
+    [SerializeField] private AICharacterAttackAction choosenAttackAction;
+    [SerializeField] private AICharacterAttackAction previousAttackAction;
 
     [Header("Combo")]
     [SerializeField] protected bool canPerformCombo = false;

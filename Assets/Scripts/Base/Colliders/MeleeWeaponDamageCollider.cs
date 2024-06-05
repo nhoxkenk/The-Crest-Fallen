@@ -29,6 +29,7 @@ public class MeleeWeaponDamageCollider : DamageCollider, IWeaponModifier
             {
                 return;
             }
+
             contactPoint = other.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
             DamageTarget(characterEffectable);
         }
