@@ -45,4 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnCharacter: 0
-  spawners: []
+  AICharacterSpawners: []
+  fogWallSpawners: []
+  bosses: []

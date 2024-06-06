@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AITrollCombat : AICharacterCombat
 {
@@ -13,26 +14,34 @@ public class AITrollCombat : AICharacterCombat
     [SerializeField] private float attack02DamageModifier = 1.15f;
     [SerializeField] private float attack03DamageModifier = 1.35f;
 
-    public void ApplyAttack01DamageModifier()
+    //Register as animation event
+    public override void ApplyAttack01DamageModifier()
     {
+        base.ApplyAttack01DamageModifier();
         clubDamageCollider.physicalDamage = (int)(baseDamage * attack01DamageModifier);
     }
 
-    public void ApplyAttack02DamageModifier()
+    //Register as animation event
+    public override void ApplyAttack02DamageModifier()
     {
+        base.ApplyAttack02DamageModifier();
         clubDamageCollider.physicalDamage = (int)(baseDamage * attack02DamageModifier);
     }
 
-    public void ApplyAttack03DamageModifier()
+    //Register as animation event
+    public override void ApplyAttack03DamageModifier()
     {
+        base.ApplyAttack03DamageModifier();
         clubDamageCollider.physicalDamage = (int)(baseDamage * attack03DamageModifier);
     }
 
+    //Register as animation event
     public void OpenClubWeaponCollider()
     {
         clubDamageCollider.EnableDamageCollider();
     }
 
+    //Register as animation event
     public void CloseClubWeaponCollider()
     {
         clubDamageCollider?.DisableDamageCollider();

@@ -20,7 +20,6 @@ public class PlayerManager : CharacterManager
 
     [Header("Debug")]
     public bool revive;
-    public bool switchRightWeapon;
 
     private static PlayerManager instance;
     public static PlayerManager Instance
@@ -170,12 +169,6 @@ public class PlayerManager : CharacterManager
         {
             revive = false;
             ReviveCharacter();
-        }
-
-        if (switchRightWeapon)
-        {
-            switchRightWeapon = false;
-            playerEquipment.SwitchRightWeapon();
         }
     }
 }

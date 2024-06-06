@@ -20,7 +20,6 @@ public class AttackState : ScriptableAIState
     {
         if(aiManager.AICharacterCombat.currentTarget == null || !aiManager.AICharacterCombat.currentTarget.IsAlive)
         {
-            Debug.Log("Attack Phase 1");
             return NextState(aiManager, aiManager.idleState);
         }
 
@@ -49,12 +48,10 @@ public class AttackState : ScriptableAIState
         {
             if (aiManager.AICharacterCombat.actionTimer.IsRunning || aiManager.IsPerformingAction)
             {
-                Debug.Log("Attack Phase 2");
                 return this;
             }
 
             PerformAttack(aiManager);
-            Debug.Log("Attack Phase 3");
             return this;
         }
 
@@ -63,7 +60,6 @@ public class AttackState : ScriptableAIState
             aiManager.AICharacterCombat.PivotTowardsTarget(aiManager);
         }
 
-        Debug.Log("Attack Phase 4");
         return NextState(aiManager, aiManager.combatStanceState);
     }
 

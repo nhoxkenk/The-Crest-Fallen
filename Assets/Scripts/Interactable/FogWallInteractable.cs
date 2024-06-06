@@ -29,7 +29,6 @@ public class FogWallInteractable : MonoBehaviour, IInteractable
 
     private void OnEnable()
     {
-        isActive = true;
         OnIsActiveChanged += HandleIsActiveChanged;
     }
 
@@ -43,18 +42,6 @@ public class FogWallInteractable : MonoBehaviour, IInteractable
         foreach (var component in subComponents)
         {
             component.SetActive(value);
-        }
-    }
-
-    private void Update()
-    {
-        if(!isActive)
-        {
-            HandleIsActiveChanged(false);
-        }
-        else
-        {
-            HandleIsActiveChanged(true);
         }
     }
 }

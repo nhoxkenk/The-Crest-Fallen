@@ -102,7 +102,8 @@ public class CharacterStat : MonoBehaviour
     protected virtual void Update()
     {
         //Test function on Editor
-        CurrentHealthChange?.Invoke(maxHealth, currentHealth);
+        //CurrentHealthChange?.Invoke(maxHealth, currentHealth);
+
         if (Input.GetKeyDown(KeyCode.H))
         {
             Vitality += 10;

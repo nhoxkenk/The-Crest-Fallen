@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
@@ -12,6 +13,9 @@ public class GameManager : Singleton<GameManager>
 
     [Header("Fog Wall")]
     public List<FogWallSpawner> fogWallSpawners;
+
+    [Header("Bosses")]
+    public List<AIBossCharacterManager> bosses;
 
     protected override void Awake()
     {
@@ -42,5 +46,10 @@ public class GameManager : Singleton<GameManager>
         {
             fogWall.AttempToSpawnFogWall();
         }
+    }
+
+    public AIBossCharacterManager GetBossCharacterByID(int id)
+    {
+        return bosses.FirstOrDefault(boss => boss.bossID == id);
     }
 }

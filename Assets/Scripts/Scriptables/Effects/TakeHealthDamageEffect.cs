@@ -81,7 +81,7 @@ public class TakeHealthDamageEffect : ScriptableInstantCharacterEffect
 
     private void PlaySoundFXHappenDuringAttack(CharacterManager characterEffectable)
     {
-        characterEffectable.characterSoundEffect.PlayGruntSoundFX();
+        characterEffectable.characterSoundEffect.PlayDamagedGruntSoundFX();
     }
 
     private void PlayDamagedAnimationBasedOnHitDirection(CharacterManager characterEffectable)

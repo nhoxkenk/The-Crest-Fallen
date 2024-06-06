@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: Troll Combat Stance State
   m_EditorClassIdentifier: 
   allAICharacterAttack:
-  - {fileID: 11400000, guid: 8a17a4b66a9c4d0409e702dad17e8c98, type: 2}
+  - {fileID: 11400000, guid: 7ab3a44d377f8a94ab9b8b513b26fc26, type: 2}
   - {fileID: 11400000, guid: 8a17a4b66a9c4d0409e702dad17e8c98, type: 2}
   - {fileID: 11400000, guid: c8c84d201ca9b934f946f7784e3f3fea, type: 2}
   potentialAttacks:
+  - {fileID: 11400000, guid: 7ab3a44d377f8a94ab9b8b513b26fc26, type: 2}
+  - {fileID: 11400000, guid: 8a17a4b66a9c4d0409e702dad17e8c98, type: 2}
   - {fileID: 11400000, guid: c8c84d201ca9b934f946f7784e3f3fea, type: 2}
-  choosenAttackAction: {fileID: 11400000, guid: c8c84d201ca9b934f946f7784e3f3fea, type: 2}
-  previousAttackAction: {fileID: 11400000, guid: c8c84d201ca9b934f946f7784e3f3fea, type: 2}
+  choosenAttackAction: {fileID: 0}
+  previousAttackAction: {fileID: 0}
   canPerformCombo: 0
   chanceToPerformCombo: 25
   hasRolledForComboChance: 0

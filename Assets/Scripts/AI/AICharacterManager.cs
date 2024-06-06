@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class AICharacterManager : CharacterManager
 {
     [Header("Current State")]
-    [SerializeField] private ScriptableAIState currentState;
+    [SerializeField] protected ScriptableAIState currentState;
 
     [Header("List of State")]
     public ScriptableAIState idleState;
@@ -49,9 +49,14 @@ public class AICharacterManager : CharacterManager
         AICharacterLocomotion = GetComponent<AICharacterLocomotion>();
     }
 
-    private void BindingCharacterEvents()
+    protected virtual void BindingCharacterEvents()
     {
         characterStat.CurrentHealthChange += characterStat.HandleCurrentHealthChange;
+
+        idleState = Instantiate(idleState);
+        pursueState = Instantiate(pursueState);
+        combatStanceState = Instantiate(combatStanceState);
+        attackState = Instantiate(attackState);
     }
 
     /// <summary>

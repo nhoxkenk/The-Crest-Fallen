@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AICharacterCombat : CharacterCombat
 {
@@ -19,6 +20,7 @@ public class AICharacterCombat : CharacterCombat
     [SerializeField] private float maxiumDetectionAngle = 35;
 
     public CountdownTimer actionTimer;
+    public event UnityAction OnPlayingAttackSoundFX;
 
     private void Awake()
     {
@@ -147,5 +149,20 @@ public class AICharacterCombat : CharacterCombat
                 actionTimer.Tick(Time.deltaTime);
             }
         }
+    }
+
+    public virtual void ApplyAttack01DamageModifier()
+    {
+        OnPlayingAttackSoundFX?.Invoke();
+    }
+
+    public virtual void ApplyAttack02DamageModifier()
+    {
+        OnPlayingAttackSoundFX?.Invoke();
+    }
+
+    public virtual void ApplyAttack03DamageModifier()
+    {
+        OnPlayingAttackSoundFX?.Invoke();
     }
 }
