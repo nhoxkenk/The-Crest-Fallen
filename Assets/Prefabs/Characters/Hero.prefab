@@ -2919,6 +2919,7 @@ GameObject:
   - component: {fileID: 4640261714163038094}
   - component: {fileID: 3303584000757416130}
   - component: {fileID: 4403558137938795625}
+  - component: {fileID: 8362988783282174482}
   - component: {fileID: 4298964964865386819}
   m_Layer: 6
   m_Name: Hero
@@ -2957,7 +2958,7 @@ Transform:
   - {fileID: 7734694879790724477}
   - {fileID: 6115938805937796705}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8155807294900901339
 Animator:
@@ -3145,6 +3146,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5319d335f47c30c45a098c3b7207d360, type: 3}
   - {fileID: 8300000, guid: a118b77559d9f764cbc3b30b4be64c29, type: 3}
   - {fileID: 8300000, guid: 949069d19c7e757468367c171ac77160, type: 3}
+  attackGrunts: []
 --- !u!114 &145861101329128756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3172,13 +3174,13 @@ MonoBehaviour:
   isMoving: 0
   isPerformingAction: 0
   applyRootMotion: 0
+  isInvulnerable: 0
   canMove: 1
   canRotate: 1
   isJumping: 0
   isGrounded: 0
   isLockOn: 0
   revive: 0
-  switchRightWeapon: 0
   playerLocomotion: {fileID: 0}
   playerAnimator: {fileID: 0}
   playerInventory: {fileID: 0}
@@ -3186,6 +3188,7 @@ MonoBehaviour:
   playerSaveData: {fileID: 0}
   playerEquipment: {fileID: 0}
   playerCombat: {fileID: 0}
+  playerInteraction: {fileID: 0}
 --- !u!114 &4452300291533999704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3365,6 +3368,20 @@ MonoBehaviour:
   isUsingRightHandWeapon: 0
   canComboWithMainHandWeapon: 0
   isChargingAttack: 0
+  inputReader: {fileID: 11400000, guid: fb9f5bd7e6a374742957fa3874de03f1, type: 2}
+--- !u!114 &8362988783282174482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5649822251182342639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ab6a46f3c659ed40af2719cefe9eac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentInteractableActions: []
   inputReader: {fileID: 11400000, guid: fb9f5bd7e6a374742957fa3874de03f1, type: 2}
 --- !u!114 &4298964964865386819
 MonoBehaviour:

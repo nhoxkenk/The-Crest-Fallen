@@ -41,6 +41,7 @@ public class PlayerManager : CharacterManager
     [HideInInspector] public PlayerSaveData playerSaveData;
     [HideInInspector] public PlayerEquipment playerEquipment;
     [HideInInspector] public PlayerCombat playerCombat;
+    [HideInInspector] public PlayerInteraction playerInteraction;
 
    protected override void Awake()
     {
@@ -143,6 +144,7 @@ public class PlayerManager : CharacterManager
         playerSaveData = GetComponent<PlayerSaveData>();
         playerEquipment = GetComponent<PlayerEquipment>();
         playerCombat = GetComponent<PlayerCombat>();
+        playerInteraction = GetComponent<PlayerInteraction>();
     }
 
     public override IEnumerator ProcessDeathEvent(bool manualSelectDeathAnimation = false)

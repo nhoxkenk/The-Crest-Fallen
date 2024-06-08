@@ -10,6 +10,10 @@ public class PlayerUI : MonoBehaviour
     [HideInInspector] public PlayerUIHud playerUIHud;
     [HideInInspector] public PlayerUIPopup playerUIPopup;
 
+    [Header("UI Flags")]
+    public bool menuWindowIsOpen;       //Inventory, Equipment, BlackSmith, ...
+    public bool popUpWindowIsOpen;      //Item pick up, Dialogue pop up, ...
+
     private void Awake()
     {
         if(instance == null)

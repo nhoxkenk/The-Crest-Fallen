@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class PlayerUIPopup : MonoBehaviour
 {
+    [Header("Interaction Pop Up")]
+    [SerializeField] private TextMeshProUGUI interactionMessageText;
+    [SerializeField] private GameObject interactionUIGameObject;
+
     [Header("YOU DIED Pop Up")]
     [SerializeField] private GameObject youDiedPopUpGameObject;
     [SerializeField] private TextMeshProUGUI youDiedPopUpBackgroundText;
@@ -35,6 +39,19 @@ public class PlayerUIPopup : MonoBehaviour
         StartCoroutine(StretchPopUpTextOverTime(bossDefeatedPopUpBackgroundText, 8f, 8.32f));
         StartCoroutine(FadeInPopUpOverTime(bossDefeatedPopUpCanvasGroup, 5));
         StartCoroutine(FadeOutPopUpOverTime(bossDefeatedPopUpCanvasGroup, 2, 5));
+    }
+
+    public void SendMessageFromInteractToPlayer(string message)
+    {
+        PlayerUI.Instance.popUpWindowIsOpen = true;
+        interactionMessageText.text = message;
+        interactionUIGameObject.SetActive(true);
+    }
+
+    public void ClosePopUpMessageFromInteract()
+    {
+        PlayerUI.Instance.popUpWindowIsOpen = false;
+        interactionUIGameObject.SetActive(false);
     }
 
     private IEnumerator StretchPopUpTextOverTime(TextMeshProUGUI text, float duration, float stretchAmount)
