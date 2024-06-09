@@ -13,14 +13,16 @@ public class AIUndeadCombat : AICharacterCombat
     [SerializeField] private float attack01DamageModifier = 1.1f;
     [SerializeField] private float attack02DamageModifier = 1.15f;
 
-    public void ApplyAttack01DamageModifier()
+    public override void ApplyAttack01DamageModifier()
     {
+        base.ApplyAttack01DamageModifier();
         rightHandCollider.physicalDamage = (int)(baseDamage * attack01DamageModifier);
         leftHandCollider.physicalDamage = (int)(baseDamage * attack01DamageModifier);
     }
 
-    public void ApplyAttack02DamageModifier()
+    public override void ApplyAttack02DamageModifier()
     {
+        base.ApplyAttack02DamageModifier();
         rightHandCollider.physicalDamage = (int)(baseDamage * attack02DamageModifier);
         leftHandCollider.physicalDamage = (int)(baseDamage * attack02DamageModifier);
     }

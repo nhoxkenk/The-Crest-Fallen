@@ -20,6 +20,7 @@ public class PlayerManager : CharacterManager
 
     [Header("Debug")]
     public bool revive;
+    [field:SerializeField] public bool SwitchToWalking { get; set; }
 
     private static PlayerManager instance;
     public static PlayerManager Instance
@@ -64,6 +65,7 @@ public class PlayerManager : CharacterManager
         base.Start();
         BindingPlayerEvents();
         InitializePlayerStat();
+        SetItemUIImage();
     }
 
     protected override void Update()
@@ -145,6 +147,12 @@ public class PlayerManager : CharacterManager
         playerEquipment = GetComponent<PlayerEquipment>();
         playerCombat = GetComponent<PlayerCombat>();
         playerInteraction = GetComponent<PlayerInteraction>();
+    }
+
+    private void SetItemUIImage()
+    {
+        //Estus Flask id equal 0
+        PlayerUI.Instance.playerUIHud.SetConsumeItemImage(0);
     }
 
     public override IEnumerator ProcessDeathEvent(bool manualSelectDeathAnimation = false)

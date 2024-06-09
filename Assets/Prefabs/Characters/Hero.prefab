@@ -3181,6 +3181,7 @@ MonoBehaviour:
   isGrounded: 0
   isLockOn: 0
   revive: 0
+  <SwitchToWalking>k__BackingField: 0
   playerLocomotion: {fileID: 0}
   playerAnimator: {fileID: 0}
   playerInventory: {fileID: 0}
@@ -3275,6 +3276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 723b37c765da5db4caa30a4002864941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instantiatedFXModel: {fileID: 0}
   vfxFactory: {fileID: 11400000, guid: af4e59bf16330a04d83744df707f9670, type: 2}
   temporaryEffect: {fileID: 11400000, guid: 68f5cd52b1bcbb94188eeeea03c3e898, type: 2}
   isTriggerEffect: 0
@@ -3293,7 +3295,7 @@ MonoBehaviour:
   currentWeaponBeingUsedId: 0
   rightHandSlot: {fileID: 0}
   leftHandSlot: {fileID: 0}
-  itemFactory: {fileID: 11400000, guid: 4cf949f44e3cecc43b31fb40629905e5, type: 2}
+  itemFactory: {fileID: 11400000, guid: 2b422c1c13c01124e88c6c01a66a2b8c, type: 2}
   rightHandWeaponModel: {fileID: 0}
   leftHandWeaponModel: {fileID: 0}
   currentRightHandWeaponId: 0
@@ -3311,6 +3313,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37eb17f3165aaac47b2a5bd6aeb519e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  consumeItem: {fileID: 11400000, guid: 85d3036a7c909ca4e8b182219d824cbd, type: 2}
+  inputReader: {fileID: 11400000, guid: fb9f5bd7e6a374742957fa3874de03f1, type: 2}
   currentRightHandWeapon: {fileID: 11400000, guid: 4897c184f32847b458c8778bb64a717d, type: 2}
   currentLeftHandWeapon: {fileID: 11400000, guid: 4897c184f32847b458c8778bb64a717d, type: 2}
   rightHandWeaponIndex: 0

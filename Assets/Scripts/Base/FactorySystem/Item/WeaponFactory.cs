@@ -2,25 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Factory/Item Factory/Melee Weapon")]
-public class WeaponFactory : ItemFactory
+public abstract class WeaponFactory : ScriptableObject
 {
-    [SerializeField] private Weapon weapon;
-    private GameObject instance;
+    public abstract IWeapon CreateAndGetItem(CharacterManager characterHoldItem, int itemID);
 
-    public override IWeapon CreateAndGetWeapon(CharacterManager characterHoldItem, WeaponItem weaponItem)
-    {
-        instance = Instantiate(weaponItem.weaponModelPrefab);
-
-        weapon = instance.GetComponent<Weapon>();
-
-        weapon.ApplyWeaponDamage(characterHoldItem, weaponItem);
-
-        return weapon;
-    }
-
-    public override GameObject GetWeaponModel()
-    {
-        return instance;
-    }
+    public abstract GameObject GetItemModel();
 }

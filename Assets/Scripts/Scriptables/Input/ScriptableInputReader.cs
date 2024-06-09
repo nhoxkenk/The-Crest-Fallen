@@ -19,6 +19,7 @@ public class ScriptableInputReader : ScriptableObject, ICameraActions, IPlayerAc
     public event UnityAction SwitchRightWeapon = delegate { };
     public event UnityAction SwitchLeftWeapon = delegate { };
     public event UnityAction Interact = delegate { };
+    public event UnityAction DrinkEstusFlask = delegate { };
 
     private PlayerControls playerControls;
 
@@ -158,16 +159,33 @@ public class ScriptableInputReader : ScriptableObject, ICameraActions, IPlayerAc
 
     public void OnSwitchRightWeapon(InputAction.CallbackContext context)
     {
-        SwitchRightWeapon?.Invoke();
+        if (context.phase == InputActionPhase.Started)
+        {
+            SwitchRightWeapon?.Invoke();
+        }
     }
 
     public void OnSwitchLeftWeapon(InputAction.CallbackContext context)
     {
-        SwitchLeftWeapon?.Invoke();
+        if (context.phase == InputActionPhase.Started)
+        {
+            SwitchLeftWeapon?.Invoke();
+        }
     }
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        Interact?.Invoke();
+        if(context.phase == InputActionPhase.Started)
+        {
+            Interact?.Invoke();
+        }
+    }
+
+    public void OnDrinkEstusFlask(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            DrinkEstusFlask?.Invoke();
+        }
     }
 }

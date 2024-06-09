@@ -10,7 +10,7 @@ public class PlayerEquipment : CharacterEquipment
     public WeaponModelInstantiationSlot leftHandSlot;
 
     [Header("Factory")]
-    [SerializeField] private ItemFactory itemFactory;
+    [SerializeField] private WeaponFactory itemFactory;
 
     [Header("Weapon Manager")]
     public IWeapon rightHandWeaponManager;
@@ -162,9 +162,9 @@ public class PlayerEquipment : CharacterEquipment
         var currentLeftHandWeaponInInventory = PlayerManager.Instance.playerInventory.currentLeftHandWeapon;
         if (currentLeftHandWeaponInInventory != null)
         {
-            leftHandWeaponManager = itemFactory.CreateAndGetWeapon(PlayerManager.Instance, currentLeftHandWeaponInInventory);
+            leftHandWeaponManager = itemFactory.CreateAndGetItem(PlayerManager.Instance, currentLeftHandWeaponInInventory.itemID);
 
-            leftHandSlot.LoadWeaponModel(itemFactory.GetWeaponModel());
+            leftHandSlot.LoadWeaponModel(itemFactory.GetItemModel());
         }
     }
 
@@ -248,9 +248,9 @@ public class PlayerEquipment : CharacterEquipment
         var currentRightHandWeaponInInventory = PlayerManager.Instance.playerInventory.currentRightHandWeapon;
         if (currentRightHandWeaponInInventory != null)
         {
-            rightHandWeaponManager = itemFactory.CreateAndGetWeapon(PlayerManager.Instance, currentRightHandWeaponInInventory);
+            rightHandWeaponManager = itemFactory.CreateAndGetItem(PlayerManager.Instance, currentRightHandWeaponInInventory.itemID);
 
-            rightHandSlot.LoadWeaponModel(itemFactory.GetWeaponModel());
+            rightHandSlot.LoadWeaponModel(itemFactory.GetItemModel());
         }
     }
 
@@ -267,5 +267,11 @@ public class PlayerEquipment : CharacterEquipment
     {
         WeaponItem weaponItem = Instantiate(AllItemsManager.Instance.GetWeaponItemById(newId));
         PlayerManager.Instance.playerCombat.currentWeaponBeingUsed = weaponItem;
+    }
+
+    public void PutBackWeaponAfterConsumeItem()
+    {
+        Destroy(PlayerManager.Instance.characterEffects.instantiatedFXModel);
+        LoadRightWeapon();
     }
 }

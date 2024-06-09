@@ -73,5 +73,4 @@ public class CharacterLocomotion : MonoBehaviour
     {
         characterManager.CanRotate = false;
     }
-
 }

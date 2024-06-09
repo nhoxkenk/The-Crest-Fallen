@@ -79,6 +79,6 @@ public class PlayerInteraction : MonoBehaviour
         {
             currentInteractableIsDisplay.Interact(this.GetComponent<PlayerManager>());
         }
-        
+        Debug.Log("Press");
     }
 }

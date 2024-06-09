@@ -103,12 +103,12 @@ public class PlayerLocomotion : CharacterLocomotion
         }
         else
         {
-            if (inputReader.MovementAmount > 0.5f)
+            if (inputReader.MovementAmount > 0.5f && !PlayerManager.Instance.SwitchToWalking)
             {
                 PlayerManager.Instance.characterController.Move(movementDirection * runningSpeed * Time.deltaTime);
             }
             else
-            if (inputReader.MovementAmount <= 0.5f)
+            if (inputReader.MovementAmount <= 0.5f || PlayerManager.Instance.SwitchToWalking)
             {
                 PlayerManager.Instance.characterController.Move(movementDirection * walkingSpeed * Time.deltaTime);
             }
@@ -311,6 +311,16 @@ public class PlayerLocomotion : CharacterLocomotion
     public void ApplyJumpVelocity()
     {
         yVelocity.y = Mathf.Sqrt(jumpHeight * -2 * gravityForce);
+    }
+
+    public void SwitchToRunning()
+    {
+        PlayerManager.Instance.SwitchToWalking = false;
+    }
+
+    public void SwitchToWalking()
+    {
+        PlayerManager.Instance.SwitchToWalking = true;
     }
 
     private Vector3 CameraDirection(Vector3 movementDirection, bool action)

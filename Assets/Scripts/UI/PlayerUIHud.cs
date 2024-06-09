@@ -1,5 +1,7 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class PlayerUIHud : MonoBehaviour
 {
@@ -10,6 +12,10 @@ public class PlayerUIHud : MonoBehaviour
     [Header("Quick Slots")]
     [SerializeField] private Image rightWeaponQuickSlotImage;
     [SerializeField] private Image leftWeaponQuickSlotImage;
+
+    [Header("Consume Slots")]
+    [SerializeField] private Image consumeItemImage;
+    [SerializeField] private TextMeshProUGUI consumeItemText;
 
     [Header("Boss Health Bar")]
     public Transform bossHealthBarParent;
@@ -70,5 +76,34 @@ public class PlayerUIHud : MonoBehaviour
 
         leftWeaponQuickSlotImage.sprite = weapon.itemIcon;
         leftWeaponQuickSlotImage.enabled = true;
+    }
+
+    public void SetConsumeItemImage(int itemId)
+    {
+        ConsumeItem item = AllItemsManager.Instance.GetConsumeItemById(itemId);
+        if (item == null || item.itemIcon == null)
+        {
+            consumeItemImage.enabled = false;
+            consumeItemImage.sprite = null;
+            consumeItemText.text = "0";
+            return;
+        }
+
+        consumeItemImage.sprite = item.itemIcon;
+        consumeItemText.text = item.quantity.ToString();
+        consumeItemImage.enabled = true;
+    }
+
+    public void HandleConsumeItemChanged(ConsumeItem item)
+    {
+        consumeItemImage.color = item.quantity == 0
+            ? new Color32(255, 255, 225, 100)
+            : new Color32(255, 255, 225, 255);
+
+        if (item.quantity >= 0)
+        {
+            consumeItemImage.sprite = item.itemIcon;
+            consumeItemText.text = item.quantity.ToString();
+        }
     }
 }

@@ -8,10 +8,10 @@ public class AllItemsManager : Singleton<AllItemsManager>
     public WeaponItem unarmedWeapon;
 
     [Header("Weapons")]
-    [SerializeField] List<WeaponItem> weapons;
+    [SerializeField] private List<WeaponItem> weapons;
 
     [Header("Items")]
-    private List<ScriptableItem> items = new List<ScriptableItem>();
+    [SerializeField] private List<ScriptableItem> items = new List<ScriptableItem>();
 
     protected override void Awake()
     {
@@ -35,5 +35,10 @@ public class AllItemsManager : Singleton<AllItemsManager>
     public WeaponItem GetWeaponItemById(int id)
     {
         return weapons.FirstOrDefault(weapon => weapon.itemID == id);
+    }
+
+    public ConsumeItem GetConsumeItemById(int id)
+    {
+        return items.FirstOrDefault(weapon => weapon.itemID == id) as ConsumeItem;
     }
 }

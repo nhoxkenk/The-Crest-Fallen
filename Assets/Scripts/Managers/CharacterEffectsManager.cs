@@ -9,6 +9,9 @@ public class CharacterEffectsManager : Singleton<CharacterEffectsManager>
     [Header("Damage")]
     public TakeHealthDamageEffect takeDamageEffect;
 
+    [Header("Restore")]
+    public RestoreHealthEffect restoreHealthEffect;
+
     [Header("VFX")]
     public GameObject bloodSplatVFX;
 

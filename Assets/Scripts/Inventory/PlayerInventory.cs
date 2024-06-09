@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class PlayerInventory : CharacterInventory
 {
+    [Header("Input")]
+    [SerializeField] private ScriptableInputReader inputReader;
+
+    private void OnEnable()
+    {
+        inputReader.DrinkEstusFlask += DrinkEstusFlask;
+    }
+
+    private void OnDisable()
+    {
+        inputReader.DrinkEstusFlask -= DrinkEstusFlask;
+    }
+
+    [Header("Current Weapon")]
     public WeaponItem currentRightHandWeapon;
     public WeaponItem currentLeftHandWeapon;
 
@@ -14,4 +28,9 @@ public class PlayerInventory : CharacterInventory
     [Header("Left Hand Quick Slots")]
     public int leftHandWeaponIndex = 0;
     public WeaponItem[] weaponsInLeftHandSlots = new WeaponItem[3];
+
+    public void DrinkEstusFlask()
+    {
+        consumeItem.UsingConsumeItem();
+    }
 }
