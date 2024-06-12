@@ -18,6 +18,8 @@ public class PlayerCombat : CharacterCombat
     }
     public event UnityAction<bool> OnIsChargingAttack;
 
+    public bool CanAttack { get; set; } = true;
+
     [SerializeField] private ScriptableInputReader inputReader;
 
     private void OnEnable()
@@ -28,7 +30,7 @@ public class PlayerCombat : CharacterCombat
 
     private void OnHeavyAttack(bool heavyAttackInput)
     {
-        if (heavyAttackInput)
+        if (heavyAttackInput && CanAttack)
         {
             var inventory = PlayerManager.Instance.playerInventory;
 
@@ -39,12 +41,23 @@ public class PlayerCombat : CharacterCombat
 
     private void OnLightAttack(bool lightAttackInput)
     {
-        if(lightAttackInput)
+        if(lightAttackInput && CanAttack)
         {
             var inventory = PlayerManager.Instance.playerInventory;
 
             SetCharacterActionHand(true);
             PerformWeaponBasedAction(inventory.currentRightHandWeapon.leftMouseButtonAction, inventory.currentRightHandWeapon);
+        }
+    }
+
+    private void HandleChargeAttackInput()
+    {
+        if (PlayerManager.Instance.IsPerformingAction && CanAttack)
+        {
+            if (isUsingRightHandWeapon)
+            {
+                IsChargingAttack = inputReader.IsChargingAttack;
+            }
         }
     }
 
@@ -105,16 +118,5 @@ public class PlayerCombat : CharacterCombat
     {
         base.SetTarget(target);
         PlayerCamera.Instance.SetLockOnCameraHeight();
-    }
-
-    private void HandleChargeAttackInput() 
-    {
-        if (PlayerManager.Instance.IsPerformingAction)
-        {
-            if (isUsingRightHandWeapon)
-            {
-                IsChargingAttack = inputReader.IsChargingAttack;
-            }
-        }
     }
 }

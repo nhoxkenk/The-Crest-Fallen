@@ -3315,14 +3315,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   consumeItem: {fileID: 11400000, guid: 85d3036a7c909ca4e8b182219d824cbd, type: 2}
   inputReader: {fileID: 11400000, guid: fb9f5bd7e6a374742957fa3874de03f1, type: 2}
+  inventorySpace: 20
+  items: []
   currentRightHandWeapon: {fileID: 11400000, guid: 4897c184f32847b458c8778bb64a717d, type: 2}
   currentLeftHandWeapon: {fileID: 11400000, guid: 4897c184f32847b458c8778bb64a717d, type: 2}
-  rightHandWeaponIndex: 0
+  rightHandWeaponIndex: -1
   weaponsInRightHandSlots:
   - {fileID: 11400000, guid: 4897c184f32847b458c8778bb64a717d, type: 2}
   - {fileID: 11400000, guid: 4897c184f32847b458c8778bb64a717d, type: 2}
-  - {fileID: 11400000, guid: c230d9994fe472e4ba9655ff323f962f, type: 2}
-  leftHandWeaponIndex: 0
+  - {fileID: 11400000, guid: 4897c184f32847b458c8778bb64a717d, type: 2}
+  leftHandWeaponIndex: -1
   weaponsInLeftHandSlots:
   - {fileID: 11400000, guid: 4897c184f32847b458c8778bb64a717d, type: 2}
   - {fileID: 11400000, guid: 4897c184f32847b458c8778bb64a717d, type: 2}

@@ -30,4 +30,9 @@ public class CharacterEquipment : MonoBehaviour
     {
 
     }
+
+    public virtual void EquipWeapon(WeaponItem weaponItem)
+    {
+
+    }
 }

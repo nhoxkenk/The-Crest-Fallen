@@ -15,9 +15,11 @@ MonoBehaviour:
   itemName: Unarmed
   itemIcon: {fileID: 0}
   itemDescription: 
-  itemID: 0
-  isUnarmed: 0
+  itemID: 1
+  characterHoldThisItem: {fileID: 0}
+  isUnarmed: 1
   weaponModelPrefab: {fileID: 1765371573824794169, guid: 7c8e187f20d3d7441817ecb7b13f077a, type: 3}
+  baseStaminaCost: 1
   strengthREQ: 0
   dexREQ: 0
   intREQ: 0
@@ -29,7 +31,10 @@ MonoBehaviour:
   holyDamage: 0
   poiseDamage: 5
   lightAttack01Modifier: 1.1
-  baseStaminaCost: 1
+  heavyAttack01Modifier: 1.5
+  chargeAttack01Modifier: 2
   lightAttackStaminaCostMultiplier: 0.9
+  heavyAttackStaminaCostMultiplier: 1.1
+  chargeAttackStaminaCostMultiplier: 1.2
   leftMouseButtonAction: {fileID: 11400000, guid: 00d871bfe735dfd41b4aad2516d09406, type: 2}
   rightMouseButtonAction: {fileID: 11400000, guid: 695c23c0bb1853842bbdf20f98bda241, type: 2}

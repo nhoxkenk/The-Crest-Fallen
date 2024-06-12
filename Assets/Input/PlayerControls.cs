@@ -134,6 +134,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Open Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""24a00073-e84d-4e2d-91a2-dec98f3428a2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -312,6 +321,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Drink Estus Flask"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8112b195-33e1-492f-beb6-1885a8a4a0d0"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Open Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -408,6 +428,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_SwitchLeftWeapon = m_Player.FindAction("Switch Left Weapon", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_DrinkEstusFlask = m_Player.FindAction("Drink Estus Flask", throwIfNotFound: true);
+        m_Player_OpenInventory = m_Player.FindAction("Open Inventory", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Look = m_Camera.FindAction("Look", throwIfNotFound: true);
@@ -488,6 +509,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SwitchLeftWeapon;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_DrinkEstusFlask;
+    private readonly InputAction m_Player_OpenInventory;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -504,6 +526,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SwitchLeftWeapon => m_Wrapper.m_Player_SwitchLeftWeapon;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @DrinkEstusFlask => m_Wrapper.m_Player_DrinkEstusFlask;
+        public InputAction @OpenInventory => m_Wrapper.m_Player_OpenInventory;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -549,6 +572,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @DrinkEstusFlask.started += instance.OnDrinkEstusFlask;
             @DrinkEstusFlask.performed += instance.OnDrinkEstusFlask;
             @DrinkEstusFlask.canceled += instance.OnDrinkEstusFlask;
+            @OpenInventory.started += instance.OnOpenInventory;
+            @OpenInventory.performed += instance.OnOpenInventory;
+            @OpenInventory.canceled += instance.OnOpenInventory;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -589,6 +615,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @DrinkEstusFlask.started -= instance.OnDrinkEstusFlask;
             @DrinkEstusFlask.performed -= instance.OnDrinkEstusFlask;
             @DrinkEstusFlask.canceled -= instance.OnDrinkEstusFlask;
+            @OpenInventory.started -= instance.OnOpenInventory;
+            @OpenInventory.performed -= instance.OnOpenInventory;
+            @OpenInventory.canceled -= instance.OnOpenInventory;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -720,6 +749,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSwitchLeftWeapon(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnDrinkEstusFlask(InputAction.CallbackContext context);
+        void OnOpenInventory(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {

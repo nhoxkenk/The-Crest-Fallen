@@ -22,7 +22,6 @@ public class PlayerEquipment : CharacterEquipment
 
     [Header("Right Equipment ID")]
     [SerializeField] private int currentRightHandWeaponId;
-
     public int CurrentRightHandWeaponId
     {
         get
@@ -59,6 +58,7 @@ public class PlayerEquipment : CharacterEquipment
     protected override void Awake()
     {
         base.Awake();
+
         InitializeWeaponSlots();
     }
 
@@ -88,6 +88,9 @@ public class PlayerEquipment : CharacterEquipment
                 leftHandSlot = slot;
             }
         }
+
+        currentRightHandWeaponId = AllItemsManager.Instance.unarmedWeapon.itemID;
+        currentLeftHandWeaponId = AllItemsManager.Instance.unarmedWeapon.itemID;
     }
 
     public void LoadWeaponOnBothHands()
@@ -273,5 +276,23 @@ public class PlayerEquipment : CharacterEquipment
     {
         Destroy(PlayerManager.Instance.characterEffects.instantiatedFXModel);
         LoadRightWeapon();
+    }
+
+    public override void EquipWeapon(WeaponItem weaponItem)
+    {
+        base.EquipWeapon(weaponItem);
+
+        var inventory = PlayerManager.Instance.playerInventory;
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (inventory.weaponsInRightHandSlots[i].isUnarmed)
+            {
+                inventory.weaponsInRightHandSlots[i] = weaponItem;
+            }
+            
+            return;
+        }
+
     }
 }

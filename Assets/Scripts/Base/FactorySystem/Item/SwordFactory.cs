@@ -10,7 +10,7 @@ public class SwordFactory : WeaponFactory
 
     public override IWeapon CreateAndGetItem(CharacterManager characterHoldItem, int itemID)
     {
-        var weaponItem = AllItemsManager.Instance.GetWeaponItemById(itemID);
+        var weaponItem = Instantiate(AllItemsManager.Instance.GetWeaponItemById(itemID));
 
         instance = Instantiate(weaponItem.weaponModelPrefab);
 

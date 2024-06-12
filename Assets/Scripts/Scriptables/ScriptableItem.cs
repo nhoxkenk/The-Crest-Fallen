@@ -9,4 +9,10 @@ public class ScriptableItem : ScriptableObject
     public Sprite itemIcon;
     [TextArea] public string itemDescription;
     public int itemID;
+    [HideInInspector] public CharacterManager characterHoldThisItem;
+
+    public virtual void UseItem()
+    {
+
+    }
 }

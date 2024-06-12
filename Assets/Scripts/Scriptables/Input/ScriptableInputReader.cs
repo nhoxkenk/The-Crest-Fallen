@@ -20,6 +20,7 @@ public class ScriptableInputReader : ScriptableObject, ICameraActions, IPlayerAc
     public event UnityAction SwitchLeftWeapon = delegate { };
     public event UnityAction Interact = delegate { };
     public event UnityAction DrinkEstusFlask = delegate { };
+    public event UnityAction OpenInventory = delegate { };
 
     private PlayerControls playerControls;
 
@@ -186,6 +187,14 @@ public class ScriptableInputReader : ScriptableObject, ICameraActions, IPlayerAc
         if (context.phase == InputActionPhase.Started)
         {
             DrinkEstusFlask?.Invoke();
+        }
+    }
+
+    public void OnOpenInventory(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            OpenInventory?.Invoke();
         }
     }
 }

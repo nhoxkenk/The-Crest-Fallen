@@ -134,14 +134,14 @@ public class InputReader : MonoBehaviour
 
     private void HandleLeftMouseInput()
     {
-        var inventory = PlayerManager.Instance.playerInventory;
+        var inventoryCurrentRightWeapon = PlayerManager.Instance.playerInventory.currentRightHandWeapon;
         if (leftMouseInput)
         {
             leftMouseInput = false;
 
             PlayerManager.Instance.playerCombat.SetCharacterActionHand(true);
 
-            PlayerManager.Instance.playerCombat.PerformWeaponBasedAction(inventory.currentRightHandWeapon.leftMouseButtonAction, inventory.currentRightHandWeapon);
+            PlayerManager.Instance.playerCombat.PerformWeaponBasedAction(inventoryCurrentRightWeapon.leftMouseButtonAction, inventoryCurrentRightWeapon);
         }
     }
 

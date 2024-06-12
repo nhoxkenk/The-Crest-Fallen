@@ -41,4 +41,10 @@ public class WeaponItem : ScriptableItem
     [Header("Actions")]
     public ScriptableWeaponItemAction leftMouseButtonAction;
     public ScriptableWeaponItemAction rightMouseButtonAction;
+
+    public override void UseItem()
+    {
+        base.UseItem();
+        characterHoldThisItem.characterEquipment.EquipWeapon(this);
+    }
 }

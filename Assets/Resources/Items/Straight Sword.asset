@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Straight Sword
   m_EditorClassIdentifier: 
   itemName: Straight Sword
-  itemIcon: {fileID: 21300000, guid: 52a59ea2342d94e02be3dbaef87780cc, type: 3}
+  itemIcon: {fileID: 21300000, guid: c5a853945a6504c82982db4846834ec1, type: 3}
   itemDescription: 
-  itemID: 1
+  itemID: 2
   isUnarmed: 0
   weaponModelPrefab: {fileID: 8167314547197873632, guid: c4746dd902ed9b54dac46b03d990fcfd, type: 3}
   baseStaminaCost: 10

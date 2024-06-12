@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Big Straight Sword
   m_EditorClassIdentifier: 
   itemName: Big Straight Sword
-  itemIcon: {fileID: 21300000, guid: 52a59ea2342d94e02be3dbaef87780cc, type: 3}
+  itemIcon: {fileID: 21300000, guid: ff2839282189346bfbeee1c908be2bd6, type: 3}
   itemDescription: 
-  itemID: 2
+  itemID: 3
   isUnarmed: 0
   weaponModelPrefab: {fileID: 4651863922596782672, guid: f2f892ad67c423f42a17a2fd3c0cd707, type: 3}
+  baseStaminaCost: 20
   strengthREQ: 20
   dexREQ: 0
   intREQ: 0
@@ -31,7 +32,8 @@ MonoBehaviour:
   lightAttack01Modifier: 1.1
   heavyAttack01Modifier: 1.5
   chargeAttack01Modifier: 2
-  baseStaminaCost: 20
   lightAttackStaminaCostMultiplier: 0.9
+  heavyAttackStaminaCostMultiplier: 1.1
+  chargeAttackStaminaCostMultiplier: 1.2
   leftMouseButtonAction: {fileID: 11400000, guid: c1ca763129629624484eb68aadda6130, type: 2}
   rightMouseButtonAction: {fileID: 11400000, guid: 89f28618a4135324ab1a2c1e3f548a19, type: 2}
