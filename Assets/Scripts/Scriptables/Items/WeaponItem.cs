@@ -42,9 +42,9 @@ public class WeaponItem : ScriptableItem
     public ScriptableWeaponItemAction leftMouseButtonAction;
     public ScriptableWeaponItemAction rightMouseButtonAction;
 
-    public override void UseItem()
+    public override int UseItemAndReturnId()
     {
-        base.UseItem();
         characterHoldThisItem.characterEquipment.EquipWeapon(this);
+        return base.UseItemAndReturnId();
     }
 }

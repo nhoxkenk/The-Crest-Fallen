@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class InventoryView : MonoBehaviour
 {
     public ItemSlot[] slots;
+    public EquipmentNode[] equipmentNodes;
 
     public static bool isDragging;
     public static ItemSlot originalSlot;
@@ -24,6 +25,8 @@ public class InventoryView : MonoBehaviour
             item.OnStartDrag += HandleOnStartDrag;
             item.OnPointerDown += HandleOnPointerDown;
         }
+
+        gameObject.SetActive(false);
     }
 
     private static void HandleOnStartDrag(ItemSlot slot)
@@ -41,7 +44,11 @@ public class InventoryView : MonoBehaviour
         {
             slot.item = slot.item as WeaponItem;
         }
-        slot.item.UseItem();
+        int thisItemId = slot.item.UseItemAndReturnId();
+
+        equipmentNodes[0].DisplayEquipment(slot);
+
+        PlayerManager.Instance.playerInventory.RemoveItem(thisItemId); 
     }
 
     public void InvokeOnDropEvent(ItemSlot original, ItemSlot newSlot)

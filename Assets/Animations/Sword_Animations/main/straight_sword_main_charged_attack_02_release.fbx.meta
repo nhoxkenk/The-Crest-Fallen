@@ -60,15 +60,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.053307675
-        functionName: DrainStaminaBaseOnWeaponAction
+      - time: 0.032301474
+        functionName: OpenWeaponDamageCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.054523695
-        functionName: OpenWeaponDamageCollider
+      - time: 0.053307675
+        functionName: DrainStaminaBaseOnWeaponAction
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -81,7 +81,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.28402543
+      - time: 0.33799368
         functionName: CloseWeaponDamageCollider
         data: 
         objectReferenceParameter: {instanceID: 0}

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEditor.Progress;
 
 public class PlayerInventory : CharacterInventory
 {
@@ -74,10 +75,17 @@ public class PlayerInventory : CharacterInventory
         return true;
     }
 
-    public void RemoveItem(ScriptableItem item)
+    public void RemoveItem(int itemId)
     {
-        item.characterHoldThisItem = null;
-        items.Remove(item);
+        for (int i = items.Count - 1; i >= 0; i--)
+        {
+            if (items[i].itemID == itemId) 
+            {
+                items[i].characterHoldThisItem = null;
+                items.RemoveAt(i);
+                break; 
+            }
+        }
         OnItemChangedCallback?.Invoke();
     }
 }

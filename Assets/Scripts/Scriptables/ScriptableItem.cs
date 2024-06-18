@@ -11,8 +11,8 @@ public class ScriptableItem : ScriptableObject
     public int itemID;
     [HideInInspector] public CharacterManager characterHoldThisItem;
 
-    public virtual void UseItem()
+    public virtual int UseItemAndReturnId()
     {
-
+        return itemID;
     }
 }
