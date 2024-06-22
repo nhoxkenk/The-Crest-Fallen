@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    public List<Interactable> currentInteractableActions = new List<Interactable>();
+    public List<Interactable> currentInteractableActions;
     [SerializeField] private ScriptableInputReader inputReader;
-    private Interactable currentInteractableIsDisplay;
+
+    private void Awake()
+    {
+        currentInteractableActions = new List<Interactable>();
+    }
 
     private void OnEnable()
     {
         inputReader.Interact += HandleInteract;
+    }
+
+    private void OnDisable()
+    {
+        inputReader.Interact -= HandleInteract;
     }
 
     private void FixedUpdate()
@@ -28,18 +37,15 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < currentInteractableActions.Count; i++) 
+        if (currentInteractableActions[0] == null)
         {
-            if (currentInteractableActions[i] == null)
-            {
-                currentInteractableActions.RemoveAt(0);
-            }
-            else
-            {
-                PlayerUI.Instance.playerUIPopup.SendMessageFromInteractToPlayer(currentInteractableActions[i].interactableMessage);
-                currentInteractableIsDisplay = currentInteractableActions[i];
-            }
+            currentInteractableActions.RemoveAt(0);
             return;
+        }
+
+        if(currentInteractableActions[0] != null)
+        {
+            PlayerUI.Instance.playerUIPopup.SendMessageFromInteractToPlayer(currentInteractableActions[0].interactableMessage);
         }
     }
 
@@ -57,7 +63,6 @@ public class PlayerInteraction : MonoBehaviour
     public void AddInteractionFromList(Interactable interactableObject)
     {
         RefreshInteractionList();
-
         if (!currentInteractableActions.Contains(interactableObject))
         {
             currentInteractableActions.Add(interactableObject);
@@ -75,10 +80,15 @@ public class PlayerInteraction : MonoBehaviour
 
     public void HandleInteract()
     {
-        if(currentInteractableIsDisplay != null)
+        if(currentInteractableActions.Count == 0)
         {
-            currentInteractableIsDisplay.Interact(this.GetComponent<PlayerManager>());
+            return;
         }
-        Debug.Log("Press");
+
+        if(currentInteractableActions[0] != null)
+        {
+            currentInteractableActions[0].Interact(this.GetComponent<PlayerManager>());
+            RefreshInteractionList();
+        }
     }
 }

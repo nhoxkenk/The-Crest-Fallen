@@ -39,7 +39,6 @@ public class InventoryView : MonoBehaviour
 
     private void HandleOnPointerDown(ItemSlot slot)
     {
-        Debug.Log("Clicked");
         if(slot.item is WeaponItem)
         {
             slot.item = slot.item as WeaponItem;

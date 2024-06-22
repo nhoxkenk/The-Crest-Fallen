@@ -6,8 +6,8 @@ public class GetShield : Interactable
 {
     public override void Interact(PlayerManager character)
     {
-        base.Interact(character);
         ScriptableItem item = AllItemsManager.Instance.GetWeaponItemById(3);
         character.playerInventory.AddItem(item);
+        base.Interact(character);
     }
 }

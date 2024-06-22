@@ -226,7 +226,6 @@ public class PlayerCamera : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("We have made it");
                         potentialTarget.Add(lockOnTarget);
                     }
                 }

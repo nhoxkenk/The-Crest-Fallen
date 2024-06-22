@@ -44,6 +44,7 @@ public class WeaponItem : ScriptableItem
 
     public override int UseItemAndReturnId()
     {
+        Debug.Log(this);
         characterHoldThisItem.characterEquipment.EquipWeapon(this);
         return base.UseItemAndReturnId();
     }

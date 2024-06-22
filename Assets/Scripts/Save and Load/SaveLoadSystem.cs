@@ -145,14 +145,6 @@ public class SaveLoadSystem : Singleton<SaveLoadSystem>
                     characterSlotDatas[indexSlot] = tempGameData;
                 }
             }
-            //if (tempGameData != null)
-            //{
-            //    var emptySlot = characterSlotDatas.FindIndex(slot => slot.FileName == null || slot.FileName.Equals(""));
-            //    if (emptySlot != -1)
-            //    {
-            //        characterSlotDatas[emptySlot] = tempGameData;
-            //    }
-            //}
         }
     }
 

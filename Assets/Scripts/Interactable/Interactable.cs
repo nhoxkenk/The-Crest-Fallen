@@ -24,7 +24,6 @@ public class Interactable : MonoBehaviour
 
     public virtual void Interact(PlayerManager character)
     {
-        Debug.Log("You have Interact with object");
         interactableCollider.enabled = false;
         character.playerInteraction.RemoveInteractionFromList(this);
         PlayerUI.Instance.playerUIPopup.ClosePopUpMessageFromInteract(); 
@@ -32,7 +31,6 @@ public class Interactable : MonoBehaviour
 
     public virtual void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Enter");
         PlayerManager player;
         if(other.TryGetComponent<PlayerManager>(out player))
         {
@@ -42,12 +40,10 @@ public class Interactable : MonoBehaviour
 
     public virtual void OnTriggerExit(Collider other)
     {
-        Debug.Log("Exit");
         PlayerManager player;
         if (other.TryGetComponent<PlayerManager>(out player))
         {
             player.playerInteraction.RemoveInteractionFromList(this);
-
             PlayerUI.Instance.playerUIPopup.ClosePopUpMessageFromInteract();
         }
     }

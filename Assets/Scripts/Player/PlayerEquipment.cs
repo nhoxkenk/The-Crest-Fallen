@@ -289,10 +289,8 @@ public class PlayerEquipment : CharacterEquipment
             if (inventory.weaponsInRightHandSlots[i].isUnarmed)
             {
                 inventory.weaponsInRightHandSlots[i] = weaponItem;
-            }
-            
-            return;
+                return;
+            }   
         }
-
     }
 }
