@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIUndeadCombat : AICharacterCombat
+public class AIUndeadCombat : AICharacterCombat, IBackStabable
 {
     [Header("Character Damage Collider")]
     [SerializeField] private DamageCollider leftHandCollider;
@@ -12,6 +13,17 @@ public class AIUndeadCombat : AICharacterCombat
     [SerializeField] private int baseDamage = 25;
     [SerializeField] private float attack01DamageModifier = 1.1f;
     [SerializeField] private float attack02DamageModifier = 1.15f;
+
+    [Header("Back Stab")]
+    [SerializeField] private BackStabCollider backStabCollider;
+    public BoxCollider BackStabCollider => backStabCollider.Collider;
+
+    public Transform BackStabberTransform => backStabCollider.backStabberTransform;
+
+    private bool isBeingBackStabbed = false;
+    public bool IsBeingBackStabbed { get => isBeingBackStabbed; set => isBeingBackStabbed = value; }
+
+    public event Action BackStabed = delegate { };  
 
     public override void ApplyAttack01DamageModifier()
     {
@@ -45,5 +57,15 @@ public class AIUndeadCombat : AICharacterCombat
     public void CloseLeftHandCollider()
     {
         leftHandCollider?.DisableDamageCollider();
+    }
+
+    public float BackStabberDistance()
+    {
+        return Vector3.Distance(transform.position, BackStabberTransform.transform.position);
+    }
+
+    public void ResetIsBeingStabed()
+    {
+        isBeingBackStabbed = false;
     }
 }

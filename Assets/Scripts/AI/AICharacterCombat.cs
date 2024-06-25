@@ -57,7 +57,6 @@ public class AICharacterCombat : CharacterCombat
             {
                 Vector3 targetDistance = targetCharacter.transform.position - characterFinding.transform.position;
                 float viewableAngle = Vector3.Angle(targetDistance, characterFinding.transform.forward);
-                Debug.Log(viewableAngle);
                 if (viewableAngle < miniumDetectionAngle || viewableAngle > maxiumDetectionAngle)
                 {
                     continue;

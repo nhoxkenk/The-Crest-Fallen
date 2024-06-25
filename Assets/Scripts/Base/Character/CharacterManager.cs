@@ -84,6 +84,10 @@ public class CharacterManager : MonoBehaviour
         set => isGrounded = value;
     }
 
+    [Header("Poise")]
+    public float poiseDamage = 0;
+    public bool IsPoiseBroken { get; set; } = false;
+
     protected virtual void Awake()
     {
         DontDestroyOnLoad(this);

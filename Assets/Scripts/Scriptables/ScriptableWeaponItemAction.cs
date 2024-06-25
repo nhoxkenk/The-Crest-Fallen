@@ -10,7 +10,5 @@ public class ScriptableWeaponItemAction : ScriptableObject
     public virtual void AttempToPerformAction(CharacterManager characterPerformAction, WeaponItem weaponPerformAction)
     {
         characterPerformAction.characterEquipment.CurrentWeaponBeingUsedId = weaponPerformAction.itemID;
-
-        Debug.Log("Weapon Action has been fired off!!!");
     }
 }

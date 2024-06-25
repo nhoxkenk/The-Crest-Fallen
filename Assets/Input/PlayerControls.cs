@@ -91,6 +91,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Back Stab"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""e3ce4698-65fa-4a32-88b5-611297e37a73"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(pressPoint=0.1)"",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Lock On"",
                     ""type"": ""Button"",
                     ""id"": ""30262abb-dd58-403a-8adf-676829f9a4ce"",
@@ -332,6 +341,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Open Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9fb4f527-c627-4528-9a12-35ebff9d7cb4"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Back Stab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -423,6 +443,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_LightAttack = m_Player.FindAction("Light Attack", throwIfNotFound: true);
         m_Player_HeavyAttack = m_Player.FindAction("Heavy Attack", throwIfNotFound: true);
         m_Player_ChargeAttack = m_Player.FindAction("Charge Attack", throwIfNotFound: true);
+        m_Player_BackStab = m_Player.FindAction("Back Stab", throwIfNotFound: true);
         m_Player_LockOn = m_Player.FindAction("Lock On", throwIfNotFound: true);
         m_Player_SwitchRightWeapon = m_Player.FindAction("Switch Right Weapon", throwIfNotFound: true);
         m_Player_SwitchLeftWeapon = m_Player.FindAction("Switch Left Weapon", throwIfNotFound: true);
@@ -504,6 +525,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_LightAttack;
     private readonly InputAction m_Player_HeavyAttack;
     private readonly InputAction m_Player_ChargeAttack;
+    private readonly InputAction m_Player_BackStab;
     private readonly InputAction m_Player_LockOn;
     private readonly InputAction m_Player_SwitchRightWeapon;
     private readonly InputAction m_Player_SwitchLeftWeapon;
@@ -521,6 +543,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @LightAttack => m_Wrapper.m_Player_LightAttack;
         public InputAction @HeavyAttack => m_Wrapper.m_Player_HeavyAttack;
         public InputAction @ChargeAttack => m_Wrapper.m_Player_ChargeAttack;
+        public InputAction @BackStab => m_Wrapper.m_Player_BackStab;
         public InputAction @LockOn => m_Wrapper.m_Player_LockOn;
         public InputAction @SwitchRightWeapon => m_Wrapper.m_Player_SwitchRightWeapon;
         public InputAction @SwitchLeftWeapon => m_Wrapper.m_Player_SwitchLeftWeapon;
@@ -557,6 +580,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ChargeAttack.started += instance.OnChargeAttack;
             @ChargeAttack.performed += instance.OnChargeAttack;
             @ChargeAttack.canceled += instance.OnChargeAttack;
+            @BackStab.started += instance.OnBackStab;
+            @BackStab.performed += instance.OnBackStab;
+            @BackStab.canceled += instance.OnBackStab;
             @LockOn.started += instance.OnLockOn;
             @LockOn.performed += instance.OnLockOn;
             @LockOn.canceled += instance.OnLockOn;
@@ -600,6 +626,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ChargeAttack.started -= instance.OnChargeAttack;
             @ChargeAttack.performed -= instance.OnChargeAttack;
             @ChargeAttack.canceled -= instance.OnChargeAttack;
+            @BackStab.started -= instance.OnBackStab;
+            @BackStab.performed -= instance.OnBackStab;
+            @BackStab.canceled -= instance.OnBackStab;
             @LockOn.started -= instance.OnLockOn;
             @LockOn.performed -= instance.OnLockOn;
             @LockOn.canceled -= instance.OnLockOn;
@@ -744,6 +773,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnLightAttack(InputAction.CallbackContext context);
         void OnHeavyAttack(InputAction.CallbackContext context);
         void OnChargeAttack(InputAction.CallbackContext context);
+        void OnBackStab(InputAction.CallbackContext context);
         void OnLockOn(InputAction.CallbackContext context);
         void OnSwitchRightWeapon(InputAction.CallbackContext context);
         void OnSwitchLeftWeapon(InputAction.CallbackContext context);

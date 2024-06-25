@@ -69,6 +69,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Back Stab",
+                    "type": "PassThrough",
+                    "id": "e3ce4698-65fa-4a32-88b5-611297e37a73",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(pressPoint=0.1)",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Lock On",
                     "type": "Button",
                     "id": "30262abb-dd58-403a-8adf-676829f9a4ce",
@@ -308,6 +317,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Open Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9fb4f527-c627-4528-9a12-35ebff9d7cb4",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Back Stab",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

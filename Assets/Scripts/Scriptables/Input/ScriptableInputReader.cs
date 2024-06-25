@@ -21,6 +21,7 @@ public class ScriptableInputReader : ScriptableObject, ICameraActions, IPlayerAc
     public event UnityAction Interact = delegate { };
     public event UnityAction DrinkEstusFlask = delegate { };
     public event UnityAction OpenInventory = delegate { };
+    public event UnityAction<bool> BackStab = delegate { };
 
     private PlayerControls playerControls;
 
@@ -195,6 +196,19 @@ public class ScriptableInputReader : ScriptableObject, ICameraActions, IPlayerAc
         if (context.phase == InputActionPhase.Started)
         {
             OpenInventory?.Invoke();
+        }
+    }
+
+    public void OnBackStab(InputAction.CallbackContext context)
+    {
+        switch (context.phase)
+        {
+            case InputActionPhase.Started:
+                BackStab?.Invoke(true);
+                break;
+            case InputActionPhase.Canceled:
+                BackStab?.Invoke(false);
+                break;
         }
     }
 }

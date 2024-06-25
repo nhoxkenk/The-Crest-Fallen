@@ -88,12 +88,12 @@ public class TakeHealthDamageEffect : ScriptableInstantCharacterEffect
     {
         IsPoiseBroken = true;
 
-        if(!characterEffectable.IsAlive)
+        if(!characterEffectable.IsAlive || characterEffectable.GetComponent<IBackStabable>().IsBeingBackStabbed)
         {
             return;
         }
-
         var characterAnimator = characterEffectable.characterAnimator;
+
         if ((angleHitFrom >= 145 && angleHitFrom <= 180) || (angleHitFrom <= -145 && angleHitFrom >= -180))
         {
             damagedAnimation = characterAnimator.hit_Forward_Medium_01;

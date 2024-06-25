@@ -49,6 +49,11 @@ public class CharacterCombat : MonoBehaviour
     [Header("Flags")]
     public bool canComboWithMainHandWeapon;
 
+    [Header("Critical Attack Configs")]
+    public Transform criticalAttackRayCastPoint;
+    // Bit shift the index of the layer (25) to get a bit mask
+    protected LayerMask criticalAttackLayer = 1 << 25;
+
     private void Awake()
     {
         character = GetComponent<CharacterManager>();
@@ -129,4 +134,5 @@ public class CharacterCombat : MonoBehaviour
     {
         character.IsInvulnerable = false;
     }
+
 }

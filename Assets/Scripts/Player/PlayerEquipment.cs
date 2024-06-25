@@ -166,8 +166,8 @@ public class PlayerEquipment : CharacterEquipment
         if (currentLeftHandWeaponInInventory != null)
         {
             leftHandWeaponManager = itemFactory.CreateAndGetItem(PlayerManager.Instance, currentLeftHandWeaponInInventory.itemID);
-
-            leftHandSlot.LoadWeaponModel(itemFactory.GetItemModel());
+            leftHandWeaponModel = itemFactory.GetItemModel();
+            leftHandSlot.LoadWeaponModel(leftHandWeaponModel);
         }
     }
 
@@ -252,8 +252,8 @@ public class PlayerEquipment : CharacterEquipment
         if (currentRightHandWeaponInInventory != null)
         {
             rightHandWeaponManager = itemFactory.CreateAndGetItem(PlayerManager.Instance, currentRightHandWeaponInInventory.itemID);
-
-            rightHandSlot.LoadWeaponModel(itemFactory.GetItemModel());
+            rightHandWeaponModel = itemFactory.GetItemModel();
+            rightHandSlot.LoadWeaponModel(rightHandWeaponModel);
         }
     }
 
