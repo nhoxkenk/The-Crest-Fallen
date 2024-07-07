@@ -10,10 +10,12 @@ public class UI_PlayerInventory : MonoBehaviour
 
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private ScriptableInputReader inputReader;
+    [SerializeField] private Camera modelCamera;
 
     private void Awake()
     {
         inventory = PlayerManager.Instance.playerInventory;
+        modelCamera.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -30,6 +32,7 @@ public class UI_PlayerInventory : MonoBehaviour
     private void HandleOpenInventory()
     {
         inventoryUI.SetActive(!inventoryUI.activeSelf);
+        modelCamera.gameObject.SetActive(!modelCamera.gameObject.activeSelf);
         PlayerManager.Instance.playerCombat.CanAttack = !inventoryUI.activeSelf;
     }
 

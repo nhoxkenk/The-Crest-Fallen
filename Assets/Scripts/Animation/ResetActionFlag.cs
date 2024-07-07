@@ -8,19 +8,19 @@ public class ResetActionFlag : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (characterManager == null)
+        if (animator.TryGetComponent<CharacterManager>(out characterManager))
         {
-            characterManager = animator.GetComponentInParent<CharacterManager>();
+            //characterManager = animator.GetComponentInParent<CharacterManager>();
+            characterManager.ApplyRootMotion = false;
+            characterManager.IsPerformingAction = false;
+            characterManager.CanMove = true;
+            characterManager.CanRotate = true;
+
+            characterManager.characterAnimator.DisableCanDoCombo();
+
+            characterManager.IsJumping = false;
+            characterManager.IsInvulnerable = false;
         }
-        characterManager.ApplyRootMotion = false;
-        characterManager.IsPerformingAction = false;
-        characterManager.CanMove = true;
-        characterManager.CanRotate = true;
-
-        characterManager.characterAnimator.DisableCanDoCombo();
-
-        characterManager.IsJumping = false;
-        characterManager.IsInvulnerable = false;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
