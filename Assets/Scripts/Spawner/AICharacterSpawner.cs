@@ -7,7 +7,7 @@ public class AICharacterSpawner : MonoBehaviour
     [Header("Spawner Object Id")]
     [SerializeField] private int ID;
 
-    private void Start()
+    private void Awake()
     {
         GameManager.Instance.AICharacterSpawners.Add(this);
         gameObject.SetActive(false);

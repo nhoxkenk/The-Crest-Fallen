@@ -46,7 +46,7 @@ public class PlayerManager : CharacterManager
     [HideInInspector] public PlayerInteraction playerInteraction;
 
    protected override void Awake()
-    {
+   {
         base.Awake();
 
         if (instance == null)
@@ -59,13 +59,16 @@ public class PlayerManager : CharacterManager
         }
 
         GetComponents();
-    }
+   }
 
     protected override void Start()
     {
         base.Start();
+
         BindingPlayerEvents();
+
         InitializePlayerStat();
+
         SetItemUIImage();
     }
 
@@ -118,6 +121,7 @@ public class PlayerManager : CharacterManager
 
         playerStat.CurrentHealthChange += PlayerUI.Instance.playerUIHud.HandleNewHealthValue;
         playerStat.CurrentHealthChange += playerStat.HandleCurrentHealthChange;
+        //CharacterEvent.Listeners += playerStat.HandleCurrentHealthChanged;
 
         playerStat.DrainingStamina += playerStat.ResetStaminaRegenerationTimer;
 

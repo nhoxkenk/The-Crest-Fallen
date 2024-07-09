@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -20,7 +21,15 @@ public class GameManager : Singleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 120;
+    }
+
+    private void Start() => SceneManager.sceneLoaded += OnSceneLoad;
+
+    private void OnSceneLoad(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "MenuScene") return;
+        SpawnAllCharacter();
     }
 
     private void Update()

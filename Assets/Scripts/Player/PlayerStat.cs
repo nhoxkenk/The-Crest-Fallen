@@ -80,4 +80,5 @@ public class PlayerStat : CharacterStat
 
         OnRegeneratingStamina();
     }
+
 }
