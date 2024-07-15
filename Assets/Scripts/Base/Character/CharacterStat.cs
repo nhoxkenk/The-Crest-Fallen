@@ -75,6 +75,11 @@ public class CharacterStat : MonoBehaviour
             if(preCurrentHealth != currentHealth)
             {
                 CurrentHealthChange?.Invoke(maxHealth, currentHealth);
+
+                CharacterHealthChangedEvent healthChangedEvent = Events.CharacterHealthChanged;
+                healthChangedEvent.Value = currentHealth;
+                healthChangedEvent.MaxValue = maxHealth;
+                EventManager.Raise(healthChangedEvent);
             }
         }
     }

@@ -119,8 +119,10 @@ public class PlayerManager : CharacterManager
         playerStat.DrainingStamina += PlayerUI.Instance.playerUIHud.HandleNewStaminaValue;
         playerStat.RegeneratingStamina += PlayerUI.Instance.playerUIHud.HandleNewStaminaValue;
 
-        playerStat.CurrentHealthChange += PlayerUI.Instance.playerUIHud.HandleNewHealthValue;
-        playerStat.CurrentHealthChange += playerStat.HandleCurrentHealthChange;
+
+        EventManager.RegisterEvent<CharacterHealthChangedEvent>(OnCharacterHealthChangedEvent);
+        //playerStat.CurrentHealthChange += PlayerUI.Instance.playerUIHud.HandleNewHealthValue;
+        //playerStat.CurrentHealthChange += playerStat.HandleCurrentHealthChange;
         //CharacterEvent.Listeners += playerStat.HandleCurrentHealthChanged;
 
         playerStat.DrainingStamina += playerStat.ResetStaminaRegenerationTimer;
@@ -138,6 +140,12 @@ public class PlayerManager : CharacterManager
         //Combat
         OnIsLockOnChanged += playerCombat.HandleIsLockOnChanged;
         playerCombat.OnIsChargingAttack += playerAnimator.HandleIsChargingAttack;
+    }
+
+    private void OnCharacterHealthChangedEvent(CharacterHealthChangedEvent evt)
+    {
+        PlayerUI.Instance.playerUIHud.HandleNewHealthValue(evt.MaxValue, evt.Value);
+        playerStat.HandleCurrentHealthChange(evt.MaxValue, evt.Value);
     }
 
     protected override void GetComponents()
