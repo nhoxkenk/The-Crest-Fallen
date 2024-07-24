@@ -22,6 +22,9 @@ public class PlayerEquipment : CharacterEquipment
 
     [Header("Right Equipment ID")]
     [SerializeField] private int currentRightHandWeaponId;
+
+    [SerializeField] private List<IncreaseCharacterMaxStat> increaseCharacterMaxStats = new List<IncreaseCharacterMaxStat>();
+
     public int CurrentRightHandWeaponId
     {
         get
@@ -259,12 +262,35 @@ public class PlayerEquipment : CharacterEquipment
 
     public void HandleCurrentRightHandWeaponIdChange(int newId)
     {
-        WeaponItem weaponItem = Instantiate(AllItemsManager.Instance.GetWeaponItemById(newId));
+        var scriptableWeapon = AllItemsManager.Instance.GetWeaponItemById(newId);
+        WeaponItem weaponItem = Instantiate(scriptableWeapon);
         PlayerManager.Instance.playerInventory.currentRightHandWeapon = weaponItem;
         LoadRightWeapon();
+        ApplyEffectEnhanceByWeapon((MeleeWeaponItem) weaponItem);
     }
 
     #endregion
+
+    private void ApplyEffectEnhanceByWeapon(MeleeWeaponItem weaponItem)
+    {
+        if (weaponItem.IsWeaponHasEffect())
+        {
+            var enhanceEffect = weaponItem.GetEnhanceStatEffect();
+            foreach(var effect in enhanceEffect)
+            {
+                effect.ProcessEffect(PlayerManager.Instance);
+                increaseCharacterMaxStats.Add((IncreaseCharacterMaxStat) effect);
+            }
+        }
+        else
+        {
+            for(int i = increaseCharacterMaxStats.Count - 1; i >= 0; i--)
+            {
+                increaseCharacterMaxStats[i].RemoveCharacterStat(PlayerManager.Instance);
+                increaseCharacterMaxStats.RemoveAt(i);
+            }
+        }
+    }
 
     public void HandleCurrentWeaponUsedIdChange(int oldId, int newId)
     {

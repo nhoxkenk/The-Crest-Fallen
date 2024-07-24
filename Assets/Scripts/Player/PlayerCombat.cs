@@ -52,10 +52,10 @@ public class PlayerCombat : CharacterCombat, IBackStabable
         if(Physics.Raycast(criticalAttackRayCastPoint.position, transform.TransformDirection(Vector3.forward), out hit, criticalAttackLayer))
         {
             IBackStabable backStabable = hit.transform.gameObject.GetComponent<IBackStabable>();
-            
-            if (backStabable != null && Vector3.Distance(transform.position, hit.transform.position) <= backStabable.BackStabberDistance())
-            {
 
+            if (backStabable != null && Vector3.Distance(transform.position, hit.transform.position) <= backStabable.BackStabberDistance()
+                && Vector3.Angle(transform.forward, hit.transform.forward) < 10)
+            {
                 transform.position = backStabable.BackStabberTransform.position;
 
                 Vector3 direction = transform.root.eulerAngles;

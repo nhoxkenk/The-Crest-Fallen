@@ -119,11 +119,9 @@ public class PlayerManager : CharacterManager
         playerStat.DrainingStamina += PlayerUI.Instance.playerUIHud.HandleNewStaminaValue;
         playerStat.RegeneratingStamina += PlayerUI.Instance.playerUIHud.HandleNewStaminaValue;
 
-
-        EventManager.RegisterEvent<CharacterHealthChangedEvent>(OnCharacterHealthChangedEvent);
-        //playerStat.CurrentHealthChange += PlayerUI.Instance.playerUIHud.HandleNewHealthValue;
-        //playerStat.CurrentHealthChange += playerStat.HandleCurrentHealthChange;
-        //CharacterEvent.Listeners += playerStat.HandleCurrentHealthChanged;
+        //EventManager.RegisterEvent<CharacterHealthChangedEvent>(OnCharacterHealthChangedEvent);
+        playerStat.CurrentHealthChange += PlayerUI.Instance.playerUIHud.HandleNewHealthValue;
+        playerStat.CurrentHealthChange += playerStat.HandleCurrentHealthChange;
 
         playerStat.DrainingStamina += playerStat.ResetStaminaRegenerationTimer;
 

@@ -16,6 +16,7 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: ff2839282189346bfbeee1c908be2bd6, type: 3}
   itemDescription: 
   itemID: 3
+  characterHoldThisItem: {fileID: 0}
   isUnarmed: 0
   weaponModelPrefab: {fileID: 4651863922596782672, guid: f2f892ad67c423f42a17a2fd3c0cd707, type: 3}
   baseStaminaCost: 20
@@ -37,3 +38,6 @@ MonoBehaviour:
   chargeAttackStaminaCostMultiplier: 1.2
   leftMouseButtonAction: {fileID: 11400000, guid: c1ca763129629624484eb68aadda6130, type: 2}
   rightMouseButtonAction: {fileID: 11400000, guid: 89f28618a4135324ab1a2c1e3f548a19, type: 2}
+  effectHoldByWeapon:
+  - {fileID: 11400000, guid: a68bd437231913646b9f968470c6e7ca, type: 2}
+  - {fileID: 11400000, guid: 3b5a99ce3837b0942b1f8b79e86aad3c, type: 2}

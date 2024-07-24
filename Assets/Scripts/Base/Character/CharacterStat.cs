@@ -109,10 +109,10 @@ public class CharacterStat : MonoBehaviour
         //Test function on Editor
         //CurrentHealthChange?.Invoke(maxHealth, currentHealth);
 
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            Vitality += 10;
-        }
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    Vitality += 10;
+        //}
     }
 
     public int CalculateHealthBasedOnVitalityLevel(int vitality)
